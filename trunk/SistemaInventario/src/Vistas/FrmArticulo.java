@@ -15,9 +15,8 @@ import javax.swing.JInternalFrame;
 public class FrmArticulo extends javax.swing.JInternalFrame {
     Articulo articulo;
     String [] titulo={"Registrar","Editar"};
-    /**
-     * Creates new form FrmArticulo
-     */
+    
+    
     public FrmArticulo(Articulo articulo) {
         this.articulo=articulo;
         
