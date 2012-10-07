@@ -5,6 +5,7 @@
 package Main;
 
 import Service.ServicioArticulo;
+import Service.ServicioCliente;
 import Service.ServicioGuiaRemision;
 import Service.ServicioKardex;
 import Service.ServicioPedido;
@@ -24,6 +25,7 @@ public class Main {
     public static ServicioKardex servicioKardex = new ServicioKardex();
     public static ServicioPedido servicioPedido = new ServicioPedido();
     public static ServicioEmpresa servicioEmpresa=  new ServicioEmpresa();
+    public static ServicioCliente servicioCliente = new ServicioCliente();
     private static FRMMain frmMain;//=new FRMMain();
     /**
      * @param args the command line arguments
