@@ -65,7 +65,6 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
         txtStock = new javax.swing.JTextField();
         txtStockMinimo = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(titulo());
 
         jLabel1.setText("Nombre");
@@ -98,21 +97,9 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
 
         jLabel8.setText("Stock Mínimo");
 
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
-            }
-        });
-
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
         jScrollPane1.setViewportView(txtDescripcion);
-
-        txtTipoAlmacenamiento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTipoAlmacenamientoActionPerformed(evt);
-            }
-        });
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -235,14 +222,6 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
         }
         this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
-
-    private void txtTipoAlmacenamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTipoAlmacenamientoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTipoAlmacenamientoActionPerformed
-
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
