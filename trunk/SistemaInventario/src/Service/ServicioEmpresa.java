@@ -13,11 +13,13 @@ import java.util.ArrayList;
  * @author Guti
  */
 public class ServicioEmpresa {
+    private int nextId=1;
     private ArrayList<Empresa> empresas=new ArrayList<Empresa>();
     
     public void agregarEmpresa(Empresa empresa){
-		getEmpresas().add(empresa);
-	}
+        empresa.setId(nextId++);
+        getEmpresas().add(empresa);
+    }
     public Empresa buscarEmpresaId (int id){
 		for (int i=0; i<getEmpresas().size(); i++)
 		{
