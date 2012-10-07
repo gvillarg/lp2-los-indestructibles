@@ -4,8 +4,8 @@
  */
 package Service;
 
-import Beans.Proveedor;
-import Beans.Proveedor;
+import Beans.Empresa;
+import Beans.Empresa;
 import java.util.ArrayList;
 
 /**
@@ -13,40 +13,40 @@ import java.util.ArrayList;
  * @author Guti
  */
 public class ServicioEmpresa {
-    private ArrayList<Proveedor> proveedores=new ArrayList<Proveedor>();
+    private ArrayList<Empresa> empresas=new ArrayList<Empresa>();
     
-    public void agregarProveedor(Proveedor proveedor){
-		getProveedores().add(proveedor);
+    public void agregarEmpresa(Empresa empresa){
+		getEmpresas().add(empresa);
 	}
-    public Proveedor buscarProveedorId (int id){
-		for (int i=0; i<getProveedores().size(); i++)
+    public Empresa buscarEmpresaId (int id){
+		for (int i=0; i<getEmpresas().size(); i++)
 		{
-			if (getProveedores().get(i).getId() == id) 
-				return getProveedores().get(i);
+			if (getEmpresas().get(i).getId() == id) 
+				return getEmpresas().get(i);
 		}
 	
 		return null;		
 	}
-    public Proveedor buscarProveedorPos(int i){
-		Proveedor proveedor=( i<getProveedores().size() && i>=0) ? getProveedores().get(i) : null;
-		return proveedor;
+    public Empresa buscarEmpresaPos(int i){
+		Empresa empresa=( i<getEmpresas().size() && i>=0) ? getEmpresas().get(i) : null;
+		return empresa;
 	}
-    public void eliminaProveedor (int id)
+    public void eliminaEmpresa (int id)
 	{
-		for (int i=0; i<getProveedores().size(); i++)
+		for (int i=0; i<getEmpresas().size(); i++)
 		{
-			if(getProveedores().get(i).getId() == id)
+			if(getEmpresas().get(i).getId() == id)
 			{
-				getProveedores().remove(i);
+				getEmpresas().remove(i);
 				break;
 			}
 		}
 	}
-    public void eliminaProveedor (Proveedor proveedor)
+    public void eliminaEmpresa (Empresa empresa)
 	{
-            int id=proveedor.getId();
-            eliminaProveedor(id);
-		/*for (int i=0; i<proveedores.size(); i++)
+            int id=empresa.getId();
+            eliminaEmpresa(id);
+		/*for (int i=0; i<empresas.size(); i++)
 		{
 			if(product.getId() == provicu.get(i).getId())
 			{
@@ -55,23 +55,23 @@ public class ServicioEmpresa {
 			}
 		}*/
 	}
-    public void editarProveedor(Proveedor buscado)
+    public void editarEmpresa(Empresa buscado)
 	{
-		Proveedor proveedor=  buscarProveedorId( buscado.getId()        );
-		if(proveedor!=null) 
+		Empresa empresa=  buscarEmpresaId( buscado.getId()        );
+		if(empresa!=null) 
 		{
-			proveedor.setId(            buscado.getId());
-			proveedor.setRuc(           buscado.getRuc());
-			proveedor.setRazonSocial(   buscado.getRazonSocial());
-			proveedor.setWebPage(       buscado.getWebPage());
+			empresa.setId(            buscado.getId());
+			empresa.setRuc(           buscado.getRuc());
+			empresa.setRazonSocial(   buscado.getRazonSocial());
+			empresa.setWebPage(       buscado.getWebPage());
 		}
 		
 	}
 
     /**
-     * @return the proveedores
+     * @return the empresas
      */
-    public ArrayList<Proveedor> getProveedores() {
-        return proveedores;
+    public ArrayList<Empresa> getEmpresas() {
+        return empresas;
     } 
 }
