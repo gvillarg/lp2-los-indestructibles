@@ -8,7 +8,7 @@ import Service.ServicioArticulo;
 import Service.ServicioGuiaRemision;
 import Service.ServicioKardex;
 import Service.ServicioPedido;
-import Service.ServicioProveedor;
+import Service.ServicioEmpresa;
 import Vistas.FRMMain;
 import Vistas.FRMMantenimiento;
 import javax.swing.JInternalFrame;
@@ -23,7 +23,7 @@ public class Main {
     public static ServicioGuiaRemision servicioGuiaRemision = new ServicioGuiaRemision();
     public static ServicioKardex servicioKardex = new ServicioKardex();
     public static ServicioPedido servicioPedido = new ServicioPedido();
-    public static ServicioProveedor servicioProveedor = new ServicioProveedor();
+    public static ServicioEmpresa servicioEmpresa=  new ServicioEmpresa();
     private static FRMMain frmMain;//=new FRMMain();
     /**
      * @param args the command line arguments
