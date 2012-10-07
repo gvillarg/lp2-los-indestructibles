@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author Guti
  */
-public class ServicioProveedor {
+public class ServicioEmpresa {
     private ArrayList<Proveedor> proveedores=new ArrayList<Proveedor>();
     
     public void agregarProveedor(Proveedor proveedor){
