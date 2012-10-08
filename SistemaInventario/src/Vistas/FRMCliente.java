@@ -5,6 +5,7 @@
 package Vistas;
 
 import javax.swing.table.AbstractTableModel;
+import Beans.Cliente;
 
 /**
  *
@@ -245,17 +246,29 @@ public class FRMCliente extends javax.swing.JInternalFrame {
 
         @Override
         public int getRowCount() {
-            throw new UnsupportedOperationException("Not supported yet.");
+            return 9;
         }
 
         @Override
         public int getColumnCount() {
-            throw new UnsupportedOperationException("Not supported yet.");
+            return Main.Main.servicioCliente.getClientes().size();
         }
 
         @Override
-        public Object getValueAt(int i, int i1) {
-            throw new UnsupportedOperationException("Not supported yet.");
+        public Object getValueAt(int row, int column) {
+            Cliente cliente=Main.Main.servicioCliente.buscarClientePos(row);
+            switch(column){
+                case (0): return cliente.getId();
+                case (1): return cliente.getRuc();
+                case (2): return cliente.getRazonSocial();
+                case (3): return cliente.getWebPage();
+                case (4): return cliente.getPais();
+                case (5): return cliente.getRubro();
+                case (6): return cliente.getNombreContacto();
+                case (7): return cliente.getTelefonoContacto();
+                case (8): return cliente.getEmailContacto();
+            }
+            return null;
         }
         
     }
