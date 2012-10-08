@@ -9,7 +9,7 @@ import Service.ServicioCliente;
 import Service.ServicioGuiaRemision;
 import Service.ServicioKardex;
 import Service.ServicioPedido;
-import Service.ServicioEmpresa;
+import Service.ServicioProveedor;
 import Vistas.FRMMain;
 import Vistas.FRMMantenimiento;
 import javax.swing.JInternalFrame;
@@ -24,7 +24,7 @@ public class Main {
     public static ServicioGuiaRemision servicioGuiaRemision = new ServicioGuiaRemision();
     public static ServicioKardex servicioKardex = new ServicioKardex();
     public static ServicioPedido servicioPedido = new ServicioPedido();
-    public static ServicioEmpresa servicioEmpresa=  new ServicioEmpresa();
+    public static ServicioProveedor servicioProveedor=  new ServicioProveedor();
     public static ServicioCliente servicioCliente = new ServicioCliente();
     private static FRMMain frmMain;//=new FRMMain();
     /**
