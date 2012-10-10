@@ -19,7 +19,8 @@ import javax.swing.JInternalFrame;
  * @author Guti
  */
 public class Main {
-    
+    public static String [] unidades={"Unidad","Metros","Metros cuadrados", 
+                                    "Metros cúbicos", "Litros","Cajas"};
     public static ServicioArticulo servicioArticulo = new ServicioArticulo();
     public static ServicioGuiaRemision servicioGuiaRemision = new ServicioGuiaRemision();
     public static ServicioKardex servicioKardex = new ServicioKardex();
@@ -30,8 +31,19 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void agregarVentana(JInternalFrame ventana){
-        frmMain.agregarVentana(ventana);
+//    public static void agregarVentana(JInternalFrame ventana){
+//        frmMain.agregarVentana(ventana);
+//    }
+    
+    public static String unidades(int i){
+        String unidad=null;
+        switch(i){
+            case 0: unidad="Kilogramos"; break;
+            case 1: unidad="Cajas";break;
+            case 2: unidad="Metros cuadrados";break;
+            case 3: unidad="Metros";break;
+        }
+        return unidad;
     }
     
     public static void main(String[] args) {

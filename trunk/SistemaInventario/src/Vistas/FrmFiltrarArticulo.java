@@ -13,10 +13,9 @@ import Beans.Articulo;
  * @author Guti
  */
 public class FrmFiltrarArticulo extends javax.swing.JInternalFrame {    
-    private ArrayList<Articulo> articulos=Main.servicioArticulo.getArticulos();
     class ArticuloTableModel extends AbstractTableModel{
         
-        String [] nombreColumna = {"Código", "Nombre","Descripción", "Precio", "Stock", "Stock Mínimo", "Stock Reservado"};
+        String [] nombreColumna = {"Código", "Nombre","Descripción", "Precio","Unidad", "Stock", "Stock Mínimo", "Stock Reservado"};
         
         @Override
         public int getRowCount() {
@@ -36,9 +35,10 @@ public class FrmFiltrarArticulo extends javax.swing.JInternalFrame {
                 case 1: return articulo.getNombre();
                 case 2: return articulo.getDescripcion();
                 case 3: return "" + articulo.getPrecio();
-                case 4: return "" + articulo.getStock();
-                case 5: return "" + articulo.getStockMinimo();                    
-                case 6: return "" + articulo.getStockReservado();
+                case 4: return "" + articulo.getUnidad();
+                case 5: return "" + articulo.getStock();
+                case 6: return "" + articulo.getStockMinimo();                    
+                case 7: return "" + articulo.getStockReservado();
             }
             return null;
         }
@@ -50,6 +50,7 @@ public class FrmFiltrarArticulo extends javax.swing.JInternalFrame {
         
     }
    
+    private ArrayList<Articulo> articulos=Main.servicioArticulo.getArticulos();
     private ArticuloTableModel articuloTableModel=new ArticuloTableModel();
     private Articulo articuloSeleccionado=null;
     
@@ -221,8 +222,9 @@ public class FrmFiltrarArticulo extends javax.swing.JInternalFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if(articuloSeleccionado!=null){
-            FrmArticulo frmArticulo=new FrmArticulo(articuloSeleccionado);
-            Main.agregarVentana(frmArticulo);
+            FrmArticulo frmArticulo=new FrmArticulo(null,true,articuloSeleccionado);
+            //Main.agregarVentana(frmArticulo);
+            frmArticulo.setPadre(this);
             frmArticulo.setVisible(true);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -237,8 +239,8 @@ public class FrmFiltrarArticulo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnFiltrarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        FrmArticulo frmArticulo=new FrmArticulo(null);
-        Main.agregarVentana(frmArticulo);
+        FrmArticulo frmArticulo=new FrmArticulo(null,true,null);
+        frmArticulo.setPadre(this);
         frmArticulo.setVisible(true);
     }//GEN-LAST:event_btnNuevoActionPerformed
 

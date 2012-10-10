@@ -6,34 +6,47 @@ package Vistas;
 
 import Beans.Articulo;
 import Main.Main;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
 /**
  *
  * @author Guti
  */
-public class FrmArticulo extends javax.swing.JInternalFrame {
+public class FrmArticulo extends JDialog {
     Articulo articulo;
     String [] titulo={"Registrar","Editar"};
+    FrmFiltrarArticulo padre=null;
     
     
-    public FrmArticulo(Articulo articulo) {
+    public FrmArticulo (java.awt.Frame parent, boolean modal,Articulo articulo) {
+        super(parent, modal);
         this.articulo=articulo;
-        
         initComponents();
+        llenarUnidades();
         if(articulo!=null){
             txtNombre.setText(articulo.getNombre());
             txtDescripcion.setText(articulo.getDescripcion());
             txtTipoArticulo.setText(articulo.getTipoArticulo());
             txtTipoAlmacenamiento.setText(articulo.getTipoAlmacenamiento());
-            txtUnidad.setText(articulo.getUnidad());
             txtPrecio.setText(Float.toString(articulo.getPrecio()));
             txtStock.setText(Integer.toString(articulo.getStock()));
             txtStockMinimo.setText(Integer.toString(articulo.getStockMinimo()));
         }
-        this.setClosable(true);
         //this.setDefaultCloseOperation ( JInternalFrame.DISPOSE_ON_CLOSE );
     }
+    
+    public void setPadre(FrmFiltrarArticulo padre){
+        this.padre=padre;
+    }
+    
+    public void llenarUnidades(){
+        cmbUnidad.removeAllItems();
+        for (int i=0; i<Main.unidades.length; i++)
+            cmbUnidad.addItem(Main.unidades[i]);
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -60,10 +73,10 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
         txtTipoAlmacenamiento = new javax.swing.JTextField();
-        txtUnidad = new javax.swing.JTextField();
         txtPrecio = new javax.swing.JTextField();
         txtStock = new javax.swing.JTextField();
         txtStockMinimo = new javax.swing.JTextField();
+        cmbUnidad = new javax.swing.JComboBox();
 
         setTitle(titulo());
 
@@ -111,13 +124,10 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel6)
+                            .add(jLabel2)
+                            .add(jLabel1)
                             .add(jPanel1Layout.createSequentialGroup()
-                                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                    .add(jPanel1Layout.createSequentialGroup()
-                                        .add(jLabel2)
-                                        .add(26, 26, 26))
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel3)
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel1))
+                                .add(jLabel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                                 .add(txtTipoArticulo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 184, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                     .add(jPanel1Layout.createSequentialGroup()
@@ -132,16 +142,16 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, txtNombre)
                             .add(txtTipoAlmacenamiento)
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                            .add(txtUnidad)
                             .add(txtPrecio)
                             .add(txtStock)
-                            .add(txtStockMinimo)))
+                            .add(txtStockMinimo)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, cmbUnidad, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(43, 43, 43)
                         .add(btnAceptar)
                         .add(27, 27, 27)
                         .add(btnCancelar)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -168,7 +178,7 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel5)
-                    .add(txtUnidad, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(cmbUnidad, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel6)
@@ -202,6 +212,7 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    @SuppressWarnings("empty-statement")
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         Articulo _articulo=new Articulo();
         
@@ -209,7 +220,7 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
         _articulo.setDescripcion(txtDescripcion.getText());
         _articulo.setTipoArticulo(txtTipoArticulo.getText());
         _articulo.setTipoAlmacenamiento(txtTipoAlmacenamiento.getText());
-        _articulo.setUnidad(txtUnidad.getText());
+        _articulo.setUnidad(Main.unidades[cmbUnidad.getSelectedIndex()]);
         _articulo.setPrecio(Float.parseFloat(txtPrecio.getText()));
         _articulo.setStock(Integer.parseInt(txtStock.getText()));
         _articulo.setStockMinimo(Integer.parseInt(txtStockMinimo.getText()));     
@@ -220,6 +231,7 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
             _articulo.setId(articulo.getId());        
             Main.servicioArticulo.editarArticulo(_articulo);
         }
+        padre.actualizarTabla();;
         this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
@@ -273,6 +285,7 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JComboBox cmbUnidad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -290,6 +303,5 @@ public class FrmArticulo extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtStockMinimo;
     private javax.swing.JTextField txtTipoAlmacenamiento;
     private javax.swing.JTextField txtTipoArticulo;
-    private javax.swing.JTextField txtUnidad;
     // End of variables declaration//GEN-END:variables
 }

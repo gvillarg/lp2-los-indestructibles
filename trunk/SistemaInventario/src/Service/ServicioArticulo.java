@@ -65,12 +65,13 @@ public class ServicioArticulo {
 		Articulo encontrado=  buscarArticuloId( buscado.getId()        );
 		if(encontrado!=null)
 		{
-			encontrado.setNombre(               buscado.getNombre()         );
-			encontrado.setDescripcion(          buscado.getDescripcion()  );
-			encontrado.setPrecio(               buscado.getPrecio()        );
-			encontrado.setStock(                buscado.getStock()        );
-                        encontrado.setStockMinimo(          buscado.getStockMinimo());
-                        encontrado.setStockReservado(       buscado.getStockReservado());
+			encontrado.setNombre(buscado.getNombre());
+			encontrado.setDescripcion(buscado.getDescripcion());
+			encontrado.setPrecio(buscado.getPrecio());
+                        encontrado.setUnidad(buscado.getUnidad());
+			encontrado.setStock(buscado.getStock());
+                        encontrado.setStockMinimo(buscado.getStockMinimo());
+                        encontrado.setStockReservado(buscado.getStockReservado());
 		}   
 		
 	}
