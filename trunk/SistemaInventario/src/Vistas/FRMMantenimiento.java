@@ -133,6 +133,7 @@ public class FRMMantenimiento extends javax.swing.JInternalFrame {
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
         FRMCliente frmCliente=new FRMCliente();
 //        Main.Main.agregarVentana(frmCliente);
+        padre.agregarVentana(frmCliente);
         frmCliente.setVisible(true);
     }//GEN-LAST:event_btnClienteActionPerformed
 

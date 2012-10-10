@@ -6,27 +6,47 @@ package Vistas;
 
 import javax.swing.table.AbstractTableModel;
 import Beans.Cliente;
+import java.util.ArrayList;
 
 /**
  *
  * @author Guti
  */
 public class FRMCliente extends javax.swing.JInternalFrame {
-
-    
+    private Cliente cliente=null;
+    private ArrayList<Cliente> clientes=Main.Main.servicioCliente.getClientes();
+    private ClienteTableModel clienteTableModel=new ClienteTableModel();
     public FRMCliente() {
         initComponents();
+        tblCliente.setModel(clienteTableModel);
     }
-
-    public void limpiarCampos(){
-        txtRuc.setText("");
-        txtRazonSocial.setText("");
-        txtWebPage.setText("");
-        txtPais.setText("");
-        txtRubro.setText("");
-        txtNombreContacto.setText("");
-        txtTelefonoContacto.setText("");
-        txtEmailContacto.setText("");
+    public void actualizarTabla(){
+        clientes=Main.Main.servicioCliente.getClientes();
+        clienteTableModel.fireTableChanged(null);
+    }
+    public void actualizarCampos(){
+        if(cliente==null){
+            txtId.setText(""+Main.Main.servicioCliente.getNextId());
+            txtRuc.setText("");
+            txtRazonSocial.setText("");
+            txtWebPage.setText("");
+            txtPais.setText("");
+            txtRubro.setText("");
+            txtNombreContacto.setText("");
+            txtTelefonoContacto.setText("");
+            txtEmailContacto.setText("");
+        }
+        else {
+            txtId.setText(""+cliente.getId());
+            txtRuc.setText(""+cliente.getRuc());
+            txtRazonSocial.setText(cliente.getRazonSocial());
+            txtWebPage.setText(cliente.getWebPage());
+            txtPais.setText(cliente.getPais());
+            txtRubro.setText(cliente.getRubro());
+            txtNombreContacto.setText(cliente.getNombreContacto());
+            txtTelefonoContacto.setText(""+cliente.getTelefonoContacto());
+            txtEmailContacto.setText(cliente.getEmailContacto());
+        }
     }
  
     @SuppressWarnings("unchecked")
@@ -34,7 +54,6 @@ public class FRMCliente extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        btnAgregar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -52,7 +71,7 @@ public class FRMCliente extends javax.swing.JInternalFrame {
         txtWebPage = new javax.swing.JTextField();
         txtPais = new javax.swing.JTextField();
         txtRubro = new javax.swing.JTextField();
-        btnEditar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCliente = new javax.swing.JTable();
@@ -63,8 +82,6 @@ public class FRMCliente extends javax.swing.JInternalFrame {
         setClosable(true);
         setResizable(true);
         setTitle("Cliente");
-
-        btnAgregar.setText("Agregar");
 
         jLabel1.setText("RUC");
 
@@ -123,9 +140,19 @@ public class FRMCliente extends javax.swing.JInternalFrame {
                 .add(19, 19, 19))
         );
 
-        btnEditar.setText("Editar");
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         tblCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -138,6 +165,11 @@ public class FRMCliente extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClienteMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblCliente);
 
         btnNuevo.setText("Nuevo");
@@ -168,9 +200,7 @@ public class FRMCliente extends javax.swing.JInternalFrame {
                             .add(jLabel3)
                             .add(jLabel4)
                             .add(jLabel5)
-                            .add(jPanel1Layout.createSequentialGroup()
-                                .add(13, 13, 13)
-                                .add(jLabel9)))
+                            .add(jLabel9))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                             .add(txtRuc)
@@ -179,22 +209,16 @@ public class FRMCliente extends javax.swing.JInternalFrame {
                             .add(txtPais)
                             .add(txtRubro, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                             .add(txtId))
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(43, 43, 43))
-                            .add(jPanel1Layout.createSequentialGroup()
-                                .add(117, 117, 117)
-                                .add(btnEditar)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(btnEliminar)
-                                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(43, 43, 43))))
             .add(jPanel1Layout.createSequentialGroup()
                 .add(64, 64, 64)
                 .add(btnNuevo)
-                .add(29, 29, 29)
-                .add(btnAgregar)
+                .add(18, 18, 18)
+                .add(btnGuardar)
+                .add(108, 108, 108)
+                .add(btnEliminar)
                 .add(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -227,14 +251,13 @@ public class FRMCliente extends javax.swing.JInternalFrame {
                         .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(btnEditar)
-                    .add(btnEliminar)
                     .add(txtRubro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel5))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 29, Short.MAX_VALUE)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(btnNuevo)
-                    .add(btnAgregar))
+                    .add(btnGuardar)
+                    .add(btnEliminar))
                 .add(18, 18, 18)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 223, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(16, 16, 16))
@@ -255,13 +278,45 @@ public class FRMCliente extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        limpiarCampos();
+        cliente=null;
+        actualizarCampos();
     }//GEN-LAST:event_btnNuevoActionPerformed
 
+    private void tblClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClienteMouseClicked
+        cliente=clientes.get(tblCliente.getSelectedRow());
+        actualizarCampos();
+    }//GEN-LAST:event_tblClienteMouseClicked
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        Cliente nuevo=new Cliente();
+        nuevo.setRuc(Integer.parseInt(txtRuc.getText()));
+        nuevo.setRazonSocial(txtRazonSocial.getText());
+        nuevo.setWebPage(txtWebPage.getText());
+        nuevo.setPais(txtPais.getText());
+        nuevo.setRubro(txtRubro.getText());
+        nuevo.setNombreContacto(txtNombreContacto.getText());
+        nuevo.setTelefonoContacto(Integer.parseInt(txtTelefonoContacto.getText()));
+        nuevo.setEmailContacto(txtEmailContacto.getText());
+        
+        if (cliente==null){    
+            nuevo.setId(cliente.getId());
+            Main.Main.servicioCliente.agregarCliente(nuevo);
+        }
+        else {
+            Main.Main.servicioCliente.editarCliente(nuevo);
+        }
+        actualizarCampos();
+        actualizarTabla();
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        Main.Main.servicioCliente.eliminaCliente(cliente);
+        actualizarTabla();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -296,12 +351,12 @@ public class FRMCliente extends javax.swing.JInternalFrame {
 
         @Override
         public int getColumnCount() {
-            return Main.Main.servicioCliente.getClientes().size();
+            return clientes.size();
         }
 
         @Override
         public Object getValueAt(int row, int column) {
-            Cliente cliente=Main.Main.servicioCliente.buscarClientePos(row);
+            Cliente cliente=clientes.get(row);
             switch(column){
                 case (0): return cliente.getId();
                 case (1): return cliente.getRuc();

@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * @author Guti
  */
 public class ServicioCliente {
+        private int nextId=1;
         private ArrayList<Cliente> clientes=new ArrayList<Cliente>();
     
     public void agregarCliente(Cliente cliente){
@@ -73,6 +74,13 @@ public class ServicioCliente {
     public ArrayList<Cliente> getClientes() {
         return clientes;
     } 
+
+    /**
+     * @return the nextId
+     */
+    public int getNextId() {
+        return nextId;
+    }
 }
 
 
