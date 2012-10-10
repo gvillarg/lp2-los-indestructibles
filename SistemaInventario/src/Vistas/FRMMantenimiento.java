@@ -4,12 +4,14 @@
  */
 package Vistas;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author Guti
  */
 public class FRMMantenimiento extends javax.swing.JInternalFrame {
-
+    FRMMain padre;
     /**
      * Creates new form FRMMantenimiento
      */
@@ -112,20 +114,25 @@ public class FRMMantenimiento extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setPadre(FRMMain padre){
+        this.padre=padre;
+    }
+    
     private void btnAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlmacenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAlmacenActionPerformed
 
     private void btnArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArticuloActionPerformed
         // TODO add your handling code here:
-        FrmFiltrarArticulo frmArticulo=new FrmFiltrarArticulo();
-        Main.Main.agregarVentana(frmArticulo);
-        frmArticulo.setVisible(true);
+        FrmFiltrarArticulo frmFiltrarArticulo=new FrmFiltrarArticulo();
+//        Main.Main.agregarVentana(frmArticulo);
+        padre.agregarVentana(frmFiltrarArticulo);
+        frmFiltrarArticulo.setVisible(true);
     }//GEN-LAST:event_btnArticuloActionPerformed
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
         FRMCliente frmCliente=new FRMCliente();
-        Main.Main.agregarVentana(frmCliente);
+//        Main.Main.agregarVentana(frmCliente);
         frmCliente.setVisible(true);
     }//GEN-LAST:event_btnClienteActionPerformed
 

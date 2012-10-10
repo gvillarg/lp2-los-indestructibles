@@ -4,6 +4,8 @@
  */
 package Vistas;
 
+import java.awt.Frame;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
 /**
@@ -15,9 +17,9 @@ public class FRMMain extends javax.swing.JFrame {
         initComponents();
     }
 
-    public void agregarVentana(JInternalFrame ventana){
-        desktop.add(ventana);
-    }
+//    public void agregarVentana(JInternalFrame ventana){
+//        desktop.add(ventana);
+//    }
     
     
     @SuppressWarnings("unchecked")
@@ -102,9 +104,13 @@ public class FRMMain extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void agregarVentana(JInternalFrame ventana){
+        desktop.add(ventana);
+    }
     private void btnMantenimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMantenimientosActionPerformed
          FRMMantenimiento frmMantenimiento = new FRMMantenimiento();
          desktop.add(frmMantenimiento);
+         frmMantenimiento.setPadre(this);
          frmMantenimiento.setVisible(true);            
     }//GEN-LAST:event_btnMantenimientosActionPerformed
 
