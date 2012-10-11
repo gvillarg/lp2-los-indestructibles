@@ -13,6 +13,7 @@ import java.util.ArrayList;
  * @author Guti
  */
 public class FRMCliente extends javax.swing.JInternalFrame {
+    private String [] NomCol={"Id","RUC","Nombre","Razon Social","Pagina Web","Pais"};
     private Cliente cliente=null;
     private ArrayList<Cliente> clientes=Main.Main.servicioCliente.getClientes();
     private ClienteTableModel clienteTableModel=new ClienteTableModel();
@@ -346,12 +347,12 @@ public class FRMCliente extends javax.swing.JInternalFrame {
     class ClienteTableModel extends AbstractTableModel{
 
         @Override
-        public int getRowCount() {
-            return 9;
+        public int getColumnCount() {
+            return 5;
         }
 
         @Override
-        public int getColumnCount() {
+        public int getRowCount() {
             return clientes.size();
         }
 
@@ -364,15 +365,15 @@ public class FRMCliente extends javax.swing.JInternalFrame {
                 case (2): return cliente.getRazonSocial();
                 case (3): return cliente.getWebPage();
                 case (4): return cliente.getPais();
-                case (5): return cliente.getRubro();
-                case (6): return cliente.getNombreContacto();
-                case (7): return cliente.getTelefonoContacto();
-                case (8): return cliente.getEmailContacto();
+//                case (5): return cliente.getRubro();
+//                case (6): return cliente.getNombreContacto();
+//                case (7): return cliente.getTelefonoContacto();
+//                case (8): return cliente.getEmailContacto();
             }
             return null;
+        }        
+        public String getColumnName (int col){
+            return NomCol[col];
         }
-        
     }
-
-
 }
