@@ -63,14 +63,14 @@ public class ServicioCliente {
         return result;
     }
     public Cliente buscarClienteId (int id){
-		for (int i=0; i<getClientes().size(); i++)
-		{
-			if (getClientes().get(i).getId() == id) 
-				return getClientes().get(i);
-		}
-	
-		return null;		
-	}
+        for (int i=0; i<getClientes().size(); i++)
+        {
+                if (getClientes().get(i).getId() == id) 
+                        return getClientes().get(i);
+        }
+
+        return null;		
+    }
     public Cliente buscarClientePos(int i){
 		Cliente cliente=( i<getClientes().size() && i>=0) ? getClientes().get(i) : null;
 		return cliente;
@@ -116,7 +116,58 @@ public class ServicioCliente {
      * @return the clientes
      */
     public ArrayList<Cliente> getClientes() {
-        return clientes;
+//        return clientes;
+        
+        ArrayList <Cliente> listaClientes = new ArrayList<Cliente>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            //1. Se registra el driver de la BD
+            Driver myDriver = new com.mysql.jdbc.Driver();
+            //2. Se abre la conexión
+            String connectionUrl = "jdbc:mysql://200.16.7.22/lp2?" +
+                                   "user=lp2&password=password";
+            conn = DriverManager.getConnection(connectionUrl);
+            //3. Se ejecuta la sentencia SQL
+            pstmt = conn.prepareStatement("SELECT * FROM EMPRESA ");//WHERE TIPO=1;
+            rs =  pstmt.executeQuery();
+            
+            //4. Se evalúan los resultados
+            while (rs.next()){
+                int id = rs.getInt("IdEmpresa");
+                int ruc = rs.getInt("ruc");
+                String razonSocial = rs.getString("razonSocial");
+                String webPage = rs.getString("webPage");
+                String pais = rs.getString("Pais");
+                String rubro = rs.getString("Rubro"); 
+                String nombreContacto=rs.getString("NombreContacto");
+                int telefonoContacto=rs.getInt("telefonoContacto");
+                String emailContacto=rs.getString("email");
+                
+                Cliente cliente= null;
+                cliente.setId(id);
+                cliente.setRuc(ruc);
+                cliente.setRazonSocial(razonSocial);
+                cliente.setWebPage(webPage);
+                cliente.setPais(pais);
+                cliente.setRubro(rubro);
+                cliente.setNombreContacto(nombreContacto);
+                cliente.setTelefonoContacto(telefonoContacto);
+                cliente.setEmailContacto(emailContacto);
+                
+                listaClientes.add(cliente);
+            }            
+        } 
+        catch (Exception ex) {
+            ex.printStackTrace();
+        } 
+        finally {
+             //5. Se cierra la conexión
+             try {if (rs != null) rs.close(); } 
+             catch(Exception e){e.printStackTrace();}  
+        }
+        return listaClientes;       
     } 
 
     /**
