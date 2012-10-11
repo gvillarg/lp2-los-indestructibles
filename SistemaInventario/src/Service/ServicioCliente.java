@@ -14,8 +14,10 @@ import java.sql.*;
  * @author Guti
  */
 public class ServicioCliente {
-        private int nextId=1;
-        private ArrayList<Cliente> clientes=new ArrayList<Cliente>();
+    private String connectionUrl = "jdbc:mysql://localhost:3306/LP222?" +
+                                   "user=root&password=password";
+    private int nextId=1;
+    private ArrayList<Cliente> clientes=new ArrayList<Cliente>();
     
     public int agregarCliente(Cliente cliente){
 //        cliente.setId(nextId++);
@@ -24,12 +26,12 @@ public class ServicioCliente {
         int result =0;
         Connection conn = null;
         PreparedStatement pstmt = null;
-        ResultSet rs = null;
+//        ResultSet rs = null;
         try {
             Driver myDriver = new com.mysql.jdbc.Driver();
             //2. Se abre la conexión
-            String connectionUrl = "jdbc:mysql://127.0.0.1:3306/base_sistemainventario?" +
-                                   "user=root&password=3306";
+            //String connectionUrl = "jdbc:mysql://127.0.0.1:3306/base_sistemainventario?" +
+              //                     "user=root&password=clave";
             conn = DriverManager.getConnection(connectionUrl);
             //3. Se ejecuta la sentencia SQL
             String SQLString =
@@ -37,7 +39,7 @@ public class ServicioCliente {
                     + "VALUES(?,?,?,?,?,?,?,?,?)";
             
             pstmt = conn.prepareStatement(SQLString);
-            pstmt.setInt(1, cliente.getId());
+            pstmt.setInt(1, nextId++);
             pstmt.setInt(2, cliente.getRuc());
             pstmt.setString(3, cliente.getRazonSocial());
             pstmt.setString(4, cliente.getWebPage());
@@ -55,10 +57,10 @@ public class ServicioCliente {
             }            
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-             //5. Se cierra la conexión
-             try {if (rs != null) rs.close(); } 
-             catch(Exception e){e.printStackTrace();}  
+//        } finally {
+//             //5. Se cierra la conexión
+//             try {if (rs != null) rs.close(); } 
+//             catch(Exception e){e.printStackTrace();}  
         } 
         return result;
     }
@@ -73,6 +75,7 @@ public class ServicioCliente {
         
         
 //        return clientes;
+        
         Cliente cliente=null;
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -81,8 +84,8 @@ public class ServicioCliente {
             //1. Se registra el driver de la BD
             Driver myDriver = new com.mysql.jdbc.Driver();
             //2. Se abre la conexión
-            String connectionUrl = "jdbc:mysql://200.16.7.22/lp2?" +
-                                   "user=lp2&password=password";
+//            String connectionUrl = "jdbc:mysql://127.0.0.1:3306/base_sistemainventario?" +
+//                                   "user=root&password=clave";
             conn = DriverManager.getConnection(connectionUrl);
             //3. Se ejecuta la sentencia SQL
             pstmt = conn.prepareStatement("SELECT * FROM EMPRESA ");//WHERE TIPO=1;
@@ -127,22 +130,56 @@ public class ServicioCliente {
         
     }
     public Cliente buscarClientePos(int i){
-		Cliente cliente=( i<getClientes().size() && i>=0) ? getClientes().get(i) : null;
-		return cliente;
+        Cliente cliente=( i<getClientes().size() && i>=0) ? getClientes().get(i) : null;
+        return cliente;
+    }    
+    public boolean eliminaCliente (int id)	{
+//		for (int i=0; i<getClientes().size(); i++)
+//		{
+//			if(getClientes().get(i).getId() == id)
+//			{
+//				getClientes().remove(i);
+//				break;
+//			}
+//		}
+            
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        boolean result=false;
+        try {
+            Driver myDriver = new com.mysql.jdbc.Driver();
+            //2. Se abre la conexión
+            //String connectionUrl = "jdbc:mysql://127.0.0.1:3306/base_sistemainventario?" +
+              //                     "user=root&password=clave";
+            conn = DriverManager.getConnection(connectionUrl);
+            //3. Se ejecuta la sentencia SQL
+            String SQLString =
+                    "DELETE FROM EMPRESA"
+                    +"WHERE IDEMPRESA=?;";
+            
+            pstmt = conn.prepareStatement(SQLString);
+            pstmt.setInt(1, id);
+                    
+            result=pstmt.execute();
+            
+            //4. Se evalúan los resultados
+            if (result){
+                throw new Exception();
+            }            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+//        } finally {
+//             //5. Se cierra la conexión
+//             try {if (rs != null) rs.close(); } 
+//             catch(Exception e){e.printStackTrace();}  
+//        } 
+        return result;
+            
+            
 	}
-    public void eliminaCliente (int id)
-	{
-		for (int i=0; i<getClientes().size(); i++)
-		{
-			if(getClientes().get(i).getId() == id)
-			{
-				getClientes().remove(i);
-				break;
-			}
-		}
-	}
-    public void eliminaCliente (Cliente cliente)
-	{
+    public void eliminaCliente (Cliente cliente){
             int id=cliente.getId();
             eliminaCliente(id);
 		/*for (int i=0; i<clientes.size(); i++)
@@ -154,8 +191,7 @@ public class ServicioCliente {
 			}
 		}*/
 	}
-    public void editarCliente(Cliente buscado)
-	{
+    public void editarCliente(Cliente buscado)	{
 		Cliente cliente=  buscarClienteId( buscado.getId()        );
 		if(cliente!=null) 
 		{
@@ -164,17 +200,16 @@ public class ServicioCliente {
 			cliente.setRazonSocial(   buscado.getRazonSocial());
 			cliente.setWebPage(       buscado.getWebPage());
 		}
+            
+            
+       
 		
 	}
-
-    /**
-     * @return the clientes
-     */
     public ArrayList<Cliente> getClientes() {
 //        return clientes;
         
         Cliente cliente=null;
-        ArrayList <Cliente> listaClientes = new ArrayList<Cliente>();
+        clientes=new ArrayList<Cliente>();
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -182,8 +217,8 @@ public class ServicioCliente {
             //1. Se registra el driver de la BD
             Driver myDriver = new com.mysql.jdbc.Driver();
             //2. Se abre la conexión
-            String connectionUrl = "jdbc:mysql://200.16.7.22/lp2?" +
-                                   "user=lp2&password=password";
+//            String connectionUrl = "jdbc:mysql://127.0.0.1/base_sistemainventario?" +
+//                                   "user=root";
             conn = DriverManager.getConnection(connectionUrl);
             //3. Se ejecuta la sentencia SQL
             pstmt = conn.prepareStatement("SELECT * FROM EMPRESA ");//WHERE TIPO=1;
@@ -212,7 +247,7 @@ public class ServicioCliente {
                 cliente.setTelefonoContacto(telefonoContacto);
                 cliente.setEmailContacto(emailContacto);
                 
-                listaClientes.add(cliente);
+                clientes.add(cliente);
             }            
         } 
         catch (Exception ex) {
@@ -223,12 +258,8 @@ public class ServicioCliente {
              try {if (rs != null) rs.close(); } 
              catch(Exception e){e.printStackTrace();}  
         }
-        return listaClientes;       
+        return clientes;       
     } 
-
-    /**
-     * @return the nextId
-     */
     public int getNextId() {
         return nextId;
     }
