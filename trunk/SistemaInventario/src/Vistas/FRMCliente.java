@@ -19,6 +19,7 @@ public class FRMCliente extends javax.swing.JInternalFrame {
     public FRMCliente() {
         initComponents();
         tblCliente.setModel(clienteTableModel);
+        txtId.setText(""+Main.Main.servicioCliente.getNextId());
     }
     public void actualizarTabla(){
         clientes=Main.Main.servicioCliente.getClientes();
@@ -299,10 +300,10 @@ public class FRMCliente extends javax.swing.JInternalFrame {
         nuevo.setEmailContacto(txtEmailContacto.getText());
         
         if (cliente==null){    
-            nuevo.setId(cliente.getId());
             Main.Main.servicioCliente.agregarCliente(nuevo);
         }
         else {
+            nuevo.setId(cliente.getId());            
             Main.Main.servicioCliente.editarCliente(nuevo);
         }
         actualizarCampos();
