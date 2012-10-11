@@ -98,7 +98,6 @@ public class FRMCliente extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Rubro");
 
-        jPanel2.setBackground(new java.awt.Color(153, 153, 153));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Información del Contacto"));
 
         jLabel7.setText("Nombre");
