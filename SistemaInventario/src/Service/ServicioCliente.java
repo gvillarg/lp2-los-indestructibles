@@ -16,8 +16,9 @@ public class ServicioCliente {
         private ArrayList<Cliente> clientes=new ArrayList<Cliente>();
     
     public void agregarCliente(Cliente cliente){
-		getClientes().add(cliente);
-	}
+        cliente.setId(nextId++);
+	getClientes().add(cliente);
+    }
     public Cliente buscarClienteId (int id){
 		for (int i=0; i<getClientes().size(); i++)
 		{
