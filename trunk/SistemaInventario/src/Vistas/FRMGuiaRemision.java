@@ -21,6 +21,7 @@ import Beans.GuiaRemision;
 public class FRMGuiaRemision extends javax.swing.JInternalFrame {
     
     class GuiaRemisionTableModel extends AbstractTableModel{
+        //comentario
         public ArrayList<GuiaRemision> guiasremision=Main.servicioGuiaRemision.getGuiasRemision();
         String [] nombreColumna = {"Id guía","Fecha", "monto"};
         
