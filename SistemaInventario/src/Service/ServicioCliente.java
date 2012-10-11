@@ -5,7 +5,9 @@
 package Service;
 
 import Beans.Cliente;
+import java.sql.DriverManager;
 import java.util.ArrayList;
+import java.sql.*;
 
 /**
  *
@@ -15,9 +17,50 @@ public class ServicioCliente {
         private int nextId=1;
         private ArrayList<Cliente> clientes=new ArrayList<Cliente>();
     
-    public void agregarCliente(Cliente cliente){
-        cliente.setId(nextId++);
-	getClientes().add(cliente);
+    public int agregarCliente(Cliente cliente){
+//        cliente.setId(nextId++);
+//	getClientes().add(cliente);
+        
+        int result =0;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            Driver myDriver = new com.mysql.jdbc.Driver();
+            //2. Se abre la conexión
+            String connectionUrl = "jdbc:mysql://127.0.0.1:3306/base_sistemainventario?" +
+                                   "user=root&password=3306";
+            conn = DriverManager.getConnection(connectionUrl);
+            //3. Se ejecuta la sentencia SQL
+            String SQLString =
+                    "INSERT INTO EMPRESA(idEmpresa,ruc,razonSocial,webPage,pais,rubro,nombreContacto,telefonoContacto,email)"
+                    + "VALUES(?,?,?,?,?,?,?,?,?)";
+            
+            pstmt = conn.prepareStatement(SQLString);
+            pstmt.setInt(1, cliente.getId());
+            pstmt.setInt(2, cliente.getRuc());
+            pstmt.setString(3, cliente.getRazonSocial());
+            pstmt.setString(4, cliente.getWebPage());
+            pstmt.setString(5,cliente.getPais());
+            pstmt.setString(6,cliente.getRubro());
+            pstmt.setString(7, cliente.getNombreContacto());
+            pstmt.setInt(8,cliente.getTelefonoContacto());
+            pstmt.setString(9,cliente.getEmailContacto());
+                    
+            result =  pstmt.executeUpdate();
+            
+            //4. Se evalúan los resultados
+            if (result == 0){
+                throw new Exception();
+            }            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+             //5. Se cierra la conexión
+             try {if (rs != null) rs.close(); } 
+             catch(Exception e){e.printStackTrace();}  
+        } 
+        return result;
     }
     public Cliente buscarClienteId (int id){
 		for (int i=0; i<getClientes().size(); i++)
