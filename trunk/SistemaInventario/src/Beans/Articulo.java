@@ -12,8 +12,8 @@ public class Articulo {
     private int id;
     private String nombre;
     private String descripcion;
-    private String tipoArticulo;
-    private String tipoAlmacenamiento;
+    private int tipoArticulo;
+    private int tipoAlmacenamiento;
     private int unidad;
     private float precio;
     private int stock;
@@ -120,28 +120,28 @@ public class Articulo {
     /**
      * @return the tipoArticulo
      */
-    public String getTipoArticulo() {
+    public int getTipoArticulo() {
         return tipoArticulo;
     }
 
     /**
      * @param tipoArticulo the tipoArticulo to set
      */
-    public void setTipoArticulo(String tipoArticulo) {
+    public void setTipoArticulo(int tipoArticulo) {
         this.tipoArticulo = tipoArticulo;
     }
 
     /**
      * @return the tipoAlmacenamiento
      */
-    public String getTipoAlmacenamiento() {
+    public int getTipoAlmacenamiento() {
         return tipoAlmacenamiento;
     }
 
     /**
      * @param tipoAlmacenamiento the tipoAlmacenamiento to set
      */
-    public void setTipoAlmacenamiento(String tipoAlmacenamiento) {
+    public void setTipoAlmacenamiento(int tipoAlmacenamiento) {
         this.tipoAlmacenamiento = tipoAlmacenamiento;
     }
 
