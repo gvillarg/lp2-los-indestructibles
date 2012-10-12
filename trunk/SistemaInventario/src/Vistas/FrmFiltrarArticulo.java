@@ -61,9 +61,25 @@ public class FrmFiltrarArticulo extends javax.swing.JInternalFrame {
     
     public FrmFiltrarArticulo() {
         initComponents();
+        llenarTipoArticulo();
+        llenarTipoAlmacenamiento();
         tablaArticulos.setModel(articuloTableModel); 
         this.setClosable(true);
 
+    }
+    public void llenarTipoArticulo(){
+        cmbTipoArticulo.removeAllItems();
+        for (int i=0; i<Main.tipoArticulo.length; i++)
+            cmbTipoArticulo.addItem(Main.tipoArticulo[i]);
+        cmbTipoArticulo.addItem("Tipo Articulo");
+        cmbTipoArticulo.setSelectedIndex(Main.tipoArticulo.length);
+    }
+    public void llenarTipoAlmacenamiento(){
+        cmbTipoAlmacenamiento.removeAllItems();
+        for (int i=0; i<Main.tipoAlmacenamiento.length; i++)
+            cmbTipoAlmacenamiento.addItem(Main.tipoAlmacenamiento[i]);
+        cmbTipoAlmacenamiento.addItem("Tipo Almacenamiento");
+        cmbTipoAlmacenamiento.setSelectedIndex(Main.tipoAlmacenamiento.length);
     }
 
     /**
@@ -84,9 +100,14 @@ public class FrmFiltrarArticulo extends javax.swing.JInternalFrame {
         btnNuevo = new javax.swing.JButton();
         txtFiltrarNombre = new javax.swing.JTextField();
         btnMostrar = new javax.swing.JButton();
+        cmbTipoArticulo = new javax.swing.JComboBox();
         btnFiltrar = new javax.swing.JButton();
+        cmbTipoAlmacenamiento = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtPrecioMin = new javax.swing.JTextField();
+        txtPrecioMax = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Articulos");
 
         btnEditar.setText("Editar");
@@ -149,6 +170,14 @@ public class FrmFiltrarArticulo extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel1.setText("Precio Mínimo");
+
+        jLabel2.setText("Precio Máximo");
+
+        txtPrecioMin.setText("0");
+
+        txtPrecioMax.setText("100");
+
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -156,24 +185,37 @@ public class FrmFiltrarArticulo extends javax.swing.JInternalFrame {
             .add(jPanel1Layout.createSequentialGroup()
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 351, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(35, 35, 35)
-                        .add(btnNuevo)
-                        .add(18, 18, 18)
-                        .add(btnEditar)
-                        .add(18, 18, 18)
-                        .add(btnEliminar))
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(40, 40, 40)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jPanel1Layout.createSequentialGroup()
-                                .add(btnFiltrar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 127, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(36, 36, 36)
+                                .add(btnNuevo)
                                 .add(18, 18, 18)
-                                .add(btnMostrar))
-                            .add(txtFiltrarNombre, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 273, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(16, Short.MAX_VALUE))
+                                .add(btnEditar)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(btnEliminar))
+                            .add(jPanel1Layout.createSequentialGroup()
+                                .add(40, 40, 40)
+                                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(txtFiltrarNombre, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 273, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(jPanel1Layout.createSequentialGroup()
+                                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                                .add(cmbTipoArticulo, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .add(btnFiltrar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
+                                            .add(jPanel1Layout.createSequentialGroup()
+                                                .add(6, 6, 6)
+                                                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                                    .add(jLabel2)
+                                                    .add(jLabel1))))
+                                        .add(18, 18, 18)
+                                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                            .add(btnMostrar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .add(cmbTipoAlmacenamiento, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .add(txtPrecioMin)
+                                            .add(txtPrecioMax))))))
+                        .add(0, 0, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -182,16 +224,28 @@ public class FrmFiltrarArticulo extends javax.swing.JInternalFrame {
                 .add(txtFiltrarNombre, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(cmbTipoArticulo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(cmbTipoAlmacenamiento, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel1)
+                    .add(txtPrecioMin, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel2)
+                    .add(txtPrecioMax, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(btnFiltrar)
                     .add(btnMostrar))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 284, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(btnNuevo)
                     .add(btnEditar)
+                    .add(btnNuevo)
                     .add(btnEliminar))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -202,7 +256,7 @@ public class FrmFiltrarArticulo extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -235,7 +289,9 @@ public class FrmFiltrarArticulo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnMostrarActionPerformed
 
     private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
-        articulos=Main.servicioArticulo.filtrarArticulos(txtFiltrarNombre.getText().toString());
+        articulos=Main.servicioArticulo.filtrarArticulos(txtFiltrarNombre.getText().toString(),
+                cmbTipoArticulo.getSelectedIndex(),cmbTipoAlmacenamiento.getSelectedIndex(),
+                Integer.parseInt(txtPrecioMin.getText()),Integer.parseInt(txtPrecioMax.getText()));
         articuloTableModel.fireTableChanged(null);
     }//GEN-LAST:event_btnFiltrarActionPerformed
 
@@ -286,10 +342,16 @@ public class FrmFiltrarArticulo extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnMostrar;
     private javax.swing.JButton btnNuevo;
+    private javax.swing.JComboBox cmbTipoAlmacenamiento;
+    private javax.swing.JComboBox cmbTipoArticulo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tablaArticulos;
     private javax.swing.JTextField txtFiltrarNombre;
+    private javax.swing.JTextField txtPrecioMax;
+    private javax.swing.JTextField txtPrecioMin;
     // End of variables declaration//GEN-END:variables
 }
