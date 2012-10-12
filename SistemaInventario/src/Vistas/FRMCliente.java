@@ -16,7 +16,7 @@ public class FRMCliente extends javax.swing.JInternalFrame {
     
     
     
-    private String [] NomCol={"Id","RUC","Nombre","Razon Social","Pagina Web","Pais"};
+    private String [] NomCol={"Id","RUC","Razon Social","Pagina Web","Pais"};
     private Cliente cliente=null;
     private ArrayList<Cliente> clientes=Main.Main.servicioCliente.getClientes();
     private ClienteTableModel clienteTableModel=new ClienteTableModel();
