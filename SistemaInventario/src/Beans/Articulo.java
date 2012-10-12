@@ -14,7 +14,7 @@ public class Articulo {
     private String descripcion;
     private String tipoArticulo;
     private String tipoAlmacenamiento;
-    private String unidad;
+    private int unidad;
     private float precio;
     private int stock;
     private int stockMinimo;
@@ -148,14 +148,14 @@ public class Articulo {
     /**
      * @return the unidad
      */
-    public String getUnidad() {
+    public int getUnidad() {
         return unidad;
     }
 
     /**
      * @param unidad the unidad to set
      */
-    public void setUnidad(String unidad) {
+    public void setUnidad(int unidad) {
         this.unidad = unidad;
     }
     

@@ -220,7 +220,7 @@ public class FrmArticulo extends JDialog {
         _articulo.setDescripcion(txtDescripcion.getText());
         _articulo.setTipoArticulo(txtTipoArticulo.getText());
         _articulo.setTipoAlmacenamiento(txtTipoAlmacenamiento.getText());
-        _articulo.setUnidad(Main.unidades[cmbUnidad.getSelectedIndex()]);
+        _articulo.setUnidad(cmbUnidad.getSelectedIndex());
         _articulo.setPrecio(Float.parseFloat(txtPrecio.getText()));
         _articulo.setStock(Integer.parseInt(txtStock.getText()));
         _articulo.setStockMinimo(Integer.parseInt(txtStockMinimo.getText()));     
