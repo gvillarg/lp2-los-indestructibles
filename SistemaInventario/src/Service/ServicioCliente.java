@@ -88,7 +88,8 @@ public class ServicioCliente {
 //                                   "user=root&password=clave";
             conn = DriverManager.getConnection(connectionUrl);
             //3. Se ejecuta la sentencia SQL
-            pstmt = conn.prepareStatement("SELECT * FROM EMPRESA ");//WHERE TIPO=1;
+            pstmt = conn.prepareStatement("SELECT * FROM EMPRESA WHERE IDEMPRESA=?");//WHERE TIPO=1;
+            pstmt.setInt(1, id);
             rs =  pstmt.executeQuery();
             
             //4. Se evalúan los resultados
@@ -133,7 +134,7 @@ public class ServicioCliente {
         Cliente cliente=( i<getClientes().size() && i>=0) ? getClientes().get(i) : null;
         return cliente;
     }    
-    public boolean eliminaCliente (int id)	{
+    public int eliminaCliente (int id)	{
 //		for (int i=0; i<getClientes().size(); i++)
 //		{
 //			if(getClientes().get(i).getId() == id)
@@ -146,7 +147,7 @@ public class ServicioCliente {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        boolean result=false;
+        int result=0;
         try {
             Driver myDriver = new com.mysql.jdbc.Driver();
             //2. Se abre la conexión
@@ -159,10 +160,10 @@ public class ServicioCliente {
             pstmt = conn.prepareStatement(SQLString);
             pstmt.setInt(1, id);
                     
-            result=pstmt.execute();
+            result=pstmt.executeUpdate();
             
             //4. Se evalúan los resultados
-            if (result){
+            if (result==0){
                 throw new Exception();
             }            
         } catch (Exception ex) {
