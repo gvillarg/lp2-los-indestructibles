@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import Main.Main;
 
 /**
  *
@@ -352,7 +353,7 @@ public class ServicioArticulo {
         return articulos;    
         
     }
-    public ArrayList<Articulo> filtrarArticulos(String cadena){
+    public ArrayList<Articulo> filtrarArticulos(String cadena,int tipoArt,int tipoAlm,int precioMin,int precioMax){
         ArrayList<Articulo> lista=new ArrayList();
         
 //        for (int i=0;i<articulos.size();i++)
@@ -360,7 +361,8 @@ public class ServicioArticulo {
 //                lista.add(articulos.get(i));         
 //        
 //        return lista;
-//        
+//      
+        int param=1;
         Articulo articulo=null;
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -373,18 +375,30 @@ public class ServicioArticulo {
 //                                   "user=root";
             conn = DriverManager.getConnection(connectionUrl);
             //3. Se ejecuta la sentencia SQL
-            String SQLString="SELECT * FROM ARTICULO WHERE NOMBRE LIKE ?"
-                    +" OR DESCRIPCION like ?";
+            String SQLString="SELECT * FROM ARTICULO WHERE (NOMBRE LIKE ? "
+                    +" OR DESCRIPCION like ? ) AND PRECIO>=? AND PRECIO<=? ";
+            if(tipoArt!= Main.tipoArticulo.length)
+                SQLString=SQLString.concat(" AND TIPOARTICULO=?");
+            if(tipoAlm!= Main.tipoAlmacenamiento.length)
+                SQLString=SQLString.concat(" AND TIPOALMACENAMIENTO=?");
+
             pstmt = conn.prepareStatement(SQLString);
             
             if (cadena!=null){
-                pstmt.setString(1,"%"+cadena+"%");
-                pstmt.setString(2,"%"+cadena+"%");
+                pstmt.setString(param++,"%"+cadena+"%");
+                pstmt.setString(param++,"%"+cadena+"%");
             }
             else{
-                pstmt.setString(1,"%");
-                pstmt.setString(2,"%");
+                pstmt.setString(param++,"%");
+                pstmt.setString(param++,"%");
             }
+            pstmt.setInt(param++,precioMin);
+            pstmt.setInt(param++,precioMax);
+            if(tipoArt!= Main.tipoArticulo.length){
+                pstmt.setInt(param++,tipoArt);
+            }
+            if(tipoAlm!=Main.tipoAlmacenamiento.length)
+                pstmt.setInt(param++,tipoAlm);
             rs =  pstmt.executeQuery();
             
             //4. Se evalúan los resultados
