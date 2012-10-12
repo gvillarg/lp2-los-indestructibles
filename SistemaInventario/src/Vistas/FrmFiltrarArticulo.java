@@ -35,7 +35,7 @@ public class FrmFiltrarArticulo extends javax.swing.JInternalFrame {
                 case 1: return articulo.getNombre();
                 case 2: return articulo.getDescripcion();
                 case 3: return "" + articulo.getPrecio();
-                case 4: return "" + articulo.getUnidad();
+                case 4: return Main.unidad[articulo.getUnidad()];
                 case 5: return "" + articulo.getStock();
                 case 6: return "" + articulo.getStockMinimo();                    
                 case 7: return "" + articulo.getStockReservado();
@@ -230,6 +230,7 @@ public class FrmFiltrarArticulo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
+        txtFiltrarNombre.setText("");
         actualizarTabla();      
     }//GEN-LAST:event_btnMostrarActionPerformed
 

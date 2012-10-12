@@ -49,12 +49,12 @@ public class FrmArticulo extends JDialog {
     public void llenarTipoArticulo(){
         cmbTipoArticulo.removeAllItems();
         for (int i=0; i<Main.tipoArticulo.length; i++)
-            cmbUnidad.addItem(Main.tipoArticulo[i]);
+            cmbTipoArticulo.addItem(Main.tipoArticulo[i]);
     }
     public void llenarTipoAlmacenamiento(){
         cmbTipoAlmacenamiento.removeAllItems();
         for (int i=0; i<Main.tipoAlmacenamiento.length; i++)
-            cmbUnidad.addItem(Main.tipoAlmacenamiento[i]);
+            cmbTipoAlmacenamiento.addItem(Main.tipoAlmacenamiento[i]);
     }
 
     /**
