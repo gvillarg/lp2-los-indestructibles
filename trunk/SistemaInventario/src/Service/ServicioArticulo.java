@@ -295,15 +295,136 @@ public class ServicioArticulo {
         return result;
     }
     public ArrayList<Articulo> getArticulos() {
-        return articulos;
+//        return articulos;
+        
+        Articulo articulo=null;
+        articulos=new ArrayList<Articulo>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            //1. Se registra el driver de la BD
+            Driver myDriver = new com.mysql.jdbc.Driver();
+            //2. Se abre la conexión
+//            String connectionUrl = "jdbc:mysql://127.0.0.1/base_sistemainventario?" +
+//                                   "user=root";
+            conn = DriverManager.getConnection(connectionUrl);
+            //3. Se ejecuta la sentencia SQL
+            pstmt = conn.prepareStatement("SELECT * FROM ARTICULO ");
+            rs =  pstmt.executeQuery();
+            
+            //4. Se evalúan los resultados
+            while (rs.next()){
+                int id = rs.getInt("IDARTICULO");
+                String nombre = rs.getString("NOMBRE");
+                String descripcion = rs.getString("DESCRIPCION");
+                int tipoArticulo = rs.getInt("TIPOARTICULO");
+                int tipoAlmacenamiento = rs.getInt("TIPOALMACENAMIENTO");
+                int unidad = rs.getInt("UNIDAD"); 
+                float precio=rs.getFloat("PRECIO");
+                int stock=rs.getInt("STOCK");
+                int stockMinimo=rs.getInt("STOCKMINIMO");
+                int stockReservado=rs.getInt("STOCKRESERVADO");
+                
+                articulo= new Articulo();
+                articulo.setId(id);
+                articulo.setNombre(nombre);
+                articulo.setDescripcion(descripcion);
+                articulo.setTipoArticulo(tipoArticulo);
+                articulo.setTipoAlmacenamiento(tipoAlmacenamiento);
+                articulo.setUnidad(unidad);
+                articulo.setPrecio(precio);
+                articulo.setStock(stock);
+                articulo.setStockMinimo(stockMinimo);
+                articulo.setStockReservado(stockReservado);
+                
+                articulos.add(articulo);
+            }            
+        } 
+        catch (Exception ex) {
+            ex.printStackTrace();
+        } 
+        finally {
+             //5. Se cierra la conexión
+             try {if (rs != null) rs.close(); } 
+             catch(Exception e){e.printStackTrace();}  
+        }
+        return articulos;    
+        
     }
-    public ArrayList<Articulo> filtrarArticulos(String nombre){
+    public ArrayList<Articulo> filtrarArticulos(String cadena){
         ArrayList<Articulo> lista=new ArrayList();
         
-        for (int i=0;i<articulos.size();i++)
-            if((articulos.get(i).getNombre().contains(nombre))||(articulos.get(i).getDescripcion().contains(nombre)))
-                lista.add(articulos.get(i));         
+//        for (int i=0;i<articulos.size();i++)
+//            if((articulos.get(i).getNombre().contains(nombre))||(articulos.get(i).getDescripcion().contains(nombre)))
+//                lista.add(articulos.get(i));         
+//        
+//        return lista;
+//        
+        Articulo articulo=null;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            //1. Se registra el driver de la BD
+            Driver myDriver = new com.mysql.jdbc.Driver();
+            //2. Se abre la conexión
+//            String connectionUrl = "jdbc:mysql://127.0.0.1/base_sistemainventario?" +
+//                                   "user=root";
+            conn = DriverManager.getConnection(connectionUrl);
+            //3. Se ejecuta la sentencia SQL
+            String SQLString="SELECT * FROM ARTICULO WHERE NOMBRE LIKE ?"
+                    +" OR DESCRIPCION like ?";
+            pstmt = conn.prepareStatement(SQLString);
+            
+            if (cadena!=null){
+                pstmt.setString(1,"%"+cadena+"%");
+                pstmt.setString(2,"%"+cadena+"%");
+            }
+            else{
+                pstmt.setString(1,"%");
+                pstmt.setString(2,"%");
+            }
+            rs =  pstmt.executeQuery();
+            
+            //4. Se evalúan los resultados
+            while (rs.next()){
+                int id = rs.getInt("IDARTICULO");
+                String nombre = rs.getString("NOMBRE");
+                String descripcion = rs.getString("DESCRIPCION");
+                int tipoArticulo = rs.getInt("TIPOARTICULO");
+                int tipoAlmacenamiento = rs.getInt("TIPOALMACENAMIENTO");
+                int unidad = rs.getInt("UNIDAD"); 
+                float precio=rs.getFloat("PRECIO");
+                int stock=rs.getInt("STOCK");
+                int stockMinimo=rs.getInt("STOCKMINIMO");
+                int stockReservado=rs.getInt("STOCKRESERVADO");
+                
+                articulo= new Articulo();
+                articulo.setId(id);
+                articulo.setNombre(nombre);
+                articulo.setDescripcion(descripcion);
+                articulo.setTipoArticulo(tipoArticulo);
+                articulo.setTipoAlmacenamiento(tipoAlmacenamiento);
+                articulo.setUnidad(unidad);
+                articulo.setPrecio(precio);
+                articulo.setStock(stock);
+                articulo.setStockMinimo(stockMinimo);
+                articulo.setStockReservado(stockReservado);
+                
+                lista.add(articulo);
+            }            
+        } 
+        catch (Exception ex) {
+            ex.printStackTrace();
+        } 
+        finally {
+             //5. Se cierra la conexión
+             try {if (rs != null) rs.close(); } 
+             catch(Exception e){e.printStackTrace();}  
+        }
+        return lista;    
         
-        return lista;
+        
     }
 }
