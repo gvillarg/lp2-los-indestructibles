@@ -75,7 +75,7 @@
                               <Component id="btnMovimiento" alignment="0" max="32767" attributes="0"/>
                               <Component id="btnReportes" alignment="0" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="36" max="32767" attributes="0"/>
+                          <EmptySpace pref="132" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -106,6 +106,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Movimientos"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMovimientoActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnReportes">
                   <Properties>

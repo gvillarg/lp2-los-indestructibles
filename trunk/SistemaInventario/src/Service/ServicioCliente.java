@@ -35,19 +35,19 @@ public class ServicioCliente {
             conn = DriverManager.getConnection(connectionUrl);
             //3. Se ejecuta la sentencia SQL
             String SQLString =
-                    "INSERT INTO EMPRESA(idEmpresa,ruc,razonSocial,webPage,pais,rubro,nombreContacto,telefonoContacto,email)"
-                    + "VALUES(?,?,?,?,?,?,?,?,?)";
+                    "INSERT INTO EMPRESA(ruc,razonSocial,webPage,pais,rubro,nombreContacto,telefonoContacto,email)"
+                    + "VALUES(?,?,?,?,?,?,?,?)";
             
             pstmt = conn.prepareStatement(SQLString);
-            pstmt.setInt(1, getNextId());
-            pstmt.setInt(2, cliente.getRuc());
-            pstmt.setString(3, cliente.getRazonSocial());
-            pstmt.setString(4, cliente.getWebPage());
-            pstmt.setString(5,cliente.getPais());
-            pstmt.setString(6,cliente.getRubro());
-            pstmt.setString(7, cliente.getNombreContacto());
-            pstmt.setInt(8,cliente.getTelefonoContacto());
-            pstmt.setString(9,cliente.getEmailContacto());
+//            pstmt.setInt(1, getNextId());
+            pstmt.setInt(1, cliente.getRuc());
+            pstmt.setString(2, cliente.getRazonSocial());
+            pstmt.setString(3, cliente.getWebPage());
+            pstmt.setString(4,cliente.getPais());
+            pstmt.setString(5,cliente.getRubro());
+            pstmt.setString(6, cliente.getNombreContacto());
+            pstmt.setInt(7,cliente.getTelefonoContacto());
+            pstmt.setString(8,cliente.getEmailContacto());            
                     
             result =  pstmt.executeUpdate();
             
@@ -301,41 +301,96 @@ public class ServicioCliente {
         }
         return clientes;       
     } 
-    public int getNextId() {
-//        return nextId;
-        
-        int id=0;
+//    public int getNextId() {
+////        return nextId;
+//        
+//        int id=0;
+//        Connection conn = null;
+//        PreparedStatement pstmt = null;
+//        ResultSet rs = null;
+//        try {
+//            //1. Se registra el driver de la BD
+//            Driver myDriver = new com.mysql.jdbc.Driver();
+//            //2. Se abre la conexión
+////            String connectionUrl = "jdbc:mysql://127.0.0.1:3306/base_sistemainventario?" +
+////                                   "user=root&password=clave";
+//            conn = DriverManager.getConnection(connectionUrl);
+//            //3. Se ejecuta la sentencia SQL
+//            pstmt = conn.prepareStatement("SELECT MAX(IDEMPRESA) FROM EMPRESA;");//WHERE TIPO=1;
+//            rs =  pstmt.executeQuery();
+//            
+//            //4. Se evalúan los resultados
+//            if (rs.next()){
+////                int id = rs.getInt("IdEmpresa");
+//                id = rs.getInt("max(idempresa)"); 
+//            }  
+//        } 
+//        catch (Exception ex) {
+//            ex.printStackTrace();
+//        } 
+//        finally {
+//             //5. Se cierra la conexión
+//             try {if (rs != null) rs.close(); } 
+//             catch(Exception e){e.printStackTrace();}  
+//        }
+//        return id+1;       
+//        
+//        
+//        
+//    }
+
+    public ArrayList<Cliente> filtrarClientes(String nombre, int ruc) {        
+        ArrayList<Cliente> lista=new ArrayList<Cliente>();   
+        int param=1;
+        Cliente cliente=null;
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         try {
-            //1. Se registra el driver de la BD
             Driver myDriver = new com.mysql.jdbc.Driver();
-            //2. Se abre la conexión
-//            String connectionUrl = "jdbc:mysql://127.0.0.1:3306/base_sistemainventario?" +
-//                                   "user=root&password=clave";
             conn = DriverManager.getConnection(connectionUrl);
-            //3. Se ejecuta la sentencia SQL
-            pstmt = conn.prepareStatement("SELECT MAX(IDEMPRESA) FROM EMPRESA;");//WHERE TIPO=1;
+            if (ruc==-1){
+                pstmt = conn.prepareStatement("SELECT * FROM EMPRESA WHERE RazonSocial LIKE ?"); 
+            }
+            else{
+                pstmt = conn.prepareStatement("SELECT * FROM EMPRESA WHERE RazonSocial LIKE ? AND RUC=?;"); 
+                pstmt.setInt(2,ruc);                
+            }
+                pstmt.setString(1,"%"+nombre+"%");           
             rs =  pstmt.executeQuery();
             
-            //4. Se evalúan los resultados
-            if (rs.next()){
-//                int id = rs.getInt("IdEmpresa");
-                id = rs.getInt("max(idempresa)"); 
-            }  
+            while (rs.next()){
+                int id = rs.getInt("IdEmpresa");
+                ruc=rs.getInt("RUC");
+                String razonSocial = rs.getString("razonSocial");
+                String webPage = rs.getString("webPage");
+                String pais = rs.getString("Pais");
+                String rubro = rs.getString("Rubro"); 
+                String nombreContacto=rs.getString("NombreContacto");
+                int telefonoContacto=rs.getInt("telefonoContacto");
+                String emailContacto=rs.getString("email");
+                
+                cliente= new Cliente();
+                cliente.setId(id);
+                cliente.setRuc(ruc);
+                cliente.setRazonSocial(razonSocial);
+                cliente.setWebPage(webPage);
+                cliente.setPais(pais);
+                cliente.setRubro(rubro);
+                cliente.setNombreContacto(nombreContacto);
+                cliente.setTelefonoContacto(telefonoContacto);
+                cliente.setEmailContacto(emailContacto);
+                
+                lista.add(cliente);
+            }      
         } 
         catch (Exception ex) {
             ex.printStackTrace();
         } 
         finally {
-             //5. Se cierra la conexión
              try {if (rs != null) rs.close(); } 
              catch(Exception e){e.printStackTrace();}  
         }
-        return id+1;       
-        
-        
-        
+        return lista;
     }
 }

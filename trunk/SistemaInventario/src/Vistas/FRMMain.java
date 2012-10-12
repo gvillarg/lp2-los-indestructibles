@@ -49,6 +49,11 @@ public class FRMMain extends javax.swing.JFrame {
         });
 
         btnMovimiento.setText("Movimientos");
+        btnMovimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMovimientoActionPerformed(evt);
+            }
+        });
 
         btnReportes.setText("Reportes");
 
@@ -62,7 +67,7 @@ public class FRMMain extends javax.swing.JFrame {
                     .add(btnMantenimientos, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(btnMovimiento, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(btnReportes, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -113,6 +118,13 @@ public class FRMMain extends javax.swing.JFrame {
          frmMantenimiento.setPadre(this);
          frmMantenimiento.setVisible(true);            
     }//GEN-LAST:event_btnMantenimientosActionPerformed
+
+    private void btnMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMovimientoActionPerformed
+        FRMListaMovimiento frmMovimiento = new FRMListaMovimiento();
+         desktop.add(frmMovimiento);
+         frmMovimiento.setVisible(true);  
+
+    }//GEN-LAST:event_btnMovimientoActionPerformed
 
     /**
      * @param args the command line arguments

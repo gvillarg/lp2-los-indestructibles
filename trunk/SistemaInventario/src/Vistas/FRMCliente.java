@@ -23,15 +23,15 @@ public class FRMCliente extends javax.swing.JInternalFrame {
     public FRMCliente() {
         initComponents();
         tblCliente.setModel(clienteTableModel);
-        txtId.setText(""+Main.Main.servicioCliente.getNextId());
+        txtId.setText("");
     }
     public void actualizarTabla(){
-        clientes=Main.Main.servicioCliente.getClientes();
+        setClientes(Main.Main.servicioCliente.getClientes());
         clienteTableModel.fireTableChanged(null);
     }
     public void actualizarCampos(){
         if(cliente==null){
-            txtId.setText(""+Main.Main.servicioCliente.getNextId());
+            txtId.setText("");
             txtRuc.setText("");
             txtRazonSocial.setText("");
             txtWebPage.setText("");
@@ -83,6 +83,8 @@ public class FRMCliente extends javax.swing.JInternalFrame {
         btnNuevo = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
+        btnFiltrar = new javax.swing.JButton();
+        btnMostrarTodo = new javax.swing.JButton();
 
         setClosable(true);
         setResizable(true);
@@ -187,6 +189,20 @@ public class FRMCliente extends javax.swing.JInternalFrame {
 
         txtId.setEditable(false);
 
+        btnFiltrar.setText("Filtrar");
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
+
+        btnMostrarTodo.setText("Mostrar Todo");
+        btnMostrarTodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarTodoActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -195,7 +211,7 @@ public class FRMCliente extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel1Layout.createSequentialGroup()
-                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
                         .addContainerGap())
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -217,13 +233,17 @@ public class FRMCliente extends javax.swing.JInternalFrame {
                         .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(43, 43, 43))))
             .add(jPanel1Layout.createSequentialGroup()
-                .add(64, 64, 64)
+                .add(46, 46, 46)
                 .add(btnNuevo)
-                .add(18, 18, 18)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(btnGuardar)
-                .add(108, 108, 108)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(btnEliminar)
-                .add(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(btnFiltrar)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(btnMostrarTodo)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -261,7 +281,9 @@ public class FRMCliente extends javax.swing.JInternalFrame {
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(btnNuevo)
                     .add(btnGuardar)
-                    .add(btnEliminar))
+                    .add(btnEliminar)
+                    .add(btnMostrarTodo)
+                    .add(btnFiltrar))
                 .add(18, 18, 18)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 223, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(16, 16, 16))
@@ -304,12 +326,13 @@ public class FRMCliente extends javax.swing.JInternalFrame {
         
         if (cliente==null){    
             Main.Main.servicioCliente.agregarCliente(nuevo);
+            cliente=null;
+            actualizarCampos();
         }
         else {
             nuevo.setId(cliente.getId());            
             Main.Main.servicioCliente.editarCliente(nuevo);
         }
-        actualizarCampos();
         actualizarTabla();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -318,9 +341,22 @@ public class FRMCliente extends javax.swing.JInternalFrame {
         actualizarTabla();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+        FrmFiltrarCliente frmFiltrarCliente=new FrmFiltrarCliente(null,true);
+        frmFiltrarCliente.setPadre(this);       
+        frmFiltrarCliente.setVisible(true);
+        
+    }//GEN-LAST:event_btnFiltrarActionPerformed
+
+    private void btnMostrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarTodoActionPerformed
+        actualizarTabla();
+    }//GEN-LAST:event_btnMostrarTodoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnMostrarTodo;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -345,6 +381,18 @@ public class FRMCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtTelefonoContacto;
     private javax.swing.JTextField txtWebPage;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @param clientes the clientes to set
+     */
+    public void setClientes(ArrayList<Cliente> clientes) {
+        this.clientes = clientes;
+    }
+
+    void recibirResultado(ArrayList<Cliente> lista) {
+        setClientes(lista);
+        clienteTableModel.fireTableChanged(null);  
+    }
 
     class ClienteTableModel extends AbstractTableModel{
 
