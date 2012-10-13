@@ -60,7 +60,7 @@ public class ServicioGuiaRemision {
 		if(guiaRemision!=null) 
 		{
 			guiaRemision.setId(            buscado.getId());
-			guiaRemision.setProveedor(           buscado.getProveedor());
+			guiaRemision.setCliente(           buscado.getCliente());
 			guiaRemision.setFecha(   buscado.getFecha());
 			guiaRemision.setTotal(       buscado.getTotal());
 		}
