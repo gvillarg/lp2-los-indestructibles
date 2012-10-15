@@ -16,6 +16,8 @@ import java.sql.*;
 public class ServicioCliente {
     private String connectionUrl = "jdbc:mysql://localhost:3306/LP222?" +
                                    "user=root&password=password";
+//    private String connectionUrl = "jdbc:mysql://quilla.lab.inf.pucp.edu.pe:3306/inf282g1?"+"user=inf282g1&password=anillo";
+
 //    private int nextId=1;
     private ArrayList<Cliente> clientes=new ArrayList<Cliente>();
     
@@ -262,9 +264,9 @@ public class ServicioCliente {
 //                                   "user=root";
             conn = DriverManager.getConnection(connectionUrl);
             //3. Se ejecuta la sentencia SQL
-            pstmt = conn.prepareStatement("SELECT * FROM EMPRESA ");//WHERE TIPO=1;
+            pstmt = conn.prepareStatement("SELECT * FROM empresa ");//WHERE TIPO=1;
             rs =  pstmt.executeQuery();
-            
+            System.out.println("conexion hecha");
             //4. Se evalúan los resultados
             while (rs.next()){
                 int id = rs.getInt("IdEmpresa");
