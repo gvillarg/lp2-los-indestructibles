@@ -13,6 +13,8 @@ import java.util.ArrayList;
  */
 public class ServicioGuiaRemision {
     private ArrayList<GuiaRemision> guiasRemision = new ArrayList<GuiaRemision>();
+     private String connectionUrl = "jdbc:mysql://localhost:3306/inf282g1?" + "user=inf282g1&password=anillo";
+    //private int nextId=1;
     
     public void agregarGuiaRemision(GuiaRemision guiaRemision){
 		getGuiasRemision().add(guiaRemision);
