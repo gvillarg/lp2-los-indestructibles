@@ -13,11 +13,12 @@ import java.util.ArrayList;
  */
 public class ServicioAlmacen {
     private ArrayList<Almacen> almacenes = new ArrayList<Almacen>();
-    private int nextId=1;
+    private String connectionUrl = "jdbc:mysql://localhost:3306/inf282g1?" + "user=inf282g1&password=anillo";
+    //private int nextId=1;
 
 
     public void agregarAlmacen(Almacen almacen){
-        almacen.setId(nextId++);
+        //almacen.setId(nextId++);
         getAlmacenes().add(almacen);
     }
     public Almacen buscarAlmacenId (int id){
