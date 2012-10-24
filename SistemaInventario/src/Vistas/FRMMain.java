@@ -159,6 +159,7 @@ public class FRMMain extends javax.swing.JFrame {
                 new FRMMain().setVisible(true);
             }
         });
+        //llamada a ventana principal
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMantenimientos;
