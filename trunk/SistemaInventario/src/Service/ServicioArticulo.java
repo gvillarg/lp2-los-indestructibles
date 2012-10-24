@@ -20,7 +20,7 @@ import Main.Main;
 public class ServicioArticulo {
     private ArrayList<Articulo> articulos = new ArrayList<Articulo>() ;
 //    private int nextId=1;
-    private String connectionUrl = "jdbc:mysql://localhost:3306/LP222?" + "user=root&password=password";
+    private String connectionUrl = "jdbc:mysql://localhost:3306/inf282g1?" + "user=inf282g1&password=anillo";
 //    private String connectionUrl = "jdbc:mysql://quilla.lab.inf.pucp.edu.pe:3306/inf282g1"+"user=inf282g1&password=anillo";
     public int getNextId(){
 //        return nextId;
