@@ -65,6 +65,11 @@ public class FRMMantenimiento extends javax.swing.JInternalFrame {
         btnGuiaRemision.setText("Guía de Remisión");
 
         btnLote.setText("Lote");
+        btnLote.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoteActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -136,6 +141,15 @@ public class FRMMantenimiento extends javax.swing.JInternalFrame {
         padre.agregarVentana(frmCliente);
         frmCliente.setVisible(true);
     }//GEN-LAST:event_btnClienteActionPerformed
+
+    private void btnLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoteActionPerformed
+        // TODO add here your handling code that shows the Lote window:
+        
+        FRMLote frmLote=new FRMLote();
+//        Main.Main.agregarVentana(frmArticulo);
+        padre.agregarVentana(frmLote);
+        frmLote.setVisible(true);
+    }//GEN-LAST:event_btnLoteActionPerformed
 
     
     
