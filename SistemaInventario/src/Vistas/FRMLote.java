@@ -3,10 +3,10 @@
  * and open the template in the editor.
  */
 package Vistas;
-
+import Beans.Lote;
 /**
  *
- * @author jorge
+ * @author Enrique Carrion Morales
  */
 public class FRMLote extends javax.swing.JInternalFrame {
 
@@ -60,6 +60,11 @@ public class FRMLote extends javax.swing.JInternalFrame {
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnAcept.setText("Aceptar");
+        btnAcept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptActionPerformed(evt);
+            }
+        });
 
         btnCancel.setText("Cancelar");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -133,7 +138,7 @@ public class FRMLote extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAcept)
                     .addComponent(btnCancel))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -143,6 +148,13 @@ public class FRMLote extends javax.swing.JInternalFrame {
         // TODO add your closing code here:
         this.setVisible(false);
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnAceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptActionPerformed
+        // TODO add your saving to DB code here:
+        Lote nuevo=new Lote();
+        //registrar los nuevo. en el init, debo grabar los almacenes y donde se ubica
+        Main.Main.servicioLote.agregarLote(nuevo);
+    }//GEN-LAST:event_btnAceptActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcept;
