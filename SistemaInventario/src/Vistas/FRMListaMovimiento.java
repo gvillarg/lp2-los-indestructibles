@@ -18,7 +18,7 @@ import Service.ServicioMovimiento;
 import Beans.Movimiento;
 /**
  *
- * @author Enrique Carrion
+ * @author Enrique Carrion Morales
  */
 public class FRMListaMovimiento extends javax.swing.JInternalFrame {
 
