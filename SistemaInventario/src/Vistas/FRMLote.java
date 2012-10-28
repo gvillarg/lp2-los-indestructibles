@@ -4,6 +4,12 @@
  */
 package Vistas;
 import Beans.Lote;
+import Beans.Articulo;
+import Beans.Almacen;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Date;
 /**
  *
  * @author Enrique Carrion Morales
@@ -15,6 +21,18 @@ public class FRMLote extends javax.swing.JInternalFrame {
      */
     public FRMLote() {
         initComponents();
+        this.cmbarticulo.removeAllItems();
+        ArrayList<Articulo>listart=Main.Main.servicioArticulo.getArticulos();
+        for(Articulo e: listart)
+        {
+            this.cmbarticulo.addItem(e.getNombre());
+        }
+        ArrayList<Almacen>listalm=Main.Main.servicioAlmacen.getAlmacenes();
+        for(Almacen e: listalm)
+        {
+            this.cmbalmacen.addItem(e.getDireccion());
+        }
+        
     }
 
     /**
@@ -135,10 +153,10 @@ public class FRMLote extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6)
                     .addComponent(cmbalmacen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAcept)
-                    .addComponent(btnCancel))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCancel)
+                    .addComponent(btnAcept))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -152,6 +170,15 @@ public class FRMLote extends javax.swing.JInternalFrame {
     private void btnAceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptActionPerformed
         // TODO add your saving to DB code here:
         Lote nuevo=new Lote();
+        int indalm=this.cmbalmacen.getSelectedIndex();
+        int indart=this.cmbarticulo.getSelectedIndex();
+        Articulo a=Main.Main.servicioArticulo.buscarArticuloPos(indart);
+        Almacen l=Main.Main.servicioAlmacen.buscarAlmacenPos(indalm);
+        nuevo.setArticulo(a);
+        nuevo.setCantidad(Integer.parseInt(txcant.getText()));
+        nuevo.setFechaCaducidad(new Date(txfechacad.getText()));
+        nuevo.setFechaIngreso(new Date(txfechaing.getText()));
+        nuevo.setSaldo(Integer.parseInt(txcant.getText()));
         //registrar los nuevo. en el init, debo grabar los almacenes y donde se ubica
         Main.Main.servicioLote.agregarLote(nuevo);
     }//GEN-LAST:event_btnAceptActionPerformed
