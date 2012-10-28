@@ -16,7 +16,7 @@ import java.util.Set;
  * @author Enrique Carrion
  */
 public class ServicioLote {
-    private String connectionUrl = "jdbc:mysql://localhost:3306/LP282g1?" +
+    private String connectionUrl = "jdbc:mysql://quilla.lab.inf.pucp.edu.pe:3306/LP282g1?" +
                                    "user=lp282g1&password=anillo";
      private ArrayList<Lote> lotes = new ArrayList<Lote>() ;  
 
@@ -27,7 +27,7 @@ public class ServicioLote {
          //4. Se evalúan los resultados
         if (rs.next()){
 //                int id = rs.getInt("IdEmpresa");
-                nextId = rs.getInt("max(idarticulo)"); 
+                nextId = rs.getInt("max(idLote)"); 
             }  
         rs.close();
         return nextId;
@@ -45,7 +45,7 @@ public class ServicioLote {
             //3. Se ejecuta la sentencia SQL
             String SQLString =
                     "INSERT INTO LOTE(idLote,cantidad, fechaIngreso,fechaCaducidad,saldo,idArticulo) "
-                    + "VALUES(?,?,?,?,?,?)";
+                    + "VALUES(?,?,?,?,?,?);";
             
             pstmt = conn.prepareStatement(SQLString);
             pstmt.setInt(1, getNextId(conn));
@@ -73,7 +73,7 @@ public class ServicioLote {
               Driver myDriver = new com.mysql.jdbc.Driver();
               //2. Se abre la conexión
               conn = DriverManager.getConnection(connectionUrl);
-              String cadsql="Select * from inf282g1.lote where id= ?;"; 
+              String cadsql="Select * from lote where id= ?;"; 
               pstmt = conn.prepareStatement(cadsql);
               pstmt.setInt(1, getNextId(conn));
               //obteniendo resultados
