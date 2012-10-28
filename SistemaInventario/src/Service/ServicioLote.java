@@ -35,8 +35,6 @@ public class ServicioLote {
 
       public void agregarLote(Lote lt){
           
-          /*lt.setId(nextId++);
-		lotes.add(lt);*/
           int result =0;
           Connection conn = null;
           PreparedStatement pstmt = null;
@@ -46,16 +44,16 @@ public class ServicioLote {
             conn = DriverManager.getConnection(connectionUrl);
             //3. Se ejecuta la sentencia SQL
             String SQLString =
-                    "INSERT INTO LOTE(idlote,fingreso,fcaducidad,idarticulo,cantidad,saldo) "
-                    + "VALUES(?,?,?,?,?,?,?,?,?,?)";
+                    "INSERT INTO LOTE(idLote,cantidad, fechaIngreso,fechaCaducidad,saldo,idArticulo) "
+                    + "VALUES(?,?,?,?,?,?)";
             
             pstmt = conn.prepareStatement(SQLString);
             pstmt.setInt(1, getNextId(conn));
-            pstmt.setDate(2, (java.sql.Date)lt.getFechaIngreso());
-            pstmt.setDate(3, (java.sql.Date)lt.getFechaCaducidad());
-            pstmt.setInt(4, lt.getArticulo().getId());
-            pstmt.setInt(5,lt.getCantidad());
-            pstmt.setInt(6, lt.getSaldo());                    
+            pstmt.setInt(2,lt.getCantidad());
+            pstmt.setDate(3, (java.sql.Date)lt.getFechaIngreso());
+            pstmt.setDate(4, (java.sql.Date)lt.getFechaCaducidad());
+            pstmt.setInt(5, lt.getSaldo());    
+            pstmt.setInt(6, lt.getArticulo().getId());               
             result =  pstmt.executeUpdate();
             conn.close();
          }
@@ -75,7 +73,7 @@ public class ServicioLote {
               Driver myDriver = new com.mysql.jdbc.Driver();
               //2. Se abre la conexión
               conn = DriverManager.getConnection(connectionUrl);
-              String cadsql="Select * from Lote where id= ?;"; 
+              String cadsql="Select * from inf282g1.lote where id= ?;"; 
               pstmt = conn.prepareStatement(cadsql);
               pstmt.setInt(1, getNextId(conn));
               //obteniendo resultados
@@ -83,13 +81,13 @@ public class ServicioLote {
               while(rs.next())
               {
                   hallado=new Lote();
-                  int idart=rs.getInt("idarticulo");
+                  int idart=rs.getInt("idArticulo");
                   Articulo art=Main.servicioArticulo.buscarArticuloId(idart);
-                  hallado.setId(rs.getInt("idlote"));
+                  hallado.setId(rs.getInt("idLote"));
                   hallado.setCantidad(rs.getInt("cantidad"));
                   hallado.setArticulo(art);
-                  hallado.setFechaCaducidad(rs.getDate("fcaducidad"));
-                  hallado.setFechaIngreso(rs.getDate("fechaingeso"));
+                  hallado.setFechaCaducidad(rs.getDate("fechaCaducidad"));
+                  hallado.setFechaIngreso(rs.getDate("fechaingreso"));
                   hallado.setSaldo(rs.getInt("saldo"));
               }
               conn.close();
