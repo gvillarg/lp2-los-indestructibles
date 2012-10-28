@@ -311,7 +311,7 @@ public class ServicioArticulo {
 //                                   "user=root";
             conn = DriverManager.getConnection(connectionUrl);
             //3. Se ejecuta la sentencia SQL
-            pstmt = conn.prepareStatement("SELECT * FROM ARTICULO ");
+            pstmt = conn.prepareStatement("SELECT * FROM articulo; ");
             rs =  pstmt.executeQuery();
             
             //4. Se evalúan los resultados

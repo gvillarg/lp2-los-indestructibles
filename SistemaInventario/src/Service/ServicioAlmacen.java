@@ -5,6 +5,7 @@
 
 package Service;
 import Beans.Almacen;
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
@@ -66,7 +67,45 @@ public class ServicioAlmacen {
      * @return the almacenes
      */
     public ArrayList<Almacen> getAlmacenes() {
-        return almacenes;
+        
+         Almacen almacen=null;
+        almacenes=new ArrayList<Almacen>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            //1. Se registra el driver de la BD
+            Driver myDriver = new com.mysql.jdbc.Driver();
+            //2. Se abre la conexión
+//            String connectionUrl = "jdbc:mysql://127.0.0.1/base_sistemainventario?" +
+//                                   "user=root";
+            conn = DriverManager.getConnection(connectionUrl);
+            //3. Se ejecuta la sentencia SQL
+            pstmt = conn.prepareStatement("SELECT * FROM almacen; ");
+            rs =  pstmt.executeQuery();
+            
+            //4. Se evalúan los resultados
+            while (rs.next()){
+                int id = rs.getInt("idalmacen");
+                String direccion = rs.getString("direccion");
+                int area = rs.getInt("area");
+                
+                almacen= new Almacen();
+                almacen.setId(id);
+                almacen.setDireccion(direccion);
+                almacen.setArea(String.format("%d",area));
+                almacenes.add(almacen);
+            }            
+        } 
+        catch (Exception ex) {
+            ex.printStackTrace();
+        } 
+        finally {
+             //5. Se cierra la conexión
+             try {if (rs != null) rs.close(); } 
+             catch(Exception e){e.printStackTrace();}  
+        }
+        return almacenes;    
     }
 
 }
