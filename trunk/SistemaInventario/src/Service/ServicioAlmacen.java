@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class ServicioAlmacen {
     private ArrayList<Almacen> almacenes = new ArrayList<Almacen>();
-    private String connectionUrl = "jdbc:mysql://localhost:3306/inf282g1?" + "user=inf282g1&password=anillo";
+    private String connectionUrl = "jdbc:mysql://quilla.lab.inf.pucp.edu.pe:3306/inf282g1?" + "user=inf282g1&password=anillo";
     //private int nextId=1;
 
 
