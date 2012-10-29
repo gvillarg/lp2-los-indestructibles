@@ -99,6 +99,11 @@ public class FRMListaMovimiento extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tblMovimientos);
 
         btnnuevo.setText("Nuevo");
+        btnnuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnnuevoActionPerformed(evt);
+            }
+        });
 
         btnedit.setText("Editar");
 
@@ -206,6 +211,11 @@ public class FRMListaMovimiento extends javax.swing.JInternalFrame {
         this.listaMovs=resultado;
         movimientoTableModel.fireTableChanged(null);
     }//GEN-LAST:event_btnfiltrarActionPerformed
+
+    private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
+        // TODO add here code that add new Movement (movimiento):
+        
+    }//GEN-LAST:event_btnnuevoActionPerformed
 
      class MovimTableModel extends AbstractTableModel{
 
