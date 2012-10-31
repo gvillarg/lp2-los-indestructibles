@@ -22,6 +22,7 @@ public class FRMLote extends javax.swing.JInternalFrame {
     public FRMLote() {
         initComponents();
         this.cmbarticulo.removeAllItems();
+        this.cmbalmacen.removeAllItems();
         ArrayList<Articulo>listart=Main.Main.servicioArticulo.getArticulos();
         for(Articulo e: listart)
         {
@@ -72,10 +73,6 @@ public class FRMLote extends javax.swing.JInternalFrame {
         jLabel5.setText("Artículo:");
 
         jLabel6.setText("Almacén:");
-
-        cmbarticulo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cmbalmacen.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnAcept.setText("Aceptar");
         btnAcept.addActionListener(new java.awt.event.ActionListener() {
@@ -156,7 +153,7 @@ public class FRMLote extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCancel)
                     .addComponent(btnAcept))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
@@ -176,11 +173,12 @@ public class FRMLote extends javax.swing.JInternalFrame {
         Almacen l=Main.Main.servicioAlmacen.buscarAlmacenPos(indalm);
         nuevo.setArticulo(a);
         nuevo.setCantidad(Integer.parseInt(txcant.getText()));
-        nuevo.setFechaCaducidad(new Date(txfechacad.getText()));
-        nuevo.setFechaIngreso(new Date(txfechaing.getText()));
+        nuevo.setFechaCaducidad(new Date(Date.parse(txfechacad.getText())));
+        nuevo.setFechaIngreso(new Date(Date.parse(txfechaing.getText())));
         nuevo.setSaldo(Integer.parseInt(txcant.getText()));
         //registrar los nuevo. en el init, debo grabar los almacenes y donde se ubica
         Main.Main.servicioLote.agregarLote(nuevo);
+        this.setVisible(false);
     }//GEN-LAST:event_btnAceptActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

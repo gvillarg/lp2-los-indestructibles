@@ -16,13 +16,13 @@ import java.util.Set;
  * @author Enrique Carrion
  */
 public class ServicioLote {
-    private String connectionUrl = "jdbc:mysql://quilla.lab.inf.pucp.edu.pe:3306/LP282g1?" +
-                                   "user=lp282g1&password=anillo";
+    private String connectionUrl = "jdbc:mysql://quilla.lab.inf.pucp.edu.pe:3306/inf282g1?" +
+                                   "user=inf282g1&password=anillo";
      private ArrayList<Lote> lotes = new ArrayList<Lote>() ;  
 
       private int getNextId(Connection c) throws SQLException{
         int nextId=0;
-        PreparedStatement pstmt = c.prepareStatement("SELECT MAX(IDLOTE) FROM LOTE;");
+        PreparedStatement pstmt = c.prepareStatement("SELECT MAX(IDLOTE) FROM lote;");
         ResultSet rs =  pstmt.executeQuery();
          //4. Se evalúan los resultados
         if (rs.next()){
@@ -44,14 +44,14 @@ public class ServicioLote {
             conn = DriverManager.getConnection(connectionUrl);
             //3. Se ejecuta la sentencia SQL
             String SQLString =
-                    "INSERT INTO LOTE(idLote,cantidad, fechaIngreso,fechaCaducidad,saldo,idArticulo) "
+                    "INSERT INTO lote(idLote,cantidad, fechaIngreso,fechaCaducidad,saldo,idArticulo) "
                     + "VALUES(?,?,?,?,?,?);";
             
             pstmt = conn.prepareStatement(SQLString);
             pstmt.setInt(1, getNextId(conn));
             pstmt.setInt(2,lt.getCantidad());
-            pstmt.setDate(3, (java.sql.Date)lt.getFechaIngreso());
-            pstmt.setDate(4, (java.sql.Date)lt.getFechaCaducidad());
+            pstmt.setDate(3,new java.sql.Date(lt.getFechaIngreso().getTime()) );
+            pstmt.setDate(4, new java.sql.Date(lt.getFechaCaducidad().getTime()) );
             pstmt.setInt(5, lt.getSaldo());    
             pstmt.setInt(6, lt.getArticulo().getId());               
             result =  pstmt.executeUpdate();
