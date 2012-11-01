@@ -7,18 +7,16 @@ package Vistas;
 import javax.swing.table.AbstractTableModel;
 import Beans.Cliente;
 import java.util.ArrayList;
-
+import Main.Main;
 /**
  *
  * @author Guti
  */
-public class FRMCliente extends javax.swing.JInternalFrame {
-    
-    
+public class FRMCliente extends javax.swing.JInternalFrame {    
     
     private String [] NomCol={"Id","RUC","Razon Social","Pagina Web","Pais"};
     private Cliente cliente=null;
-    private ArrayList<Cliente> clientes=Main.Main.servicioCliente.getClientes();
+    private ArrayList<Cliente> clientes=Main.servicioCliente.getClientes();
     private ClienteTableModel clienteTableModel=new ClienteTableModel();
     public FRMCliente() {
         initComponents();
@@ -26,7 +24,7 @@ public class FRMCliente extends javax.swing.JInternalFrame {
         txtId.setText("");
     }
     public void actualizarTabla(){
-        setClientes(Main.Main.servicioCliente.getClientes());
+        setClientes(Main.servicioCliente.getClientes());
         clienteTableModel.fireTableChanged(null);
     }
     public void actualizarCampos(){
@@ -325,19 +323,19 @@ public class FRMCliente extends javax.swing.JInternalFrame {
         nuevo.setEmailContacto(txtEmailContacto.getText());
         
         if (cliente==null){    
-            Main.Main.servicioCliente.agregarCliente(nuevo);
+            Main.servicioCliente.agregarCliente(nuevo);
             cliente=null;
             actualizarCampos();
         }
         else {
             nuevo.setId(cliente.getId());            
-            Main.Main.servicioCliente.editarCliente(nuevo);
+            Main.servicioCliente.editarCliente(nuevo);
         }
         actualizarTabla();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        Main.Main.servicioCliente.eliminaCliente(cliente);
+        Main.servicioCliente.eliminaCliente(cliente);
         actualizarTabla();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
