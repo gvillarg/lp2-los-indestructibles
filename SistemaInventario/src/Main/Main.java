@@ -22,8 +22,7 @@ import javax.swing.JInternalFrame;
  * @author Guti
  */
 public class Main {
-    public static String [] unidad={"Unidad","Metros","Metros cuadrados", 
-                                    "Metros cúbicos", "Litros","Cajas"};
+    public static String [] unidad={"Metros","Litros","Cajas"};
     public static String [] tipoArticulo={"Otro","Electronico","Alimenticio","Limpieza","Textil"};
     public static String [] tipoAlmacenamiento={"Otro","Frio","Fragil","Seco"};
     public static ServicioArticulo servicioArticulo = new ServicioArticulo();
