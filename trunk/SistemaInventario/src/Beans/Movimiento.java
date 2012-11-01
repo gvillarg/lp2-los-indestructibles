@@ -14,7 +14,8 @@ public class Movimiento {
      private int id;
     private ArrayList<DetalleMovimiento> detalle=new ArrayList<DetalleMovimiento>();
     private Date fecha;
-    private int tipoPedido;
+    private int tipoMovimiento;
+    private Pedido pedido;
 
      public int getId() {
         return id;
@@ -23,12 +24,22 @@ public class Movimiento {
      public void setId(int id) {
         this.id = id;
     }
+     
+     public void setPedido(Pedido p)
+     {
+         pedido=p;
+     }
 
+     public Pedido getPedido(Pedido p)
+     {
+         return pedido;
+     }
+     
      public ArrayList<DetalleMovimiento> getDetalle() {
         return detalle;
     }
 
-        public void setDetalle(ArrayList<DetalleKardex> detalle) {
+        public void setDetalle(ArrayList<DetalleMovimiento> detalle) {
         this.setDetalle(detalle);
     }
 
@@ -46,13 +57,13 @@ public class Movimiento {
         this.fecha = fecha;
     }
 
-    public int getTipoPedido()
+    public int getTipoMovimiento()
     {
-        return tipoPedido;
+        return tipoMovimiento;
     }
 
-    public void setTipoPedido(int v)
+    public void setTipoMovimiento(int v)
     {
-        tipoPedido=v;
+        tipoMovimiento=v;
     }
 }
