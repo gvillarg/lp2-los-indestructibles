@@ -24,7 +24,7 @@ public class FrmFiltrarArticulo extends javax.swing.JInternalFrame {
 
         @Override
         public int getColumnCount() {
-            return 7;
+            return 8;
         }
 
         @Override
@@ -268,8 +268,7 @@ public class FrmFiltrarArticulo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void tablaArticulosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaArticulosMouseClicked
-        int i=tablaArticulos.getSelectedRow();
-        articuloSeleccionado = Main.servicioArticulo.buscarArticuloPos(i);
+        articuloSeleccionado = articulos.get(tablaArticulos.getSelectedRow());
     }//GEN-LAST:event_tablaArticulosMouseClicked
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
