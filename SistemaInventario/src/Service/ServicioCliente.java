@@ -14,9 +14,10 @@ import java.sql.*;
  * @author Guti
  */
 public class ServicioCliente {
-    private String connectionUrl = "jdbc:mysql://localhost:3306/LP282g1?" +
-                                   "user=lp282g1&password=anillo";
-//    private String connectionUrl = "jdbc:mysql://quilla.lab.inf.pucp.edu.pe:3306/inf282g1?"+"user=inf282g1&password=anillo";
+//    private String connectionUrl = "jdbc:mysql://localhost:3306/LP282g1?" +
+//                                   "user=lp282g1&password=anillo";
+    private String connectionUrl = "jdbc:mysql://quilla.lab.inf.pucp.edu.pe:3306/inf282g1?" +
+                                    "user=inf282g1&password=anillo";
 
 //    private int nextId=1;
     private ArrayList<Cliente> clientes=new ArrayList<Cliente>();
