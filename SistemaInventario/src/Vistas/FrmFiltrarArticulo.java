@@ -57,15 +57,13 @@ public class FrmFiltrarArticulo extends javax.swing.JInternalFrame {
     public void actualizarTabla(){
         articulos = Main.servicioArticulo.getArticulos();
         articuloTableModel.fireTableChanged(null);
-    }
-    
+    }    
     public FrmFiltrarArticulo() {
         initComponents();
         llenarTipoArticulo();
         llenarTipoAlmacenamiento();
         tablaArticulos.setModel(articuloTableModel); 
         this.setClosable(true);
-
     }
     public void llenarTipoArticulo(){
         cmbTipoArticulo.removeAllItems();

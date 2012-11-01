@@ -128,9 +128,7 @@ public class FRMMantenimiento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAlmacenActionPerformed
 
     private void btnArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArticuloActionPerformed
-        // TODO add your handling code here:
         FrmFiltrarArticulo frmFiltrarArticulo=new FrmFiltrarArticulo();
-//        Main.Main.agregarVentana(frmArticulo);
         padre.agregarVentana(frmFiltrarArticulo);
         frmFiltrarArticulo.setVisible(true);
     }//GEN-LAST:event_btnArticuloActionPerformed
