@@ -285,7 +285,7 @@ public class FrmArticulo extends JDialog {
 //    }
     public String titulo(){
         if(articulo==null)
-            return "Registrar Artículo "+Main.servicioArticulo.getNextId();
+            return "Registrar Artículo ";
         else
             return "Editar Artículo"+articulo.getId();
     }
