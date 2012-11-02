@@ -4,6 +4,7 @@
  */
 package Beans;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -20,7 +21,7 @@ public class GuiaRemision {
     private double pesoTotal;
     private double total;
     private Cliente cliente;
-    private DetalleGuiaRemision detalle;
+    private ArrayList<DetalleGuiaRemision> detalle=new ArrayList<DetalleGuiaRemision>();
 
     /**
      * @return the id
@@ -151,16 +152,10 @@ public class GuiaRemision {
     /**
      * @return the detalle
      */
-    public DetalleGuiaRemision getDetalle() {
+    public ArrayList<DetalleGuiaRemision> getDetalle() {
         return detalle;
     }
-
-    /**
-     * @param detalle the detalle to set
-     */
-    public void setDetalle(DetalleGuiaRemision detalle) {
-        this.detalle = detalle;
+    public void agregarDetalle(DetalleGuiaRemision detalle){
+        this.detalle.add(detalle);
     }
-
-
 }
