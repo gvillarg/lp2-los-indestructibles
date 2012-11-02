@@ -12,7 +12,7 @@ import Vistas.FRMCliente;
  */
 public class HiloActualizaTabla extends Thread {
     FRMCliente frmCliente;
-    boolean run;
+    private boolean run=false;
     public HiloActualizaTabla(FRMCliente frmCliente){
         this.frmCliente=frmCliente;
     }
@@ -24,14 +24,18 @@ public class HiloActualizaTabla extends Thread {
             try {
                 sleep(6000);
                 frmCliente.actualizarTabla();
+                
             }catch (InterruptedException e) {
                 System.out.println(e);
                 close();
             }
         }
-        System.out.println("HiloTablaCliente interrumpido");
+        System.out.println("HiloTablaCliente terminado");
     }
     public void close(){
         this.run=false;
+    }
+    public boolean isClosed(){
+        return !run;
     }
 }

@@ -109,6 +109,7 @@ public class FrmFiltrarCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        padre.hiloActualizaCliente.interrupt();
         String nombre=txtNombre.getText();
         int ruc;
         if(txtRuc.getText().isEmpty())
