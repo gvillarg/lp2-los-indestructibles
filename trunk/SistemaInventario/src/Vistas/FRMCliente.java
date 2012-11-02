@@ -54,6 +54,11 @@ public class FRMCliente extends javax.swing.JInternalFrame {
             txtEmailContacto.setText(cliente.getEmailContacto());
         }
     }
+    public int cerrarVentana(){
+        hiloActualizaCliente.interrupt();
+        this.dispose();
+        return 1;
+    }
  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -88,6 +93,7 @@ public class FRMCliente extends javax.swing.JInternalFrame {
         btnMostrarTodo = new javax.swing.JButton();
 
         setClosable(true);
+        setDefaultCloseOperation(cerrarVentana());
         setResizable(true);
         setTitle("Cliente");
 
