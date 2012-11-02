@@ -12,9 +12,14 @@ import java.util.ArrayList;
  */
 public class Seccion {
     private int id;
-    private String tipoArticulo;
-    private boolean lleno;  //si o no
+    private int tipoArticulo;
+    private int lleno;  //si=1 y no=0
     private ArrayList<Lote> lotes = new ArrayList<Lote>();
+    
+    
+    private int estado;
+    private int tipoAlmacenamiento;
+    
     
     /**
      * @return the id
@@ -35,28 +40,28 @@ public class Seccion {
     /**
      * @return the tipoArticulo
      */
-    public String getTipoArticulo() {
+    public int getTipoArticulo() {
         return tipoArticulo;
     }
 
     /**
      * @param tipoArticulo the tipoArticulo to set
      */
-    public void setTipoArticulo(String tipoArticulo) {
+    public void setTipoArticulo(int tipoArticulo) {
         this.tipoArticulo = tipoArticulo;
     }
 
     /**
      * @return the lleno
      */
-    public boolean isLleno() {
-        return lleno;
+    public int isLleno() {
+        return getLleno();
     }
 
     /**
      * @param lleno the lleno to set
      */
-    public void setLleno(boolean lleno) {
+    public void setLleno(int lleno) {
         this.lleno = lleno;
     }
 
@@ -71,6 +76,48 @@ public class Seccion {
      * @param lotes the lotes to set
      */
     public void agregarLote(Lote lote){
-        this.lotes.add(lote);
+        this.getLotes().add(lote);
+    }
+
+    /**
+     * @return the lleno
+     */
+    public int getLleno() {
+        return lleno;
+    }
+
+    /**
+     * @param lotes the lotes to set
+     */
+    public void setLotes(ArrayList<Lote> lotes) {
+        this.lotes = lotes;
+    }
+
+    /**
+     * @return the estado
+     */
+    public int getEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    /**
+     * @return the tipoAlmacenamiento
+     */
+    public int getTipoAlmacenamiento() {
+        return tipoAlmacenamiento;
+    }
+
+    /**
+     * @param tipoAlmacenamiento the tipoAlmacenamiento to set
+     */
+    public void setTipoAlmacenamiento(int tipoAlmacenamiento) {
+        this.tipoAlmacenamiento = tipoAlmacenamiento;
     }
 }
