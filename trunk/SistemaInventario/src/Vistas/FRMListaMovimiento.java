@@ -16,14 +16,16 @@ import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 import Service.ServicioMovimiento;
 import Beans.Movimiento;
+import Hilos.HiloActualizaTablaMovim;
 /**
  *
  * @author Enrique Carrion Morales
  */
 public class FRMListaMovimiento extends javax.swing.JInternalFrame {
 
-    private MovimTableModel movimientoTableModel;
-    private ArrayList<Movimiento> listaMovsMostrar;
+   private MovimTableModel movimientoTableModel;
+    public ArrayList<Movimiento> listaMovsMostrar;
+     private HiloActualizaTablaMovim hiloActualiza=new HiloActualizaTablaMovim(this);
 
     /** Creates new form FRMListaMovimiento */
     public FRMListaMovimiento() {
@@ -31,9 +33,11 @@ public class FRMListaMovimiento extends javax.swing.JInternalFrame {
         listaMovsMostrar=Main.Main.servicioMovimiento.getMovs();
         movimientoTableModel=new MovimTableModel();
          tblMovimientos.setModel(movimientoTableModel);
-         
+         hiloActualiza.run();
     }
 
+    public javax.swing.JTextField getTxtFechaIni(){return this.txfechaini;}
+    public javax.swing.JTextField getTxtFechaFin(){return this.txfechafin;}
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -193,6 +197,7 @@ public class FRMListaMovimiento extends javax.swing.JInternalFrame {
 
     private void btnedit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnedit1ActionPerformed
         // TODO add your handling code here:
+        
 }//GEN-LAST:event_btnedit1ActionPerformed
 
     private void btnfiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfiltrarActionPerformed
@@ -212,19 +217,21 @@ public class FRMListaMovimiento extends javax.swing.JInternalFrame {
             if(fecha.after(ini) && fecha.before(fin) )
                 recibido.add(mov);
         }
-        this.listaMovsMostrar=resultado;
-        movimientoTableModel.fireTableChanged(null);
+          this.listaMovsMostrar=resultado;
+       
     }//GEN-LAST:event_btnfiltrarActionPerformed
 
+    public void actualizarTabla()
+    {
+       
+        movimientoTableModel.fireTableChanged(null);
+    }
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
         // TODO add here code that add new Movement (movimiento):
         FRMMovimiento dlg=new FRMMovimiento();
-        dlg.show();
-        this.txfechaini.setText("");
-        this.txfechafin.setText("");
-        this.listaMovsMostrar=Main.Main.servicioMovimiento.getMovs();
-        movimientoTableModel.fireTableChanged(null);
-        
+        dlg.setPadre(this);
+        dlg.setVisible(true);
+             
     }//GEN-LAST:event_btnnuevoActionPerformed
 
      class MovimTableModel extends AbstractTableModel{

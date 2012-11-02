@@ -22,7 +22,9 @@ public class FRMMovimiento extends javax.swing.JInternalFrame {
     Movimiento actual;
     boolean esNuevo;
     ArrayList<DetalleMovimiento> detalles;
-    boolean cancelado;
+    FRMListaMovimiento padre;
+    
+    public void setPadre(FRMListaMovimiento p) {this.padre=p;}
     
     class DetMovimientoTableModel extends AbstractTableModel
     {
@@ -60,16 +62,15 @@ public class FRMMovimiento extends javax.swing.JInternalFrame {
     
     public FRMMovimiento() {
         initComponents();
-        this.title="Nuevo Movimiento";
+        this.setTitle("Nuevo Movimiento");
         actual=new Movimiento();
         detalles=new ArrayList<DetalleMovimiento>();
         esNuevo=true;
-        cancelado=true;
     }
     
     public FRMMovimiento(Movimiento mov) {
         initComponents();
-        this.title=String.format("Editar movimiento #%d", mov.getId());
+        this.setTitle( String.format("Editar movimiento #%d", mov.getId()) );
         actual=mov;
         esNuevo=false;
         //llenado de datos
@@ -286,12 +287,18 @@ public class FRMMovimiento extends javax.swing.JInternalFrame {
             //en caso de ser modificacion
             Main.Main.servicioMovimiento.editarMov(actual);
         }
-        this.cancelado=false;
+        //relativo a padre
+        padre.getTxtFechaIni().setText("");
+        padre.getTxtFechaFin().setText("");
+        padre.listaMovsMostrar=Main.Main.servicioMovimiento.getMovs();
+        padre.actualizarTabla();
+        this.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        this.cancelado=true;
+        
+        this.setVisible(false);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -36,6 +36,7 @@ public class FRMMantenimiento extends javax.swing.JInternalFrame {
         btnAlmacen = new javax.swing.JButton();
         btnGuiaRemision = new javax.swing.JButton();
         btnLote = new javax.swing.JButton();
+        btnSeccion = new javax.swing.JButton();
 
         setTitle("Menú Mantenimiento");
 
@@ -76,20 +77,28 @@ public class FRMMantenimiento extends javax.swing.JInternalFrame {
             }
         });
 
+        btnSeccion.setText("Seccion");
+        btnSeccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeccionActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, btnProveedor, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, btnArticulo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, btnCliente, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .add(18, 18, 18)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(btnGuiaRemision)
-                    .add(btnLote, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 153, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(btnAlmacen, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 153, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(btnLote, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                    .add(btnAlmacen, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                    .add(btnSeccion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .add(24, 24, 24))
         );
         jPanel1Layout.setVerticalGroup(
@@ -107,7 +116,8 @@ public class FRMMantenimiento extends javax.swing.JInternalFrame {
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(btnCliente)
                     .add(btnLote))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 9, Short.MAX_VALUE)
+                .add(btnSeccion))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -118,7 +128,9 @@ public class FRMMantenimiento extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(layout.createSequentialGroup()
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -149,7 +161,6 @@ public class FRMMantenimiento extends javax.swing.JInternalFrame {
         // TODO add here your handling code that shows the Lote window:
         
         FRMLote frmLote=new FRMLote();
-//        Main.Main.agregarVentana(frmArticulo);
         padre.agregarVentana(frmLote);
         frmLote.setVisible(true);
     }//GEN-LAST:event_btnLoteActionPerformed
@@ -159,6 +170,13 @@ public class FRMMantenimiento extends javax.swing.JInternalFrame {
         padre.agregarVentana(frmFiltrarGuiaRemision);
         frmFiltrarGuiaRemision.setVisible(true);
     }//GEN-LAST:event_btnGuiaRemisionActionPerformed
+
+    private void btnSeccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeccionActionPerformed
+        // TODO add your handling code here:
+         FrmFiltrarSeccion frmSeccion=new FrmFiltrarSeccion();
+        padre.agregarVentana(frmSeccion);
+        frmSeccion.setVisible(true);
+    }//GEN-LAST:event_btnSeccionActionPerformed
 
     
     
@@ -203,6 +221,7 @@ public class FRMMantenimiento extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnGuiaRemision;
     private javax.swing.JButton btnLote;
     private javax.swing.JButton btnProveedor;
+    private javax.swing.JButton btnSeccion;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
