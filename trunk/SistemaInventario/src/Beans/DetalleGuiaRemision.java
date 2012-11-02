@@ -9,6 +9,7 @@ package Beans;
  * @author Guti
  */
 class DetalleGuiaRemision {
+    private int id;
     private Articulo articulo;
     private int cantidad;
     private int peso;
@@ -53,6 +54,20 @@ class DetalleGuiaRemision {
      */
     public void setPeso(int peso) {
         this.peso = peso;
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
     
 }
