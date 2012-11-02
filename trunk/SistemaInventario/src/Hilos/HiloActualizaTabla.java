@@ -4,17 +4,16 @@
  */
 package Hilos;
 
-import Vistas.FrmFiltrarArticulo;
+import javax.swing.JInternalFrame;
 
 /**
  *
  * @author Guti
  */
-public class HiloActualizaTablaArticulo extends Thread {
-    FrmFiltrarArticulo frmArticulo;
+public abstract class HiloActualizaTabla extends Thread{
+//    JInternalFrame ventana;
     private boolean run=false;
-    public HiloActualizaTablaArticulo(FrmFiltrarArticulo frmArticulo){
-        this.frmArticulo=frmArticulo;
+    public HiloActualizaTabla(){
     }
     @Override
     public void run(){
@@ -23,7 +22,7 @@ public class HiloActualizaTablaArticulo extends Thread {
         while(run){
             try {
                 sleep(6000);
-                frmArticulo.actualizarTabla();
+                actualizarTabla();
                 
             }catch (InterruptedException e) {
                 System.out.println(e);
@@ -38,4 +37,6 @@ public class HiloActualizaTablaArticulo extends Thread {
     public boolean isClosed(){
         return !run;
     }
+
+    public abstract void actualizarTabla();
 }

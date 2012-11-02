@@ -8,7 +8,7 @@ import javax.swing.table.AbstractTableModel;
 import Main.Main;
 import java.util.ArrayList;
 import Beans.Articulo;
-import Hilos.HiloActualizaTablaArticulo;
+import Hilos.HiloArticulo;
 /**
  *
  * @author Guti
@@ -54,7 +54,7 @@ public class FrmFiltrarArticulo extends javax.swing.JInternalFrame {
     private ArrayList<Articulo> articulos=Main.servicioArticulo.getArticulos();
     private ArticuloTableModel articuloTableModel=new ArticuloTableModel();
     private Articulo articuloSeleccionado=null;
-    private HiloActualizaTablaArticulo hiloActualizaArticulo=new HiloActualizaTablaArticulo(this);
+    private HiloArticulo hiloActualizaArticulo=new HiloArticulo(this);
     
     public void actualizarTabla(){
         articulos = Main.servicioArticulo.getArticulos();
