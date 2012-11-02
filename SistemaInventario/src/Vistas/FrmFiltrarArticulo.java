@@ -8,6 +8,7 @@ import javax.swing.table.AbstractTableModel;
 import Main.Main;
 import java.util.ArrayList;
 import Beans.Articulo;
+import Hilos.HiloActualizaTablaArticulo;
 /**
  *
  * @author Guti
@@ -53,6 +54,7 @@ public class FrmFiltrarArticulo extends javax.swing.JInternalFrame {
     private ArrayList<Articulo> articulos=Main.servicioArticulo.getArticulos();
     private ArticuloTableModel articuloTableModel=new ArticuloTableModel();
     private Articulo articuloSeleccionado=null;
+    private HiloActualizaTablaArticulo hiloActualizaArticulo=new HiloActualizaTablaArticulo(this);
     
     public void actualizarTabla(){
         articulos = Main.servicioArticulo.getArticulos();
@@ -64,6 +66,7 @@ public class FrmFiltrarArticulo extends javax.swing.JInternalFrame {
         llenarTipoAlmacenamiento();
         tablaArticulos.setModel(articuloTableModel); 
         this.setClosable(true);
+        hiloActualizaArticulo.start();
     }
     public void llenarTipoArticulo(){
         cmbTipoArticulo.removeAllItems();
