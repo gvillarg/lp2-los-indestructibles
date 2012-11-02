@@ -16,6 +16,7 @@ public class Movimiento {
     private Date fecha;
     private int tipoMovimiento;
     private Pedido pedido;
+    
 
      public int getId() {
         return id;
@@ -30,7 +31,7 @@ public class Movimiento {
          pedido=p;
      }
 
-     public Pedido getPedido(Pedido p)
+     public Pedido getPedido()
      {
          return pedido;
      }
