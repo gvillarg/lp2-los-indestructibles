@@ -23,14 +23,15 @@ import Beans.Movimiento;
 public class FRMListaMovimiento extends javax.swing.JInternalFrame {
 
     private MovimTableModel movimientoTableModel;
-    private ArrayList<Movimiento> listaMovs=Main.Main.servicioMovimiento.getMovs();
+    private ArrayList<Movimiento> listaMovsMostrar;
 
     /** Creates new form FRMListaMovimiento */
     public FRMListaMovimiento() {
         initComponents();
+        listaMovsMostrar=Main.Main.servicioMovimiento.getMovs();
         movimientoTableModel=new MovimTableModel();
          tblMovimientos.setModel(movimientoTableModel);
-
+         
     }
 
     /** This method is called from within the constructor to
@@ -124,9 +125,9 @@ public class FRMListaMovimiento extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnnuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(btnnuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnedit, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnedit1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -167,10 +168,11 @@ public class FRMListaMovimiento extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnnuevo)
-                    .addComponent(btnedit)
-                    .addComponent(btnedit1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnedit)
+                        .addComponent(btnedit1))
+                    .addComponent(btnnuevo, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
 
@@ -194,10 +196,12 @@ public class FRMListaMovimiento extends javax.swing.JInternalFrame {
 }//GEN-LAST:event_btnedit1ActionPerformed
 
     private void btnfiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfiltrarActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code that make the filtering:
         Date ini, fin;
-        ini=new Date(this.txfechaini.getText());
-        fin=new Date(this.txfechafin.getText());
+        if(this.txfechaini.getText().isEmpty() || this.txfechaini.getText().isEmpty()) return;
+        //si no está escrito las fechas, que no haga el filtrado
+        ini=new Date( Date.parse(this.txfechaini.getText()) );    // nuevo.setFechaCaducidad(new Date(Date.parse(txfechacad.getText())));
+        fin=new Date(Date.parse(this.txfechafin.getText()) );
         ArrayList<Movimiento> resultado, recibido;
         recibido=Main.Main.servicioMovimiento.getMovs();
         resultado=new ArrayList<Movimiento>();
@@ -208,38 +212,63 @@ public class FRMListaMovimiento extends javax.swing.JInternalFrame {
             if(fecha.after(ini) && fecha.before(fin) )
                 recibido.add(mov);
         }
-        this.listaMovs=resultado;
+        this.listaMovsMostrar=resultado;
         movimientoTableModel.fireTableChanged(null);
     }//GEN-LAST:event_btnfiltrarActionPerformed
 
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
         // TODO add here code that add new Movement (movimiento):
+        FRMMovimiento dlg=new FRMMovimiento();
+        dlg.show();
+        this.txfechaini.setText("");
+        this.txfechafin.setText("");
+        this.listaMovsMostrar=Main.Main.servicioMovimiento.getMovs();
+        movimientoTableModel.fireTableChanged(null);
         
     }//GEN-LAST:event_btnnuevoActionPerformed
 
      class MovimTableModel extends AbstractTableModel{
 
-         public String []NomCol={"ID","fecha","tipo de pedido"};
+         public String []NomCol={"ID","fecha","tipo de movimiento", "pedido","cantidad de detalles" };
 
         @Override
         public int getColumnCount() {
-            return 3;
+            return NomCol.length;
         }
 
         @Override
         public int getRowCount() {
-            return listaMovs.size();
+            return listaMovsMostrar.size();
         }
 
         @Override
         public Object getValueAt(int row, int column) {
-            Movimiento cliente=listaMovs.get(row);
+            Movimiento movim=listaMovsMostrar.get(row);
+            Object elem=null;
             switch(column){
-                case (0): return cliente.getId();
-                case (1): return cliente.getFecha();
-                case (2): return cliente.getTipoPedido();
+                case (0): elem= movim.getId();break;
+                case (1): elem= movim.getFecha(); break;
+                case (2): 
+                    int tm=movim.getTipoMovimiento();
+                    String tmov=null;
+                    switch (tm)
+                    {
+                        case 0:
+                            tmov="entrada";
+                            break;
+                        case 1:
+                            tmov="salida";
+                            break;
+                    }
+                    elem= tmov;
+                    break;
+                case (3): elem=movim.getPedido().getId() ; break;
+                case (4): 
+                    int cantidad=movim.getDetalle().size();
+                    elem= cantidad;
+                    break;
             }
-            return null;
+            return elem;
         }
         public String getColumnName (int col){
             return NomCol[col];

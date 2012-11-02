@@ -4,9 +4,12 @@
  */
 package Vistas;
 import Beans.Movimiento;
+import Beans.Pedido;
 import Beans.DetalleMovimiento;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 /**
  *
  * @author Enrique Carrion
@@ -19,6 +22,7 @@ public class FRMMovimiento extends javax.swing.JInternalFrame {
     Movimiento actual;
     boolean esNuevo;
     ArrayList<DetalleMovimiento> detalles;
+    boolean cancelado;
     
     class DetMovimientoTableModel extends AbstractTableModel
     {
@@ -60,6 +64,7 @@ public class FRMMovimiento extends javax.swing.JInternalFrame {
         actual=new Movimiento();
         detalles=new ArrayList<DetalleMovimiento>();
         esNuevo=true;
+        cancelado=true;
     }
     
     public FRMMovimiento(Movimiento mov) {
@@ -69,7 +74,7 @@ public class FRMMovimiento extends javax.swing.JInternalFrame {
         esNuevo=false;
         //llenado de datos
         this.txpedido.setText(""+mov.getId());
-        this.txtipoped.setText(""+mov.getTipoPedido());
+        this.cmbtipomov.setSelectedIndex(mov.getTipoMovimiento());
         detalles=mov.getDetalle();
     }
 
@@ -95,12 +100,12 @@ public class FRMMovimiento extends javax.swing.JInternalFrame {
         txcantart = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        txtipoped = new javax.swing.JTextField();
         txpedido = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        cmbtipomov = new javax.swing.JComboBox();
 
-        jLabel1.setText("Tipo de pedido:");
+        jLabel1.setText("Tipo de Movimiento:");
 
         jLabel2.setText("Pedido:");
         jLabel2.setToolTipText("");
@@ -157,14 +162,14 @@ public class FRMMovimiento extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel3))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cmbarticulos, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txcantart, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(txcantart, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbarticulos, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(cmbarticulos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -179,7 +184,7 @@ public class FRMMovimiento extends javax.swing.JInternalFrame {
                     .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         txpedido.addActionListener(new java.awt.event.ActionListener() {
@@ -188,9 +193,23 @@ public class FRMMovimiento extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton4.setText("jButton4");
+        jButton4.setText("Aceptar");
+        jButton4.setToolTipText("");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("jButton5");
+        jButton5.setText("Cancelar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        cmbtipomov.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Entrada", "Salida" }));
+        cmbtipomov.setEditor(null);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -205,13 +224,15 @@ public class FRMMovimiento extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(25, 25, 25)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtipoped, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
-                                    .addComponent(txpedido)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(75, 75, 75)
+                                        .addComponent(txpedido, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cmbtipomov, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(91, 91, 91)
                                 .addComponent(jButton4)
@@ -226,14 +247,14 @@ public class FRMMovimiento extends javax.swing.JInternalFrame {
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtipoped, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbtipomov, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txpedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
                     .addComponent(jButton5))
@@ -247,8 +268,35 @@ public class FRMMovimiento extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txpedidoActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        int mov=this.cmbtipomov.getSelectedIndex();
+        this.actual.setTipoMovimiento(mov);
+        Pedido ped=new Pedido();
+        ped.setId(Integer.parseInt(this.txpedido.getText()));
+        this.actual.setPedido(ped);
+        if(this.esNuevo)
+        {
+            //en caso de ser nuevo
+            this.actual.setDetalle(this.detalles);
+            Main.Main.servicioMovimiento.insertarMov(actual);
+        }
+        else
+        {
+            //en caso de ser modificacion
+            Main.Main.servicioMovimiento.editarMov(actual);
+        }
+        this.cancelado=false;
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        this.cancelado=true;
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cmbarticulos;
+    private javax.swing.JComboBox cmbtipomov;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -263,6 +311,5 @@ public class FRMMovimiento extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField txcantart;
     private javax.swing.JTextField txpedido;
-    private javax.swing.JTextField txtipoped;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,6 +6,7 @@
 package Service;
 import Beans.Articulo;
 import Beans.Movimiento;
+import Beans.Pedido;
 import Beans.DetalleMovimiento;
 import java.sql.*;
 import java.util.ArrayList;
@@ -59,8 +60,11 @@ public class ServicioMovimiento {
                   hallado.setId(rs.getInt("idMovimiento"));
                   hallado.setFecha(rs.getDate("fecha"));
                   hallado.setTipoMovimiento(rs.getInt("tipoMovimiento"));
+                  Pedido p=new Pedido();
+                  p.setId(rs.getInt("pedido"));
+                  hallado.setPedido(p);
                   /*
-  `pedido` 
+  `` 
   `idGuia_Remision
                    */
                   this.buscadetalle(hallado, conn);
@@ -97,52 +101,103 @@ public class ServicioMovimiento {
           rs.close();
          mov.setDetalle(detalles);
      }
-     
-	//buscamos
-	/*public Movimiento buscarMovPos(int i){
-		Movimiento mov=( i<movims.size() && i>=0) ? movims.get(i) : null;
-		return mov;
-	}*/
+ 
 
         //eliminamos un pedido por su id
 	public void eliminaMov (int id)
 	{
-		/*for (int i=0; i<movims.size(); i++)
-		{
-			if(movims.get(i).getId() == id)
-			{
-				movims.remove(i);
-				break;
-			}
-		}*/
+		Movimiento m=this.buscarMovId(id);
+                this.eliminaMov(m);
 	}
 
 	//eliminamos un pedido por Objeto
 	public void eliminaMov (Movimiento mov)
 	{
-		/*for (int i=0; i<movims.size(); i++)
-		{
-			if(movims.get(i).getId() == mov.getId()    )
-			{
-				movims.remove(i);
-				break;
-			}
-		}*/
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+            try
+            {
+                Driver myDriver = new com.mysql.jdbc.Driver();
+                conn = DriverManager.getConnection(connectionUrl);
+                String cadsql="DELETE movimiento WHERE idMovimiento=?;";
+                mov.setId(mov.getId());
+                pstmt = conn.prepareStatement(cadsql);
+                pstmt.setInt(1, mov.getId());
+                pstmt.executeUpdate();
+                /*dado que hay llave foranea y establecimos que la eliminacion sea en cascada
+                se borrara los detalles de este movimiento en la tabla detalles*/
+                conn.close();
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
 	}
 
+        public void insertarMov(Movimiento mov)
+        {
+            //Inserto el movimiento
+             Connection conn = null;
+          PreparedStatement pstmt = null;
+          try
+          {
+              Driver myDriver = new com.mysql.jdbc.Driver();
+              conn = DriverManager.getConnection(connectionUrl);
+              String cadsql="INSERT INTO movimiento values(?, ?, ?, ?, ?);";
+              mov.setId(this.getNextId(conn));
+              pstmt = conn.prepareStatement(cadsql);
+              pstmt.setInt(1, mov.getId());
+              pstmt.setDate(2,new java.sql.Date(mov.getFecha().getTime()) );
+              pstmt.setInt(3, mov.getTipoMovimiento());
+              pstmt.setInt(4, mov.getPedido().getId());
+              pstmt.setInt(5, 1);
+              pstmt.executeUpdate();
+              //vel e caso de los detalles
+              actualizardetalle(mov.getDetalle(),mov.getId() ,conn);
+          }
+          catch(Exception e){}
+        }
+        
+        private void actualizardetalle(ArrayList<DetalleMovimiento> det, int idmov, Connection conex) throws SQLException
+        {
+            //primero elimino los detalles de este elemeneto
+             String cadsql;
+            PreparedStatement pstmt = null;
+            cadsql="Delete detalle_movimiento Where idMovimiento=?;";
+            pstmt = conex.prepareStatement(cadsql);
+            pstmt.setInt(1, idmov);
+            pstmt.executeUpdate();
+            //una vez eliminado, procede con el insert
+            cadsql="insert into detalle_movimiento (cantidad, idArticulo, idMovimiento) values(?, ?, ?);";
+            pstmt=conex.prepareStatement(cadsql);
+            for(DetalleMovimiento dm : det)
+            {
+                pstmt.setInt(1,dm.getCantidad());
+                pstmt.setInt(2, dm.getArticulo().getId());
+                pstmt.setInt(3, idmov);
+                pstmt.executeUpdate();
+            }
+        }
+        
 	public void editarMov(Movimiento mov)
 	{
-		/*Movimiento mhallado=buscarMovId(mov.getId());
-		if(mhallado==null)
-		{	return;
-		}
-		else
-		{
-			mhallado.setFecha(mov.getFecha());
-			mhallado.setTipoPedido(mov.getTipoPedido());
-
-		}*/
-
+            //procedo con la edicion
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+            try
+            {
+                Driver myDriver = new com.mysql.jdbc.Driver();
+                conn = DriverManager.getConnection(connectionUrl);
+                String cadsql="Update movimiento set fecha=?, tipoMovimiento=?, pedido=? WHERE idMovimiento=?;";
+                pstmt=conn.prepareStatement(cadsql);
+                pstmt.setDate(1,new java.sql.Date(mov.getFecha().getTime()) );
+                pstmt.setInt(2, mov.getTipoMovimiento());
+                pstmt.setInt(3, mov.getPedido().getId());
+                pstmt.setInt(4, mov.getId());
+                pstmt.executeUpdate();
+                //ejecutamos la edicion de los detalles
+                actualizardetalle(mov.getDetalle(),mov.getId() ,conn);
+            }
+            catch(Exception e){e.printStackTrace();}
 	}
 
         public ArrayList<Movimiento> getMovs() {
@@ -165,8 +220,10 @@ public class ServicioMovimiento {
                   hallado.setId(rs.getInt("idMovimiento"));
                   hallado.setFecha(rs.getDate("fecha"));
                   hallado.setTipoMovimiento(rs.getInt("tipoMovimiento"));
+                  Pedido p=new Pedido();
+                  p.setId(rs.getInt("pedido"));
+                  hallado.setPedido(p);
                   /*
-  `pedido` 
   `idGuia_Remision
                    */
                   this.buscadetalle(hallado, conn);
@@ -179,8 +236,6 @@ public class ServicioMovimiento {
               e.printStackTrace();
               movims=null;
           }
-          
-          
         return movims;
     }
 }
