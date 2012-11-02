@@ -10,10 +10,10 @@ import Vistas.FRMCliente;
  *
  * @author Guti
  */
-public class HiloActualizaTabla extends Thread {
+public class HiloActualizaTablaCliente extends Thread {
     FRMCliente frmCliente;
     private boolean run=false;
-    public HiloActualizaTabla(FRMCliente frmCliente){
+    public HiloActualizaTablaCliente(FRMCliente frmCliente){
         this.frmCliente=frmCliente;
     }
     @Override

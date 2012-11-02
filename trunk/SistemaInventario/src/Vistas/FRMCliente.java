@@ -8,13 +8,13 @@ import javax.swing.table.AbstractTableModel;
 import Beans.Cliente;
 import java.util.ArrayList;
 import Main.Main;
-import Hilos.HiloActualizaTabla;
+import Hilos.HiloActualizaTablaCliente;
 /**
  *
  * @author Guti
  */
 public class FRMCliente extends javax.swing.JInternalFrame {    
-    HiloActualizaTabla hiloActualizaCliente;
+    HiloActualizaTablaCliente hiloActualizaCliente;
     private String [] NomCol={"Id","RUC","Razon Social","Pagina Web","Pais"};
     private Cliente cliente=null;
     private ArrayList<Cliente> clientes=Main.servicioCliente.getClientes();
@@ -23,7 +23,7 @@ public class FRMCliente extends javax.swing.JInternalFrame {
         initComponents();
         tblCliente.setModel(clienteTableModel);
         txtId.setText("");
-        hiloActualizaCliente=new HiloActualizaTabla(this);
+        hiloActualizaCliente=new HiloActualizaTablaCliente(this);
         hiloActualizaCliente.start();
     }
     public void actualizarTabla(){
@@ -354,10 +354,10 @@ public class FRMCliente extends javax.swing.JInternalFrame {
 
     private void btnMostrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarTodoActionPerformed
         actualizarTabla();
-//        if(hiloActualizaCliente.isClosed()){
-//            hiloActualizaCliente=new HiloActualizaTabla(this);
-//            hiloActualizaCliente.run();
-//        }
+        if(hiloActualizaCliente.isClosed()){
+            //hiloActualizaCliente=new HiloActualizaTabla(this);
+            hiloActualizaCliente.start();
+        }
     }//GEN-LAST:event_btnMostrarTodoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
