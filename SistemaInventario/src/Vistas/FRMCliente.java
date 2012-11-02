@@ -8,13 +8,13 @@ import javax.swing.table.AbstractTableModel;
 import Beans.Cliente;
 import java.util.ArrayList;
 import Main.Main;
-import Hilos.HiloActualizaTablaCliente;
+import Hilos.HiloCliente;
 /**
  *
  * @author Guti
  */
 public class FRMCliente extends javax.swing.JInternalFrame {    
-    HiloActualizaTablaCliente hiloActualizaCliente;
+    HiloCliente hiloActualizaCliente;
     private String [] NomCol={"Id","RUC","Razon Social","Pagina Web","Pais"};
     private Cliente cliente=null;
     private ArrayList<Cliente> clientes=Main.servicioCliente.getClientes();
@@ -23,7 +23,7 @@ public class FRMCliente extends javax.swing.JInternalFrame {
         initComponents();
         tblCliente.setModel(clienteTableModel);
         txtId.setText("");
-        hiloActualizaCliente=new HiloActualizaTablaCliente(this);
+        hiloActualizaCliente=new HiloCliente(this);
         hiloActualizaCliente.start();
     }
     public void actualizarTabla(){
@@ -54,11 +54,11 @@ public class FRMCliente extends javax.swing.JInternalFrame {
             txtEmailContacto.setText(cliente.getEmailContacto());
         }
     }
-    public int cerrarVentana(){
-        hiloActualizaCliente.interrupt();
-        this.dispose();
-        return 1;
-    }
+//    public int cerrarVentana(){
+//        hiloActualizaCliente.interrupt();
+//        this.dispose();
+//        return 1;
+//    }
  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -93,9 +93,9 @@ public class FRMCliente extends javax.swing.JInternalFrame {
         btnMostrarTodo = new javax.swing.JButton();
 
         setClosable(true);
-        setDefaultCloseOperation(cerrarVentana());
         setResizable(true);
         setTitle("Cliente");
+        setOpaque(true);
 
         jLabel1.setText("RUC");
 
