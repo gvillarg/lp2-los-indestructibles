@@ -63,6 +63,11 @@ public class FRMMantenimiento extends javax.swing.JInternalFrame {
         });
 
         btnGuiaRemision.setText("Guía de Remisión");
+        btnGuiaRemision.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuiaRemisionActionPerformed(evt);
+            }
+        });
 
         btnLote.setText("Lote");
         btnLote.addActionListener(new java.awt.event.ActionListener() {
@@ -148,6 +153,12 @@ public class FRMMantenimiento extends javax.swing.JInternalFrame {
         padre.agregarVentana(frmLote);
         frmLote.setVisible(true);
     }//GEN-LAST:event_btnLoteActionPerformed
+
+    private void btnGuiaRemisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiaRemisionActionPerformed
+        FrmFiltrarGuiaRemision frmFiltrarGuiaRemision=new FrmFiltrarGuiaRemision();
+        padre.agregarVentana(frmFiltrarGuiaRemision);
+        frmFiltrarGuiaRemision.setVisible(true);
+    }//GEN-LAST:event_btnGuiaRemisionActionPerformed
 
     
     

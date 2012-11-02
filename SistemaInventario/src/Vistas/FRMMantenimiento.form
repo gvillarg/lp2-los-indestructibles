@@ -110,6 +110,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Gu&#xed;a de Remisi&#xf3;n"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuiaRemisionActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnLote">
           <Properties>

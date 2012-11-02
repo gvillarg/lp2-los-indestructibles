@@ -13,9 +13,8 @@ import java.util.ArrayList;
  */
 public class ServicioGuiaRemision {
     private ArrayList<GuiaRemision> guiasRemision = new ArrayList<GuiaRemision>();
-     private String connectionUrl = "jdbc:mysql://localhost:3306/inf282g1?" + "user=inf282g1&password=anillo";
-    //private int nextId=1;
-    
+    private String connectionUrl ="jdbc:mysql://quilla.lab.inf.pucp.edu.pe:3306/inf282g1?" +
+            "user=inf282g1&password=anillo";
     public void agregarGuiaRemision(GuiaRemision guiaRemision){
 		getGuiasRemision().add(guiaRemision);
 	}
