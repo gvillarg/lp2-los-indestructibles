@@ -178,6 +178,13 @@ public class ServicioCliente {
         } catch (Exception ex) {
             ex.printStackTrace();  
         } 
+        finally {
+             //5. Se cierra la conexión
+             try{if(pstmt!=null) pstmt.close();}
+             catch(Exception e){e.printStackTrace();}
+             try{if(conn!=null) conn.close();}
+             catch(Exception e){e.printStackTrace();}
+        }
         return result;		
     }
     public ArrayList<Cliente> getClientes() {
@@ -281,8 +288,13 @@ public class ServicioCliente {
             ex.printStackTrace();
         } 
         finally {
+             //5. Se cierra la conexión
              try {if (rs != null) rs.close(); } 
              catch(Exception e){e.printStackTrace();}  
+             try{if(pstmt!=null) pstmt.close();}
+             catch(Exception e){e.printStackTrace();}
+             try{if(conn!=null) conn.close();}
+             catch(Exception e){e.printStackTrace();}
         }
         return lista;
     }

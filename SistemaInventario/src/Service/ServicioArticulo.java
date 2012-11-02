@@ -55,6 +55,12 @@ public class ServicioArticulo {
             }            
         } catch (Exception ex) {
             ex.printStackTrace();
+        }finally {
+             //5. Se cierra la conexión
+             try{if(pstmt!=null) pstmt.close();}
+             catch(Exception e){e.printStackTrace();}
+             try{if(conn!=null) conn.close();}
+             catch(Exception e){e.printStackTrace();}
         }
         return result;
     }
@@ -103,6 +109,10 @@ public class ServicioArticulo {
              //5. Se cierra la conexión
              try {if (rs != null) rs.close(); } 
              catch(Exception e){e.printStackTrace();}  
+             try{if(pstmt!=null) pstmt.close();}
+             catch(Exception e){e.printStackTrace();}
+             try{if(conn!=null) conn.close();}
+             catch(Exception e){e.printStackTrace();}
         }
         return articulo; 
     }
@@ -129,6 +139,14 @@ public class ServicioArticulo {
             }            
         } catch (Exception ex) {
             ex.printStackTrace();
+        }finally {
+             //5. Se cierra la conexión
+             try {if (rs != null) rs.close(); } 
+             catch(Exception e){e.printStackTrace();}  
+             try{if(pstmt!=null) pstmt.close();}
+             catch(Exception e){e.printStackTrace();}
+             try{if(conn!=null) conn.close();}
+             catch(Exception e){e.printStackTrace();}
         }
         return result;
     }
@@ -167,7 +185,13 @@ public class ServicioArticulo {
             }            
         } catch (Exception ex) {
             ex.printStackTrace();
-        } 
+        } finally {
+             //5. Se cierra la conexión
+             try{if(pstmt!=null) pstmt.close();}
+             catch(Exception e){e.printStackTrace();}
+             try{if(conn!=null) conn.close();}
+             catch(Exception e){e.printStackTrace();}
+        }
         return result;
     }
     public ArrayList<Articulo> getArticulos() {
@@ -217,6 +241,10 @@ public class ServicioArticulo {
              //5. Se cierra la conexión
              try {if (rs != null) rs.close(); } 
              catch(Exception e){e.printStackTrace();}  
+             try{if(pstmt!=null) pstmt.close();}
+             catch(Exception e){e.printStackTrace();}
+             try{if(conn!=null) conn.close();}
+             catch(Exception e){e.printStackTrace();}
         }
         return articulos;
     }
@@ -291,6 +319,10 @@ public class ServicioArticulo {
              //5. Se cierra la conexión
              try {if (rs != null) rs.close(); } 
              catch(Exception e){e.printStackTrace();}  
+             try{if(pstmt!=null) pstmt.close();}
+             catch(Exception e){e.printStackTrace();}
+             try{if(conn!=null) conn.close();}
+             catch(Exception e){e.printStackTrace();}
         }
         
         return lista;
