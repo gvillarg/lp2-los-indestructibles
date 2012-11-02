@@ -50,6 +50,13 @@ public class ServicioCliente {
         } catch (Exception ex) {
             ex.printStackTrace();
         } 
+        finally {
+             //5. Se cierra la conexión 
+             try{if(pstmt!=null) pstmt.close();}
+             catch(Exception e){e.printStackTrace();}
+             try{if(conn!=null) conn.close();}
+             catch(Exception e){e.printStackTrace();}
+        }
         return result;
     }
     public Cliente buscarClienteId (int id){
@@ -91,8 +98,13 @@ public class ServicioCliente {
             ex.printStackTrace();
         } 
         finally {
+             //5. Se cierra la conexión
              try {if (rs != null) rs.close(); } 
              catch(Exception e){e.printStackTrace();}  
+             try{if(pstmt!=null) pstmt.close();}
+             catch(Exception e){e.printStackTrace();}
+             try{if(conn!=null) conn.close();}
+             catch(Exception e){e.printStackTrace();}
         }
         return cliente;            
     }
@@ -119,6 +131,15 @@ public class ServicioCliente {
         } catch (Exception ex) {
             ex.printStackTrace();
         } 
+        finally {
+             //5. Se cierra la conexión
+             try {if (rs != null) rs.close(); } 
+             catch(Exception e){e.printStackTrace();}  
+             try{if(pstmt!=null) pstmt.close();}
+             catch(Exception e){e.printStackTrace();}
+             try{if(conn!=null) conn.close();}
+             catch(Exception e){e.printStackTrace();}
+        }
         return result;            
 	}
     public void eliminaCliente (Cliente cliente){
@@ -204,6 +225,10 @@ public class ServicioCliente {
              //5. Se cierra la conexión
              try {if (rs != null) rs.close(); } 
              catch(Exception e){e.printStackTrace();}  
+             try{if(pstmt!=null) pstmt.close();}
+             catch(Exception e){e.printStackTrace();}
+             try{if(conn!=null) conn.close();}
+             catch(Exception e){e.printStackTrace();}
         }
         return clientes;       
     } 

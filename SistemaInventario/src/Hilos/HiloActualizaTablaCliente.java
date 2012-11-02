@@ -27,7 +27,7 @@ public class HiloActualizaTablaCliente extends Thread {
                 
             }catch (InterruptedException e) {
                 System.out.println(e);
-                close();
+                close();//run=false;
             }
         }
         System.out.println("HiloTablaCliente terminado");

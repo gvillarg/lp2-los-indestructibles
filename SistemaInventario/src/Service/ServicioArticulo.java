@@ -292,6 +292,85 @@ public class ServicioArticulo {
              try {if (rs != null) rs.close(); } 
              catch(Exception e){e.printStackTrace();}  
         }
+        
+        return lista;
+        
+    }
+    public ArrayList<Articulo> filtrarArticulos2(int tipoArt,int tipoAlm){
+        ArrayList<Articulo> lista=new ArrayList();
+        int param=1; //numero de parametros
+        Articulo articulo=null;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            Driver myDriver = new com.mysql.jdbc.Driver();
+            conn = DriverManager.getConnection(connectionUrl);
+            String SQLString=   "SELECT * FROM articulo WHERE ";
+            if(tipoArt!= Main.tipoArticulo.length)
+                SQLString=SQLString.concat(" tipoArticulo=?");
+            if(tipoAlm!= Main.tipoAlmacenamiento.length)
+                SQLString=SQLString.concat(" AND tipoAlmacenamiento=?");
+
+            pstmt = conn.prepareStatement(SQLString);
+            
+//            if (cadena!=null){
+//                pstmt.setString(param++,"%"+cadena+"%");
+//                pstmt.setString(param++,"%"+cadena+"%");
+//            }
+//            else{
+//                pstmt.setString(param++,"%");
+//                pstmt.setString(param++,"%");
+//            }
+//            pstmt.setInt(param++,precioMin);
+//            pstmt.setInt(param++,precioMax);
+            if(tipoArt!= Main.tipoArticulo.length){
+                pstmt.setInt(param++,tipoArt);
+            }
+            if(tipoAlm!=Main.tipoAlmacenamiento.length)
+                pstmt.setInt(param++,tipoAlm);
+            rs =  pstmt.executeQuery();
+            System.out.println("conexion hecha: filtrarArticulos2");
+            
+            while (rs.next()){
+                int id = rs.getInt("idArticulo");
+                String nombre = rs.getString("nombre");
+                String descripcion = rs.getString("descripcion");
+                int tipoArticulo = rs.getInt("tipoArticulo");
+                int tipoAlmacenamiento = rs.getInt("tipoAlmacenamiento");
+                int unidad = rs.getInt("unidad"); 
+                float precio=rs.getFloat("precio");
+                int stock=rs.getInt("stock");
+                int stockMinimo=rs.getInt("stockMinimo");
+                int stockReservado=rs.getInt("stockReservado");
+                
+                articulo= new Articulo();
+                articulo.setId(id);
+                articulo.setNombre(nombre);
+                articulo.setDescripcion(descripcion);
+                articulo.setTipoArticulo(tipoArticulo);
+                articulo.setTipoAlmacenamiento(tipoAlmacenamiento);
+                articulo.setUnidad(unidad);
+                articulo.setPrecio(precio);
+                articulo.setStock(stock);
+                articulo.setStockMinimo(stockMinimo);
+                articulo.setStockReservado(stockReservado);
+                
+                lista.add(articulo);
+            }            
+        } 
+        catch (Exception ex) {
+            ex.printStackTrace();
+        } 
+        finally {
+             //5. Se cierra la conexión
+             try {if (rs != null) rs.close(); } 
+             catch(Exception e){e.printStackTrace();}  
+             try{if(pstmt!=null) pstmt.close();}
+             catch(Exception e){e.printStackTrace();}
+             try{if(conn!=null) conn.close();}
+             catch(Exception e){e.printStackTrace();}
+        }
         return lista;
     }
 }
