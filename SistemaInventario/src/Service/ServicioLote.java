@@ -27,7 +27,7 @@ public class ServicioLote {
          //4. Se evalúan los resultados
         if (rs.next()){
 //                int id = rs.getInt("IdEmpresa");
-                nextId = rs.getInt("max(idLote)"); 
+                nextId = rs.getInt("max(idLote)")+1; 
             }  
         rs.close();
         return nextId;
@@ -44,16 +44,16 @@ public class ServicioLote {
             conn = DriverManager.getConnection(connectionUrl);
             //3. Se ejecuta la sentencia SQL
             String SQLString =
-                    "INSERT INTO lote(idLote,cantidad, fechaIngreso,fechaCaducidad,saldo,idArticulo) "
-                    + "VALUES(?,?,?,?,?,?);";
+                    "INSERT INTO lote(cantidad, fechaIngreso,fechaCaducidad,saldo,idArticulo) "
+                    + "VALUES(?,?,?,?,?);";
             
             pstmt = conn.prepareStatement(SQLString);
-            pstmt.setInt(1, getNextId(conn));
-            pstmt.setInt(2,lt.getCantidad());
-            pstmt.setDate(3,new java.sql.Date(lt.getFechaIngreso().getTime()) );
-            pstmt.setDate(4, new java.sql.Date(lt.getFechaCaducidad().getTime()) );
-            pstmt.setInt(5, lt.getSaldo());    
-            pstmt.setInt(6, lt.getArticulo().getId());               
+            //pstmt.setInt(1, getNextId(conn));
+            pstmt.setInt(1,lt.getCantidad());
+            pstmt.setDate(2,new java.sql.Date(lt.getFechaIngreso().getTime()) );
+            pstmt.setDate(3, new java.sql.Date(lt.getFechaCaducidad().getTime()) );
+            pstmt.setInt(4, lt.getSaldo());    
+            pstmt.setInt(5, lt.getArticulo().getId());               
             result =  pstmt.executeUpdate();
             conn.close();
          }
