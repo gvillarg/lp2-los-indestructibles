@@ -8,12 +8,15 @@ import javax.swing.table.AbstractTableModel;
 import Beans.Cliente;
 import java.util.ArrayList;
 import Main.Main;
+import Hilos.HiloActualizaTabla;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Guti
  */
 public class FRMCliente extends javax.swing.JInternalFrame {    
-    
+    HiloActualizaTabla hiloActualizaTabla;
     private String [] NomCol={"Id","RUC","Razon Social","Pagina Web","Pais"};
     private Cliente cliente=null;
     private ArrayList<Cliente> clientes=Main.servicioCliente.getClientes();
@@ -22,6 +25,8 @@ public class FRMCliente extends javax.swing.JInternalFrame {
         initComponents();
         tblCliente.setModel(clienteTableModel);
         txtId.setText("");
+        hiloActualizaTabla=new HiloActualizaTabla(this);
+        hiloActualizaTabla.start();
     }
     public void actualizarTabla(){
         setClientes(Main.servicioCliente.getClientes());
@@ -340,6 +345,9 @@ public class FRMCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+        
+        //hilo.close();
+        hiloActualizaTabla.interrupt();
         FrmFiltrarCliente frmFiltrarCliente=new FrmFiltrarCliente(null,true);
         frmFiltrarCliente.setPadre(this);       
         frmFiltrarCliente.setVisible(true);
