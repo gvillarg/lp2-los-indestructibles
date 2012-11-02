@@ -208,8 +208,7 @@ public class ServicioCliente {
         return clientes;       
     } 
     public ArrayList<Cliente> filtrarClientes(String nombre, int ruc) {        
-        ArrayList<Cliente> lista=new ArrayList<Cliente>();   
-        int param=1;
+        ArrayList<Cliente> lista=new ArrayList<Cliente>();
         Cliente cliente=null;
         Connection conn = null;
         PreparedStatement pstmt = null;
