@@ -54,11 +54,11 @@ public class FRMLote extends javax.swing.JInternalFrame {
         cmbarticulo = new javax.swing.JComboBox();
         cmbalmacen = new javax.swing.JComboBox();
         txid = new javax.swing.JTextField();
-        txfechaing = new javax.swing.JTextField();
-        txfechacad = new javax.swing.JTextField();
         txcant = new javax.swing.JTextField();
         btnAcept = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
+        dtFechaIni = new com.standbysoft.component.date.swing.JDatePicker();
+        dtFechaFin = new com.standbysoft.component.date.swing.JDatePicker();
 
         setTitle("Lote");
 
@@ -99,8 +99,8 @@ public class FRMLote extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txfechacad))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dtFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
@@ -108,13 +108,17 @@ public class FRMLote extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel4))
-                                .addGap(21, 21, 21)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cmbarticulo, 0, 149, Short.MAX_VALUE)
-                                    .addComponent(cmbalmacen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txid)
-                                    .addComponent(txfechaing)
-                                    .addComponent(txcant)))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(21, 21, 21)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(cmbarticulo, 0, 149, Short.MAX_VALUE)
+                                            .addComponent(cmbalmacen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(txid)
+                                            .addComponent(txcant)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(dtFechaIni, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(63, 63, 63)
                         .addComponent(btnAcept)
@@ -130,13 +134,13 @@ public class FRMLote extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(txid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txfechaing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dtFechaIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
-                    .addComponent(txfechacad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -153,7 +157,7 @@ public class FRMLote extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCancel)
                     .addComponent(btnAcept))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
@@ -173,8 +177,8 @@ public class FRMLote extends javax.swing.JInternalFrame {
         Almacen l=Main.Main.servicioAlmacen.buscarAlmacenPos(indalm);
         nuevo.setArticulo(a);
         nuevo.setCantidad(Integer.parseInt(txcant.getText()));
-        nuevo.setFechaCaducidad(new Date(Date.parse(txfechacad.getText())));
-        nuevo.setFechaIngreso(new Date(Date.parse(txfechaing.getText())));
+        nuevo.setFechaCaducidad(this.dtFechaFin.getDateModel().getDate());//new Date(Date.parse(txfechacad.getText())));
+        nuevo.setFechaIngreso(this.dtFechaIni.getDateModel().getDate());//new Date(Date.parse(txfechaing.getText())));
         nuevo.setSaldo(Integer.parseInt(txcant.getText()));
         //registrar los nuevo. en el init, debo grabar los almacenes y donde se ubica
         Main.Main.servicioLote.agregarLote(nuevo);
@@ -186,6 +190,8 @@ public class FRMLote extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCancel;
     private javax.swing.JComboBox cmbalmacen;
     private javax.swing.JComboBox cmbarticulo;
+    private com.standbysoft.component.date.swing.JDatePicker dtFechaFin;
+    private com.standbysoft.component.date.swing.JDatePicker dtFechaIni;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -193,8 +199,6 @@ public class FRMLote extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField txcant;
-    private javax.swing.JTextField txfechacad;
-    private javax.swing.JTextField txfechaing;
     private javax.swing.JTextField txid;
     // End of variables declaration//GEN-END:variables
 }
