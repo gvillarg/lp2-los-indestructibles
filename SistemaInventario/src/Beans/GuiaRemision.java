@@ -18,7 +18,7 @@ public class GuiaRemision {
     private String origen;
     private String destino;
     private String transportista;
-    private double total;
+    private float total;
     private Cliente cliente;
     private ArrayList<DetalleGuiaRemision> detalle=new ArrayList<DetalleGuiaRemision>();
 
@@ -109,14 +109,14 @@ public class GuiaRemision {
     /**
      * @return the total
      */
-    public double getTotal() {
+    public float getTotal() {
         return total;
     }
 
     /**
      * @param total the total to set
      */
-    public void setTotal(double total) {
+    public void setTotal(float total) {
         this.total = total;
     }
 

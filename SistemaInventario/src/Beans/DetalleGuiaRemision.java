@@ -8,7 +8,7 @@ package Beans;
  *
  * @author Guti
  */
-class DetalleGuiaRemision {
+public class DetalleGuiaRemision {
     private int id;
     private Articulo articulo;
     private int cantidad;
