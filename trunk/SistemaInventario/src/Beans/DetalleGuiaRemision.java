@@ -12,8 +12,10 @@ class DetalleGuiaRemision {
     private int id;
     private Articulo articulo;
     private int cantidad;
-    private int peso;
-
+    
+    public float getSubtotal(){
+        return articulo.getPrecio()*cantidad;
+    }
     /**
      * @return the articulo
      */
@@ -45,16 +47,7 @@ class DetalleGuiaRemision {
     /**
      * @return the peso
      */
-    public int getPeso() {
-        return peso;
-    }
 
-    /**
-     * @param peso the peso to set
-     */
-    public void setPeso(int peso) {
-        this.peso = peso;
-    }
 
     /**
      * @return the id
