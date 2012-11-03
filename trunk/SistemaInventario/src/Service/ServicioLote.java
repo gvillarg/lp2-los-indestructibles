@@ -43,17 +43,16 @@ public class ServicioLote {
             //2. Se abre la conexión
             conn = DriverManager.getConnection(connectionUrl);
             //3. Se ejecuta la sentencia SQL
-            String SQLString =
-                    "INSERT INTO lote(cantidad, fechaIngreso,fechaCaducidad,saldo,idArticulo) "
-                    + "VALUES(?,?,?,?,?);";
-            
-            pstmt = conn.prepareStatement(SQLString);
+            String SQLString ="{call Agregalote(?,?,?,?,?)}";
+                   // "INSERT INTO lote(cantidad, fechaIngreso,fechaCaducidad,saldo,idArticulo) "
+                    //+ "VALUES(?,?,?,?,?);";
+            pstmt = conn.prepareCall(SQLString);
             //pstmt.setInt(1, getNextId(conn));
             pstmt.setInt(1,lt.getCantidad());
             pstmt.setDate(2,new java.sql.Date(lt.getFechaIngreso().getTime()) );
             pstmt.setDate(3, new java.sql.Date(lt.getFechaCaducidad().getTime()) );
             pstmt.setInt(4, lt.getSaldo());    
-            pstmt.setInt(5, lt.getArticulo().getId());               
+            pstmt.setInt(5, lt.getArticulo().getId());            
             result =  pstmt.executeUpdate();
             conn.close();
          }

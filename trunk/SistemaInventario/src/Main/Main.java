@@ -13,6 +13,7 @@ import Service.ServicioProveedor;
 import Service.ServicioLote;
 import Service.ServicioMovimiento;
 import Service.ServicioAlmacen;
+import Service.ServicioSeccion;
 import Vistas.FRMMain;
 import Vistas.FRMMantenimiento;
 import javax.swing.JInternalFrame;
@@ -34,6 +35,7 @@ public class Main {
     public static ServicioLote servicioLote=new ServicioLote();
     public static ServicioMovimiento servicioMovimiento=new ServicioMovimiento();
     public static ServicioAlmacen servicioAlmacen=new ServicioAlmacen();
+     public static ServicioSeccion servicioSeccion=new ServicioSeccion();
     private static FRMMain frmMain;//=new FRMMain();
     /**
      * @param args the command line arguments

@@ -4,17 +4,68 @@
  */
 package Vistas;
 
+import Beans.Seccion;
+import Main.Main;
+import java.util.ArrayList;
+import javax.swing.table.AbstractTableModel;
+
 /**
  *
  * @author tacbaran
  */
 public class FrmFiltrarSeccion extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form FrmFiltrarSeccion
-     */
+    class ArticuloTableModel extends AbstractTableModel{
+        
+        String [] nombreColumna = {"Código", "Tipo Articulo","Tipo Almacen", "Estado " };
+        
+        @Override
+        public int getRowCount() {
+            return secciones.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 4;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            Seccion seccion  =  secciones.get(rowIndex);
+            switch(columnIndex){
+                
+                case 0: return "" + seccion.getId();
+                case 1: return "" + seccion.getTipoArticulo();
+                case 2: return "" + seccion.getTipoAlmacenamiento();
+                case 3: return "" + seccion.getEstado();
+               
+
+            }
+            return null;
+        }
+        @Override
+        public String getColumnName(int columna){
+            return nombreColumna[columna];
+        }
+        
+        
+    }
+    
+   private ArrayList<Seccion> secciones= Main.servicioSeccion.getSecciones();
+        
+    
+    
+    
+    
     public FrmFiltrarSeccion() {
+        
+        
         initComponents();
+        //llenarTipoArticulo();
+        //llenarTipoAlmacenamiento();
+        //tablaSecciones.setModel(seccionTableModel); 
+        this.setClosable(true);
+        //hiloActualizaArticulo.start();
     }
 
     /**
@@ -37,7 +88,7 @@ public class FrmFiltrarSeccion extends javax.swing.JInternalFrame {
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Seccione");
+        setTitle("Seccion");
 
         jTextField1.setText("jTextField1");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
@@ -84,22 +135,25 @@ public class FrmFiltrarSeccion extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
+                            .addGap(30, 30, 30)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(55, 55, 55)
                             .addComponent(jButton3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGap(27, 27, 27)
                             .addComponent(jButton4)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton5))
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(70, 70, Short.MAX_VALUE))
+                            .addGap(28, 28, 28)
+                            .addComponent(jButton5))))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,13 +165,13 @@ public class FrmFiltrarSeccion extends javax.swing.JInternalFrame {
                     .addComponent(jButton1)
                     .addComponent(jButton2))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5)
+                    .addComponent(jButton3)
                     .addComponent(jButton4)
-                    .addComponent(jButton3))
-                .addGap(73, 73, 73))
+                    .addComponent(jButton5))
+                .addContainerGap())
         );
 
         pack();
