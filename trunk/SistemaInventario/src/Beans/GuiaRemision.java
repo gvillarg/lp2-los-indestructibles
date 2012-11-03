@@ -18,7 +18,6 @@ public class GuiaRemision {
     private String origen;
     private String destino;
     private String transportista;
-    private double pesoTotal;
     private double total;
     private Cliente cliente;
     private ArrayList<DetalleGuiaRemision> detalle=new ArrayList<DetalleGuiaRemision>();
@@ -105,20 +104,6 @@ public class GuiaRemision {
      */
     public void setTransportista(String transportista) {
         this.transportista = transportista;
-    }
-
-    /**
-     * @return the pesoTotal
-     */
-    public double getPesoTotal() {
-        return pesoTotal;
-    }
-
-    /**
-     * @param pesoTotal the pesoTotal to set
-     */
-    public void setPesoTotal(double pesoTotal) {
-        this.pesoTotal = pesoTotal;
     }
 
     /**
