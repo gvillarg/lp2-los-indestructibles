@@ -106,6 +106,11 @@ public class FRMListaAlmacen extends javax.swing.JInternalFrame {
         });
 
         btnMostrar.setText("Mostrar Todo");
+        btnMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -168,22 +173,26 @@ public class FRMListaAlmacen extends javax.swing.JInternalFrame {
 
     private void btnfiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfiltrarActionPerformed
         // TODO add your handling code here:
-         ArrayList<Almacen> resultado, recibido;
-        recibido=Main.servicioAlmacen.getAlmacenes();
-        resultado=new ArrayList<Almacen>();
-        for(int i=0; i<recibido.size(); i++)
-        {
-            Almacen mov=recibido.get(i);
-            String direccion=mov.getDireccion();
-            if(direccion.contains(this.txdireccion.getText()) );
-                recibido.add(mov);
-        }
-        this.listaAlmacen=resultado;
+//        ArrayList<Almacen> resultado, recibido;
+//        recibido=Main.servicioAlmacen.getAlmacenes();
+//        resultado=new ArrayList<Almacen>();
+//        for(int i=0; i<recibido.size(); i++)
+//        {
+//            Almacen mov=recibido.get(i);
+//            String direccion=mov.getDireccion();
+//            if(direccion.contains(this.txdireccion.getText()) );
+//                recibido.add(mov);
+//        }
+        listaAlmacen = Main.servicioAlmacen.getAlmacenes(this.txdireccion.getText());
         almacenTableModel.fireTableChanged(null);
     }//GEN-LAST:event_btnfiltrarActionPerformed
 
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
         // TODO add your handling code here:
+        
+        
+        
+        
     }//GEN-LAST:event_btnnuevoActionPerformed
 
     private void btneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarActionPerformed
@@ -193,6 +202,12 @@ public class FRMListaAlmacen extends javax.swing.JInternalFrame {
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btneliminarActionPerformed
+
+    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
+        // TODO add your handling code here:
+        listaAlmacen = Main.servicioAlmacen.getAlmacenes();
+        almacenTableModel.fireTableChanged(null);
+    }//GEN-LAST:event_btnMostrarActionPerformed
 
      class AlmacenTableModel extends AbstractTableModel{
 

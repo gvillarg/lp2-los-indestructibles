@@ -142,7 +142,7 @@ public class FRMMantenimiento extends javax.swing.JInternalFrame {
     
     private void btnAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlmacenActionPerformed
         // TODO add your handling code here:
-         FRMAlmacen frm=new FRMAlmacen();
+         FRMListaAlmacen frm=new FRMListaAlmacen();
         padre.agregarVentana(frm);
         frm.setVisible(true);
     }//GEN-LAST:event_btnAlmacenActionPerformed
