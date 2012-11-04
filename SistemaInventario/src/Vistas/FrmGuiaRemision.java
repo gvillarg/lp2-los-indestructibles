@@ -1,12 +1,16 @@
 package Vistas;
 
+import Beans.Articulo;
 import Beans.GuiaRemision;
-
+import java.util.ArrayList;
+import Main.Main;
 /**
  *
  * @author Guti
  */
 public class FrmGuiaRemision extends javax.swing.JDialog {
+    ArrayList<Articulo> articulos=Main.servicioArticulo.getArticulos();
+    Articulo articuloSeleccionado=articulos.get(0);
     FrmFiltrarGuiaRemision padre;
     GuiaRemision guiaRemision;
     public FrmGuiaRemision(FrmFiltrarGuiaRemision padre,java.awt.Frame parent, boolean modal,GuiaRemision guiaRemision) {
@@ -14,7 +18,9 @@ public class FrmGuiaRemision extends javax.swing.JDialog {
         initComponents();
         this.padre=padre;
         this.guiaRemision=guiaRemision;
+        llenarCmbArticulo();
     }
+    @Override
     public String getTitle(){
         if (guiaRemision==null)
             return "Registrar nueva Guia de Remision";
@@ -80,6 +86,12 @@ public class FrmGuiaRemision extends javax.swing.JDialog {
 
         jLabel7.setText("Artículo");
 
+        cmbArticulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbArticuloActionPerformed(evt);
+            }
+        });
+
         lblUnidad.setText("Unidad");
 
         btnAgregar.setText("Agregar");
@@ -101,12 +113,12 @@ public class FrmGuiaRemision extends javax.swing.JDialog {
                         .add(cmbArticulo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 151, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .add(18, 18, 18)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(btnEliminar)
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(txtCantidad, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 71, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(lblUnidad, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 48, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(btnEliminar))
-                .add(121, 121, 121))
+                        .add(lblUnidad, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 102, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .add(67, 67, 67))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -217,6 +229,12 @@ public class FrmGuiaRemision extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cmbArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbArticuloActionPerformed
+        System.out.println("seleccionado");
+        articuloSeleccionado=articulos.get(cmbArticulo.getSelectedIndex());
+        lblUnidad.setText(Main.unidad[articuloSeleccionado.getUnidad()].toString());
+    }//GEN-LAST:event_cmbArticuloActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnAgregar;
@@ -242,4 +260,9 @@ public class FrmGuiaRemision extends javax.swing.JDialog {
     private javax.swing.JTextField txtOrigen;
     private javax.swing.JTextField txtTransportista;
     // End of variables declaration//GEN-END:variables
+
+    private void llenarCmbArticulo() {
+        for(int i=0;i<articulos.size();i++)
+            cmbArticulo.addItem(articulos.get(i).getNombre());
+    }
 }
