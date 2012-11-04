@@ -27,6 +27,13 @@ public class FRMSeccion extends JDialog {
     public FRMSeccion(java.awt.Frame parent, boolean modal,Seccion seccion) {
         super(parent, modal);
         initComponents();
+        for( String opcion: Main.tipoArticulo)
+            this.cmbTipoArticulo.addItem(opcion);//agregando los tipos de articulo
+        for( String opcion: Main.tipoArticulo)
+            this.cmbTipoAlmacenamiento.addItem(opcion);
+        for( String opcion: Main.estadosSeccion)
+            this.cmbTipoArticulo.addItem(opcion);
+        
     }
 
    
