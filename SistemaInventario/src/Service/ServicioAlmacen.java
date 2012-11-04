@@ -27,7 +27,7 @@ public class ServicioAlmacen {
              Driver myDriver = new com.mysql.jdbc.Driver();
             conn = DriverManager.getConnection(connectionUrl);
             //generar codigo de almacen
-            almacen.setId(dameid(conn));
+           // almacen.setId(dameid(conn));
             //3. Se ejecuta la sentencia SQL
             pstmt = conn.prepareStatement("insert into almacen values(?, ?, ?); ");
             pstmt.setInt(1, almacen.getId());
@@ -53,14 +53,14 @@ public class ServicioAlmacen {
         
     }
     
-    private int dameid(Connection c) throws SQLException
+   /* private int dameid(Connection c) throws SQLException
     {
                 PreparedStatement pstmt = c.prepareStatement("select max(idAlmacen) from almacen; ");
                 ResultSet rs=pstmt.executeQuery();
                 int r=rs.getInt("max(idAlmacen)");
                 rs.close();
                 return r+1;
-    }
+    }*/
     public Almacen buscarAlmacenId (int id){
 		for (int i=0; i<getAlmacenes().size(); i++)
 		{
