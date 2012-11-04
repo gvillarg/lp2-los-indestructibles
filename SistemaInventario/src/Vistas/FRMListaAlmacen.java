@@ -14,6 +14,7 @@ import Service.ServicioAlmacen;
 import Beans.Almacen;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
+import Main.Main;
 /**
  *
  * @author Enrique
@@ -25,6 +26,12 @@ public class FRMListaAlmacen extends javax.swing.JInternalFrame {
     /** Creates new form FRMListaAlmacen */
     public FRMListaAlmacen() {
         initComponents();
+        
+        //paso 1
+        listaAlmacen = Main.servicioAlmacen.getAlmacenes();
+           almacenTableModel=new AlmacenTableModel();
+         tblMovimientos.setModel(almacenTableModel);
+        // hiloActualiza.run();
     }
 
     /** This method is called from within the constructor to
@@ -160,7 +167,7 @@ public class FRMListaAlmacen extends javax.swing.JInternalFrame {
     private void btnfiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfiltrarActionPerformed
         // TODO add your handling code here:
          ArrayList<Almacen> resultado, recibido;
-        recibido=Main.Main.servicioAlmacen.getAlmacenes();
+        recibido=Main.servicioAlmacen.getAlmacenes();
         resultado=new ArrayList<Almacen>();
         for(int i=0; i<recibido.size(); i++)
         {
@@ -191,7 +198,7 @@ public class FRMListaAlmacen extends javax.swing.JInternalFrame {
 
         @Override
         public int getColumnCount() {
-            return 5;
+            return 3;
         }
 
         @Override
