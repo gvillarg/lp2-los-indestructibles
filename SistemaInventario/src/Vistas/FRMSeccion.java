@@ -32,7 +32,7 @@ public class FRMSeccion extends JDialog {
         for( String opcion: Main.tipoArticulo)
             this.cmbTipoAlmacenamiento.addItem(opcion);
         for( String opcion: Main.estadosSeccion)
-            this.cmbTipoArticulo.addItem(opcion);
+            this.cmbEstado.addItem(opcion);
         
     }
 
