@@ -23,7 +23,7 @@ import javax.swing.JInternalFrame;
  * @author Guti
  */
 public class Main {
-    public static String [] unidad={"Metros","Litros","Cajas"};
+    public static String [] unidad={"Metros","Litros","Cajas","Kilogramos"};
     public static String [] tipoArticulo={"Otro","Electronico","Alimenticio","Limpieza","Textil"};
     public static String [] tipoAlmacenamiento={"Otro","Frio","Fragil","Seco"};
      public static String []  estadosSeccion={"Vacio","disponible","lleno"};
@@ -46,16 +46,6 @@ public class Main {
 //        frmMain.agregarVentana(ventana);
 //    }
     
-    public static String unidades(int i){
-        String unidad=null;
-        switch(i){
-            case 0: unidad="Kilogramos"; break;
-            case 1: unidad="Cajas";break;
-            case 2: unidad="Metros cuadrados";break;
-            case 3: unidad="Metros";break;
-        }
-        return unidad;
-    }
     
     public static void main(String[] args) {
         frmMain=new FRMMain();
