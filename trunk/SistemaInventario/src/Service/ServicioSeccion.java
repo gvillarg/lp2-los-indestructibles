@@ -52,7 +52,8 @@ public class ServicioSeccion {
 
             if (result == 0){
                 throw new Exception();
-            }            
+            }  
+            conn.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
