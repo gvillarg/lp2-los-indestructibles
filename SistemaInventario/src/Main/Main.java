@@ -26,7 +26,7 @@ public class Main {
     public static String [] unidad={"Metros","Litros","Cajas"};
     public static String [] tipoArticulo={"Otro","Electronico","Alimenticio","Limpieza","Textil"};
     public static String [] tipoAlmacenamiento={"Otro","Frio","Fragil","Seco"};
-     public static String []  estadosSeccion={"Vacion","disponible","lleno"};
+     public static String []  estadosSeccion={"Vacio","disponible","lleno"};
     public static String [] pais={"",""};
     public static ServicioArticulo servicioArticulo = new ServicioArticulo();
     public static ServicioGuiaRemision servicioGuiaRemision = new ServicioGuiaRemision();
