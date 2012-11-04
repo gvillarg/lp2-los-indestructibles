@@ -46,7 +46,7 @@ public class ServicioSeccion {
             pstmt.setInt(1, seccion.getTipoArticulo() );
             pstmt.setInt(2, seccion.getTipoAlmacenamiento());
             pstmt.setInt(3, seccion.getEstado());
-            pstmt.setInt(4, 0);
+            pstmt.setInt(4, seccion.getIdalmacen());
             result =  pstmt.executeUpdate();
             System.out.println("conexion hecha: Insert");
 
