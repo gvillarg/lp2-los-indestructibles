@@ -35,7 +35,7 @@ public class ServicioCliente {
             pstmt.setInt(1, cliente.getRuc());
             pstmt.setString(2, cliente.getRazonSocial());
             pstmt.setString(3, cliente.getWebPage());
-            pstmt.setString(4,cliente.getPais());
+            pstmt.setInt(4,cliente.getPais());
             pstmt.setString(5,cliente.getRubro());
             pstmt.setString(6, cliente.getNombreContacto());
             pstmt.setInt(7,cliente.getTelefonoContacto());
@@ -76,7 +76,7 @@ public class ServicioCliente {
                 int ruc = rs.getInt("ruc");
                 String razonSocial = rs.getString("razonSocial");
                 String webPage = rs.getString("webPage");
-                String pais = rs.getString("Pais");
+                int pais = rs.getInt("Pais");
                 String rubro = rs.getString("Rubro"); 
                 String nombreContacto=rs.getString("NombreContacto");
                 int telefonoContacto=rs.getInt("telefonoContacto");
@@ -156,13 +156,13 @@ public class ServicioCliente {
             String SQLString =
                      " UPDATE empresa "
                     +" SET ruc=?,razonSocial=?,webPage=?,pais=?,rubro=?,nombreContacto=?,telefonoContacto=?,emailContacto=?"
-                    +" WHERE IDEMPRESA=?;";
+                    +" WHERE idEmpresa=?;";
             
             pstmt = conn.prepareStatement(SQLString);
             pstmt.setInt(1, cliente.getRuc());
             pstmt.setString(2, cliente.getRazonSocial());
             pstmt.setString(3, cliente.getWebPage());
-            pstmt.setString(4,cliente.getPais());
+            pstmt.setInt(4,cliente.getPais());
             pstmt.setString(5,cliente.getRubro());
             pstmt.setString(6, cliente.getNombreContacto());
             pstmt.setInt(7,cliente.getTelefonoContacto());
@@ -205,7 +205,7 @@ public class ServicioCliente {
                 int ruc = rs.getInt("ruc");
                 String razonSocial = rs.getString("razonSocial");
                 String webPage = rs.getString("webPage");
-                String pais = rs.getString("Pais");
+                int pais = rs.getInt("Pais");
                 String rubro = rs.getString("Rubro"); 
                 String nombreContacto=rs.getString("NombreContacto");
                 int telefonoContacto=rs.getInt("telefonoContacto");
@@ -264,7 +264,7 @@ public class ServicioCliente {
                 ruc=rs.getInt("RUC");
                 String razonSocial = rs.getString("razonSocial");
                 String webPage = rs.getString("webPage");
-                String pais = rs.getString("Pais");
+                int pais = rs.getInt("Pais");
                 String rubro = rs.getString("Rubro"); 
                 String nombreContacto=rs.getString("NombreContacto");
                 int telefonoContacto=rs.getInt("telefonoContacto");

@@ -61,9 +61,9 @@
                               <Component id="txtRuc" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtRazonSocial" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtWebPage" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtPais" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtRubro" alignment="0" pref="150" max="32767" attributes="0"/>
                               <Component id="txtId" max="32767" attributes="0"/>
+                              <Component id="cmbPais" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
@@ -114,7 +114,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtPais" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cmbPais" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -127,7 +127,7 @@
                       <Component id="txtRubro" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="29" max="32767" attributes="0"/>
+                  <EmptySpace pref="30" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnNuevo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -256,8 +256,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtWebPage">
         </Component>
-        <Component class="javax.swing.JTextField" name="txtPais">
-        </Component>
         <Component class="javax.swing.JTextField" name="txtRubro">
         </Component>
         <Component class="javax.swing.JButton" name="btnGuardar">
@@ -330,6 +328,13 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMostrarTodoActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cmbPais">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

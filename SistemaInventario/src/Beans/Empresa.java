@@ -13,7 +13,7 @@ public abstract class Empresa {
     private int ruc;
     private String razonSocial;
     private String webPage;
-    private String pais;
+    private int pais;
     private String rubro;
     private String nombreContacto;
     private int telefonoContacto;
@@ -78,14 +78,14 @@ public abstract class Empresa {
     /**
      * @return the pais
      */
-    public String getPais() {
+    public int getPais() {
         return pais;
     }
 
     /**
      * @param pais the pais to set
      */
-    public void setPais(String pais) {
+    public void setPais(int pais) {
         this.pais = pais;
     }
 

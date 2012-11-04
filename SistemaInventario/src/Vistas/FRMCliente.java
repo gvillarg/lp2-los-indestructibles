@@ -21,6 +21,7 @@ public class FRMCliente extends javax.swing.JInternalFrame {
     private ClienteTableModel clienteTableModel=new ClienteTableModel();
     public FRMCliente() {
         initComponents();
+        initCmbPais();
         tblCliente.setModel(clienteTableModel);
         txtId.setText("");
         hiloActualizaCliente=new HiloCliente(this);
@@ -36,7 +37,7 @@ public class FRMCliente extends javax.swing.JInternalFrame {
             txtRuc.setText("");
             txtRazonSocial.setText("");
             txtWebPage.setText("");
-            txtPais.setText("");
+            cmbPais.setSelectedIndex(0);
             txtRubro.setText("");
             txtNombreContacto.setText("");
             txtTelefonoContacto.setText("");
@@ -47,7 +48,7 @@ public class FRMCliente extends javax.swing.JInternalFrame {
             txtRuc.setText(""+cliente.getRuc());
             txtRazonSocial.setText(cliente.getRazonSocial());
             txtWebPage.setText(cliente.getWebPage());
-            txtPais.setText(cliente.getPais());
+            cmbPais.setSelectedIndex(cliente.getPais());
             txtRubro.setText(cliente.getRubro());
             txtNombreContacto.setText(cliente.getNombreContacto());
             txtTelefonoContacto.setText(""+cliente.getTelefonoContacto());
@@ -80,7 +81,6 @@ public class FRMCliente extends javax.swing.JInternalFrame {
         txtRuc = new javax.swing.JTextField();
         txtRazonSocial = new javax.swing.JTextField();
         txtWebPage = new javax.swing.JTextField();
-        txtPais = new javax.swing.JTextField();
         txtRubro = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
@@ -91,6 +91,7 @@ public class FRMCliente extends javax.swing.JInternalFrame {
         txtId = new javax.swing.JTextField();
         btnFiltrar = new javax.swing.JButton();
         btnMostrarTodo = new javax.swing.JButton();
+        cmbPais = new javax.swing.JComboBox();
 
         setClosable(true);
         setResizable(true);
@@ -233,9 +234,9 @@ public class FRMCliente extends javax.swing.JInternalFrame {
                             .add(txtRuc)
                             .add(txtRazonSocial)
                             .add(txtWebPage)
-                            .add(txtPais)
                             .add(txtRubro, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .add(txtId))
+                            .add(txtId)
+                            .add(cmbPais, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(43, 43, 43))))
@@ -276,7 +277,7 @@ public class FRMCliente extends javax.swing.JInternalFrame {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jLabel4)
-                            .add(txtPais, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                            .add(cmbPais, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(12, 12, 12)
                         .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
@@ -284,7 +285,7 @@ public class FRMCliente extends javax.swing.JInternalFrame {
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(txtRubro, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel5))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 30, Short.MAX_VALUE)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(btnNuevo)
                     .add(btnGuardar)
@@ -325,7 +326,7 @@ public class FRMCliente extends javax.swing.JInternalFrame {
         nuevo.setRuc(Integer.parseInt(txtRuc.getText()));
         nuevo.setRazonSocial(txtRazonSocial.getText());
         nuevo.setWebPage(txtWebPage.getText());
-        nuevo.setPais(txtPais.getText());
+        nuevo.setPais(cmbPais.getSelectedIndex());
         nuevo.setRubro(txtRubro.getText());
         nuevo.setNombreContacto(txtNombreContacto.getText());
         nuevo.setTelefonoContacto(Integer.parseInt(txtTelefonoContacto.getText()));
@@ -372,6 +373,7 @@ public class FRMCliente extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnMostrarTodo;
     private javax.swing.JButton btnNuevo;
+    private javax.swing.JComboBox cmbPais;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -388,7 +390,6 @@ public class FRMCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtEmailContacto;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombreContacto;
-    private javax.swing.JTextField txtPais;
     private javax.swing.JTextField txtRazonSocial;
     private javax.swing.JTextField txtRubro;
     private javax.swing.JTextField txtRuc;
@@ -406,6 +407,12 @@ public class FRMCliente extends javax.swing.JInternalFrame {
     void recibirResultado(ArrayList<Cliente> lista) {
         setClientes(lista);
         clienteTableModel.fireTableChanged(null);  
+    }
+
+    private void initCmbPais() {
+        for(int i=0;i<Main.pais.length;i++){
+            cmbPais.addItem(Main.pais[i]);
+        }        
     }
 
     class ClienteTableModel extends AbstractTableModel{
