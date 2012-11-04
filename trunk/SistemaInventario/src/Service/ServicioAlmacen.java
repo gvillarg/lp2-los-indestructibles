@@ -36,7 +36,7 @@ public class ServicioAlmacen {
             pstmt.executeUpdate();
             //evaluando las areas
             ArrayList<Seccion>secciones=new ArrayList<Seccion>();
-            System.out.println("Insertando las secciones");
+            System.out.println("Insertando las secciones "+secciones.size());
             for(Seccion s: secciones)
             {
                 s.setIdalmacen(almacen.getId());
