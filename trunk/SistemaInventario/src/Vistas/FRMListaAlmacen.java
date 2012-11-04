@@ -44,6 +44,7 @@ public class FRMListaAlmacen extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         txdireccion = new javax.swing.JTextField();
         btnfiltrar = new javax.swing.JButton();
+        btnMostrar = new javax.swing.JButton();
 
         setTitle("Listado de almacenes");
 
@@ -95,6 +96,8 @@ public class FRMListaAlmacen extends javax.swing.JInternalFrame {
             }
         });
 
+        btnMostrar.setText("Mostrar Todo");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -104,13 +107,15 @@ public class FRMListaAlmacen extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(txdireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(212, Short.MAX_VALUE))
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnfiltrar)
-                        .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnMostrar)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -119,7 +124,7 @@ public class FRMListaAlmacen extends javax.swing.JInternalFrame {
                                 .addComponent(btnnuevo)
                                 .addGap(60, 60, 60)
                                 .addComponent(btneditar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btneliminar)
                                 .addGap(91, 91, 91)))
                         .addGap(26, 26, 26))))
@@ -132,7 +137,9 @@ public class FRMListaAlmacen extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(txdireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
-                .addComponent(btnfiltrar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnfiltrar)
+                    .addComponent(btnMostrar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -140,7 +147,7 @@ public class FRMListaAlmacen extends javax.swing.JInternalFrame {
                     .addComponent(btneliminar)
                     .addComponent(btneditar)
                     .addComponent(btnnuevo))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -208,6 +215,7 @@ public class FRMListaAlmacen extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnMostrar;
     private javax.swing.JButton btneditar;
     private javax.swing.JButton btneliminar;
     private javax.swing.JButton btnfiltrar;
