@@ -29,7 +29,9 @@ public class FRMListaAlmacen extends javax.swing.JInternalFrame {
         
         //paso 1
         listaAlmacen = Main.servicioAlmacen.getAlmacenes();
-           almacenTableModel=new AlmacenTableModel();
+        
+        //enlazamos la tabla
+        almacenTableModel=new AlmacenTableModel();
          tblMovimientos.setModel(almacenTableModel);
         // hiloActualiza.run();
     }
