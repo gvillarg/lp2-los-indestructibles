@@ -19,6 +19,7 @@ public class Seccion {
     
     private int estado;
     private int tipoAlmacenamiento;
+    private int idalmacen;
     
     
     /**
@@ -35,7 +36,12 @@ public class Seccion {
         this.id = id;
     }
 
-
+    public void setIdalmacen(int id)
+    {
+        idalmacen=id;
+    }
+    
+    public int getIdalmacen(){return idalmacen;}
 
     /**
      * @return the tipoArticulo
