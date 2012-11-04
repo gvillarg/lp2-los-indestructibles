@@ -36,11 +36,13 @@ public class ServicioAlmacen {
             pstmt.executeUpdate();
             //evaluando las areas
             ArrayList<Seccion>secciones=new ArrayList<Seccion>();
+            System.out.println("Insertando las secciones");
             for(Seccion s: secciones)
             {
                 s.setIdalmacen(almacen.getId());
                 Main.Main.servicioSeccion.agregarSeccion(s);
             }
+            System.out.printl("finalizando insercion");
         } 
         catch (Exception ex) {
             ex.printStackTrace();
