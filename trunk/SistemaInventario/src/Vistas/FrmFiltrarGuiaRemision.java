@@ -1,44 +1,68 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Vistas;
 
+import Beans.Cliente;
 import Beans.GuiaRemision;
 import javax.swing.table.AbstractTableModel;
 import Main.Main;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
  * @author Guti
  */
 public class FrmFiltrarGuiaRemision extends javax.swing.JInternalFrame {
-    GuiaRemision guiaSeleccionada=null;
-    ArrayList<GuiaRemision> guiasRemision=Main.servicioGuiaRemision.getGuiasRemision();
-    public class GuiasRemisionTableModel extends AbstractTableModel{
+    private GuiaRemision guiaSeleccionada=null;
+    private ArrayList<GuiaRemision> guiasRemision=Main.servicioGuiaRemision.getGuiasRemision();
+    private GuiaRemisionTableModel tableModel=new GuiaRemisionTableModel();
+    private ArrayList<Cliente> clientes;
 
+    private void llenarCmbCliente() {
+        clientes=Main.servicioCliente.getClientes();
+        cmbCliente.addItem("Todos los Clientes");
+        for(int i=0;i<clientes.size();i++)
+            cmbCliente.addItem(clientes.get(i).getRazonSocial());
+    }
+    class GuiaRemisionTableModel extends AbstractTableModel{
+        String [] nombreColumna={"Id","Cliente","Fecha","Origen","Destino","Total"};
         @Override
         public int getColumnCount() {
             return 6;
         }
-
         @Override
         public int getRowCount() {
             return guiasRemision.size();
         }
-
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            throw new UnsupportedOperationException("Not supported yet.");
+            GuiaRemision guia=guiasRemision.get(rowIndex);
+            switch(columnIndex){
+                case 0: return guia.getId();
+                case 1: return guia.getCliente().getRazonSocial();
+                case 2: return guia.getFecha();
+                case 3: return guia.getOrigen();
+                case 4: return guia.getDestino();
+                case 5: return guia.getTotal();
+            }
+            return null;
         }
-        
+        @Override
+        public String getColumnName(int col){
+            return nombreColumna[col];
+        }
     }
     
     public FrmFiltrarGuiaRemision() {
         initComponents();
+        tblGuiaRemision.setModel(tableModel);
+        llenarCmbCliente();
     }
-
+    public void actualizarTabla(){
+        guiasRemision=Main.servicioGuiaRemision.getGuiasRemision();
+        tableModel.fireTableDataChanged();
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -56,8 +80,8 @@ public class FrmFiltrarGuiaRemision extends javax.swing.JInternalFrame {
         btnNuevo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        jDatePicker1 = new com.standbysoft.component.date.swing.JDatePicker();
-        jDatePicker2 = new com.standbysoft.component.date.swing.JDatePicker();
+        dpDesde = new com.standbysoft.component.date.swing.JDatePicker();
+        dpHasta = new com.standbysoft.component.date.swing.JDatePicker();
 
         setClosable(true);
         setIconifiable(true);
@@ -109,6 +133,11 @@ public class FrmFiltrarGuiaRemision extends javax.swing.JInternalFrame {
         });
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
 
@@ -129,11 +158,11 @@ public class FrmFiltrarGuiaRemision extends javax.swing.JInternalFrame {
                                 .add(10, 10, 10)
                                 .add(jLabel2)
                                 .add(8, 8, 8)
-                                .add(jDatePicker1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(dpDesde, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(11, 11, 11)
                                 .add(jLabel3)
                                 .add(19, 19, 19)
-                                .add(jDatePicker2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(dpHasta, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(0, 0, Short.MAX_VALUE))))
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -161,14 +190,14 @@ public class FrmFiltrarGuiaRemision extends javax.swing.JInternalFrame {
                         .add(cmbCliente)
                         .add(jPanel1Layout.createSequentialGroup()
                             .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                                .add(jLabel1)
-                                .add(jDatePicker1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 21, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(dpDesde, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 21, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(jPanel1Layout.createSequentialGroup()
                                     .add(3, 3, 3)
                                     .add(jLabel2)))
-                            .add(0, 0, Short.MAX_VALUE)))
+                            .add(0, 0, Short.MAX_VALUE))
+                        .add(jLabel1))
                     .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, jDatePicker2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, dpHasta, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
                             .add(2, 2, 2)
                             .add(jLabel3))))
@@ -207,6 +236,11 @@ public class FrmFiltrarGuiaRemision extends javax.swing.JInternalFrame {
         frmGuiaRemision.setVisible(true);
     }//GEN-LAST:event_btnNuevoActionPerformed
 
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        FrmGuiaRemision frmGuiaRemision=new FrmGuiaRemision(this,null, true,guiaSeleccionada);
+        frmGuiaRemision.setVisible(true);
+    }//GEN-LAST:event_btnEditarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
@@ -214,8 +248,8 @@ public class FrmFiltrarGuiaRemision extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnMostrar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JComboBox cmbCliente;
-    private com.standbysoft.component.date.swing.JDatePicker jDatePicker1;
-    private com.standbysoft.component.date.swing.JDatePicker jDatePicker2;
+    private com.standbysoft.component.date.swing.JDatePicker dpDesde;
+    private com.standbysoft.component.date.swing.JDatePicker dpHasta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -196,7 +196,7 @@ public class ServicioGuiaRemision {
         try {
             Driver myDriver = new com.mysql.jdbc.Driver();
             conn = DriverManager.getConnection(connectionUrl);
-            pstmt = conn.prepareStatement("SELECT * FROM guia_remision,empresa"
+            pstmt = conn.prepareStatement("SELECT * FROM guia_remision,empresa "
                     +"WHERE guia_remision.idCliente=empresa.idEmpresa AND empresa.tipo=0; ");
             rs =  pstmt.executeQuery();
             System.out.println("conexion hecha: getGuiasRemision.guia_remision");
