@@ -51,7 +51,7 @@ public class FrmFiltrarSeccion extends javax.swing.JInternalFrame {
         
     }
     
-   private ArrayList<Seccion> secciones= Main.servicioSeccion.getSecciones();
+  private ArrayList<Seccion> secciones= new ArrayList<Seccion>();
         
     
     

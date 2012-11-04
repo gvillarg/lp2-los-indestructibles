@@ -25,7 +25,7 @@ import javax.swing.table.AbstractTableModel;
 public class FRMAlmacen extends JDialog {
 
     /** Creates new form FRMAlmacen */
-    
+    Almacen almacen; // dato mienbro
     FRMListaAlmacen padre;
     ArrayList<Seccion> secciones;
     SeccionTableModel seccionTableModel;
@@ -42,7 +42,15 @@ public class FRMAlmacen extends JDialog {
         }
         else
         {
-        
+           this.almacen=almacen;
+
+           
+            this.txtId.setText(""+almacen.getId() );
+            this.txtDireccion.setText(almacen.getDireccion() );
+            this.txtArea.setText(""+almacen.getArea() );
+            
+           secciones=Main.servicioSeccion.getSecciones(almacen);
+           
         }
         
     }
@@ -98,11 +106,11 @@ public class FRMAlmacen extends JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnAceptar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txtId = new javax.swing.JTextField();
+        txtDireccion = new javax.swing.JTextField();
+        txtArea = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -115,10 +123,10 @@ public class FRMAlmacen extends JDialog {
 
         jLabel3.setText("Area de almacen");
 
-        jButton1.setText("Aceptar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAceptarActionPerformed(evt);
             }
         });
 
@@ -158,12 +166,12 @@ public class FRMAlmacen extends JDialog {
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField1)))
+                            .addComponent(txtDireccion)
+                            .addComponent(txtArea)
+                            .addComponent(txtId)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(btnAceptar)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
@@ -183,21 +191,21 @@ public class FRMAlmacen extends JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3))
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnAceptar)
                     .addComponent(jButton2))
                 .addContainerGap())
         );
@@ -217,18 +225,38 @@ public class FRMAlmacen extends JDialog {
         //actualizar el jtablemodel
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         // TODO add your handling code here:
         
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+       if(this.almacen==null) 
+       {
+
+           almacen = new Almacen();    
+           almacen.setId( Integer.parseInt( this.txtId.getText() ) );
+           almacen.setArea(  this.txtArea.getText()  );
+           almacen.setDireccion(this.txtDireccion.getText());
+           
+           System.out.print("secciones antes de ok "+secciones.size());
+           almacen.setSecciones(secciones);
+           
+           Main.servicioAlmacen.agregarAlmacen(almacen);
+           
+       }
+       
+       // cerramos ventana
+       this.dispose();
+       
+       
+       
+       
+    }//GEN-LAST:event_btnAceptarActionPerformed
     public void setPadre(FRMListaAlmacen padre){
         this.padre=padre;
     
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnAceptar;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -236,9 +264,9 @@ public class FRMAlmacen extends JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField txtArea;
+    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtId;
     // End of variables declaration//GEN-END:variables
 
 }

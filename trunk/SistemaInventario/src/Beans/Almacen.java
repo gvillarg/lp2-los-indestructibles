@@ -14,7 +14,7 @@ public class Almacen {
     private int id;
     private String direccion;
     private String Area;
-    private ArrayList<Seccion> secciones=new ArrayList <Seccion>();
+    private ArrayList<Seccion> secciones; //=new ArrayList <Seccion>();
     /**
      * @return the id
      */
@@ -66,12 +66,13 @@ public class Almacen {
     
     public void setSecciones(ArrayList<Seccion> secs) {
         this.secciones=secs;
+        System.out.println("secciones en elemento almacen: "+secciones.size());
     }
 
     /**
      * @param secciones the secciones to set
      */
-    public void agregarSeccion(Seccion seccion) {
-        this.secciones.add(seccion);
-    }
+    //public void agregarSeccion(Seccion seccion) {
+      //  this.secciones.add(seccion);
+    //}
 }

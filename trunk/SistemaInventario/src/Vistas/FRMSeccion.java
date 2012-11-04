@@ -43,11 +43,12 @@ public class FRMSeccion extends JDialog {
         return this._seccion;
     }
     public void setPadre(FrmFiltrarSeccion padre){
-        this.padre = padre;
+        this.padre = padre;  // asi se pasa como referencia la ventana
     }  
     
     public void setPadre2(FRMAlmacen padre){
-        this._padre2 = padre;
+        this._padre2 = padre;  // asi se pasa como referencia la ventana
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
