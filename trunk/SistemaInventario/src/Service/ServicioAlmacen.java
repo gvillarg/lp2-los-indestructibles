@@ -42,7 +42,7 @@ public class ServicioAlmacen {
                 s.setIdalmacen(almacen.getId());
                 Main.Main.servicioSeccion.agregarSeccion(s);
             }
-            System.out.printl("finalizando insercion");
+            System.out.println("finalizando insercion");
         } 
         catch (Exception ex) {
             ex.printStackTrace();
