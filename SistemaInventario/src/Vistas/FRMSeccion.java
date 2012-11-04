@@ -43,13 +43,13 @@ public class FRMSeccion extends JDialog {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        txtTipoArticulo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtEstado = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        txtAlmacenamiento = new javax.swing.JTextField();
+        cmbTipoArticulo = new javax.swing.JComboBox();
+        cmbTipoAlmacenamiento = new javax.swing.JComboBox();
+        cmbEstado = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar Seccion");
@@ -57,12 +57,6 @@ public class FRMSeccion extends JDialog {
         jLabel2.setText("Tipo Articulo");
 
         jLabel3.setText("estado");
-
-        txtEstado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEstadoActionPerformed(evt);
-            }
-        });
 
         jButton1.setText("Aceptar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -85,12 +79,7 @@ public class FRMSeccion extends JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2)
-                        .addGap(47, 47, 47)
-                        .addComponent(txtTipoArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(69, 69, 69)
                         .addComponent(jButton1)
@@ -100,36 +89,36 @@ public class FRMSeccion extends JDialog {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAlmacenamiento))))
-                .addContainerGap(176, Short.MAX_VALUE))
+                            .addComponent(cmbTipoArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(cmbEstado, javax.swing.GroupLayout.Alignment.LEADING, 0, 172, Short.MAX_VALUE)
+                                .addComponent(cmbTipoAlmacenamiento, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(jLabel2))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(txtTipoArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(cmbTipoArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtAlmacenamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbTipoAlmacenamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                    .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap())
+                .addGap(31, 31, 31))
         );
 
         pack();
@@ -140,31 +129,17 @@ public class FRMSeccion extends JDialog {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void txtEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEstadoActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         
         Seccion _seccion=new Seccion();
         
-//        _seccion.setNombre(txtNombre.getText());
+//       _seccion.setNombre(txtNombre.getText());
 //        _seccion.setDescripcion(txtDescripcion.getText());
-//        _seccion.setTipoArticulo(cmbTipoArticulo.getSelectedIndex());
-//        _seccion.setTipoAlmacenamiento(cmbTipoAlmacenamiento.getSelectedIndex());
-//        _seccion.setUnidad(cmbUnidad.getSelectedIndex());
-//        _seccion.setPrecio(Float.parseFloat(txtPrecio.getText()));
-//        _seccion.setStock(Integer.parseInt(txtStock.getText()));
-//        _seccion.setStockMinimo(Integer.parseInt(txtStockMinimo.getText()));     
-        
-//        if(_seccion==null)    
-//            Main.servicioSeccion.agregarArticulo(_seccion);
-//        else {  // editar
-//            _seccion.setId(_seccion.getId());        
-//            Main.servicioSeccion.editarArticulo(_seccion);
-//        }
-       // padre.actualizarTabla();;
+        _seccion.setTipoArticulo(this.cmbTipoArticulo.getSelectedIndex());
+       _seccion.setTipoAlmacenamiento(this.cmbTipoAlmacenamiento.getSelectedIndex());
+       _seccion.setEstado(this.cmbEstado.getSelectedIndex());
+
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -173,13 +148,13 @@ public class FRMSeccion extends JDialog {
      */
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cmbEstado;
+    private javax.swing.JComboBox cmbTipoAlmacenamiento;
+    private javax.swing.JComboBox cmbTipoArticulo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField txtAlmacenamiento;
-    private javax.swing.JTextField txtEstado;
-    private javax.swing.JTextField txtTipoArticulo;
     // End of variables declaration//GEN-END:variables
 }
