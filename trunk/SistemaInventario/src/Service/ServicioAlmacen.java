@@ -40,6 +40,7 @@ public class ServicioAlmacen {
             for(Seccion s: secciones)
             {
                 s.setIdalmacen(almacen.getId());
+                System.out.println("almacen "+almacen.getId());
                 Main.Main.servicioSeccion.agregarSeccion(s);
             }
             System.out.println("finalizando insercion");
