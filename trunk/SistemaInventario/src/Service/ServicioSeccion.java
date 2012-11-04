@@ -4,12 +4,13 @@
  */
 package Service;
 
-import Beans.Articulo;
+import Beans.Almacen;
 import Beans.Seccion;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
@@ -59,55 +60,39 @@ public class ServicioSeccion {
     }
     
     
-    public ArrayList<Seccion> getSecciones() {
-        Seccion seccion=null;
-        secciones=new ArrayList<Seccion>();
+    public ArrayList<Seccion> getSecciones(Almacen almac) {
+       
         
-//        Connection conn = null;
-//        PreparedStatement pstmt = null;
-//        ResultSet rs = null;
-//        try {
-//            Driver myDriver = new com.mysql.jdbc.Driver();
-//            conn = DriverManager.getConnection(connectionUrl);
-//            pstmt = conn.prepareStatement("SELECT * FROM articulo; ");
-//            rs =  pstmt.executeQuery();
+       Connection conn = null;
+       PreparedStatement pstmt = null;
+       ResultSet rs = null;
+       ArrayList<Seccion> secciones=null;
+        try {
+          Driver myDriver = new com.mysql.jdbc.Driver();
+           conn = DriverManager.getConnection(connectionUrl);
+           pstmt = conn.prepareStatement("SELECT * FROM seccion Where idAlmacen=?; ");
+           pstmt.setInt(1, almac.getId());
+           rs =  pstmt.executeQuery();
 //            System.out.println("conexion hecha: Select");
 //            
-//            while (rs.next()){
-//                int id = rs.getInt("idArticulo");
-//                String nombre = rs.getString("nombre");
-//                String descripcion = rs.getString("descripcion");
-//                int tipoArticulo = rs.getInt("tipoArticulo");
-//                int tipoAlmacenamiento = rs.getInt("tipoAlmacenamiento");
-//                int unidad = rs.getInt("unidad"); 
-//                float precio=rs.getFloat("precio");
-//                int stock=rs.getInt("stock");
-//                int stockMinimo=rs.getInt("stockMinimo");
-//                int stockReservado=rs.getInt("stockReservado");
-//                
-//                articulo= new Articulo();
-//                articulo.setId(id);
-//                articulo.setNombre(nombre);
-//                articulo.setDescripcion(descripcion);
-//                articulo.setTipoArticulo(tipoArticulo);
-//                articulo.setTipoAlmacenamiento(tipoAlmacenamiento);
-//                articulo.setUnidad(unidad);
-//                articulo.setPrecio(precio);
-//                articulo.setStock(stock);
-//                articulo.setStockMinimo(stockMinimo);
-//                articulo.setStockReservado(stockReservado);
-//                
-//                articulos.add(articulo);
-//            }            
-//        } 
-//        catch (Exception ex) {
-//            ex.printStackTrace();
-//        } 
-//        finally {
-//             //5. Se cierra la conexión
-//             try {if (rs != null) rs.close(); } 
-//             catch(Exception e){e.printStackTrace();}  
-//        }
+            while (rs.next()){
+//                int id = rs.getInt("idSeccion");
+                Seccion seccion=new Seccion();
+                seccion.setId(rs.getInt("idSeccion"));
+                seccion.setTipoArticulo(rs.getInt("tipoArticulo"));
+                seccion.setTipoAlmacenamiento(rs.getInt("tipoAlmacenamiento"));
+                seccion.setEstado(rs.getInt("estado"));
+                secciones.add(seccion);
+            }            
+       } 
+        catch (Exception ex) {
+           ex.printStackTrace();
+       } 
+       finally {
+            //5. Se cierra la conexión
+             try {if (rs != null) rs.close(); } 
+             catch(Exception e){e.printStackTrace(); secciones=null;}  
+       }
          return secciones;
     }
     
