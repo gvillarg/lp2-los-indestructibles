@@ -11,17 +11,81 @@
 
 package Vistas;
 
+import Beans.Almacen;
+import Beans.Seccion;
+import Main.Main;
+import java.util.ArrayList;
+import javax.swing.JDialog;
+import javax.swing.table.AbstractTableModel;
+
 /**
  *
  * @author el Kike 
  */
-public class FRMAlmacen extends javax.swing.JInternalFrame {
+public class FRMAlmacen extends JDialog {
 
     /** Creates new form FRMAlmacen */
-    public FRMAlmacen() {
+    
+    FRMListaAlmacen padre;
+    ArrayList<Seccion> secciones;
+    SeccionTableModel seccionTableModel;
+    
+    public FRMAlmacen(java.awt.Frame parent, boolean modal,Almacen almacen) {
+        super(parent, modal);
         initComponents();
+        
+        seccionTableModel = new SeccionTableModel();
+        this.jTable1.setModel(seccionTableModel);
+        
+        if(almacen==null){
+            secciones = new  ArrayList<Seccion>();
+        }
+        else
+        {
+        
+        }
+        
     }
+    class SeccionTableModel extends AbstractTableModel{
+        
+        String [] nombreColumna = {"Código", "Tipo Articulo","Tipo Almacen", "Estado " };
+        
+        @Override
+        public int getRowCount() {
+            return secciones.size();
+        }
 
+        @Override
+        public int getColumnCount() {
+            return 4;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            Seccion seccion  =  secciones.get(rowIndex);
+            switch(columnIndex){
+                
+                case 0: return "" + seccion.getId();
+                case 1: return  Main.tipoArticulo[ seccion.getTipoArticulo() ] ;
+                case 2: return  Main.tipoAlmacenamiento[seccion.getTipoAlmacenamiento()];
+                case 3: return  Main.estadosSeccion[seccion.getEstado()];
+               
+
+            }
+            return null;
+        }
+        @Override
+        public String getColumnName(int columna){
+            return nombreColumna[columna];
+        }
+        
+        
+    }
+    
+    public void actualizarTabla(){
+       // secciones = Main.servicioArticulo.getArticulos();
+        seccionTableModel.fireTableChanged(null);
+    } 
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -52,6 +116,11 @@ public class FRMAlmacen extends javax.swing.JInternalFrame {
         jLabel3.setText("Area de almacen");
 
         jButton1.setText("Aceptar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancelar");
 
@@ -126,7 +195,7 @@ public class FRMAlmacen extends javax.swing.JInternalFrame {
                     .addComponent(jButton3))
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -140,10 +209,23 @@ public class FRMAlmacen extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         
         FRMSeccion frmSeccion =new FRMSeccion(null,true,null);
-       // frmSeccion.setPadre(this);
+        frmSeccion.setPadre2(this);
         frmSeccion.setVisible(true);
+        frmSeccion.getSeccion();
+        this.secciones.add(frmSeccion.getSeccion());
+        
+        //actualizar el jtablemodel
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+    public void setPadre(FRMListaAlmacen padre){
+        this.padre=padre;
+    
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

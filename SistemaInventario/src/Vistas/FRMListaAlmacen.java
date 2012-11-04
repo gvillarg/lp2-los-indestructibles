@@ -26,7 +26,7 @@ public class FRMListaAlmacen extends javax.swing.JInternalFrame {
     /** Creates new form FRMListaAlmacen */
     public FRMListaAlmacen() {
         initComponents();
-        
+       this.setClosable(true); 
         //paso 1
         listaAlmacen = Main.servicioAlmacen.getAlmacenes();
         
@@ -190,6 +190,9 @@ public class FRMListaAlmacen extends javax.swing.JInternalFrame {
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
         // TODO add your handling code here:
         
+        FRMAlmacen frmAlmacen=new FRMAlmacen(null,true,null);
+        frmAlmacen.setPadre(this);//pasamos referencia para enlazar
+        frmAlmacen.setVisible(true);
         
         
         
