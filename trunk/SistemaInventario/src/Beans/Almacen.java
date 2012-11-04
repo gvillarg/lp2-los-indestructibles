@@ -63,6 +63,10 @@ public class Almacen {
     public ArrayList<Seccion> getSecciones() {
         return secciones;
     }
+    
+    public void setSecciones(ArrayList<Seccion> secs) {
+        this.secciones=secs;
+    }
 
     /**
      * @param secciones the secciones to set
