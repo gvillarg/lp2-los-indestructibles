@@ -30,6 +30,7 @@ public class ServicioSeccion {
         int result =0;
         Connection conn = null;
         PreparedStatement pstmt = null;
+        System.out.println("Insert "+seccion.getId()+" "+seccion.getEstado()+" "+seccion.getTipoArticulo());
         try {
             Driver myDriver = new com.mysql.jdbc.Driver();
             conn = DriverManager.getConnection(connectionUrl);
