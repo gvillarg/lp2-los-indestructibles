@@ -55,9 +55,9 @@ public class ServicioAlmacen {
     
     private int dameid(Connection c) throws SQLException
     {
-                PreparedStatement pstmt = c.prepareStatement("select max(idAlmacen) as codmax from almacen; ");
+                PreparedStatement pstmt = c.prepareStatement("select max(idAlmacen) from almacen; ");
                 ResultSet rs=pstmt.executeQuery();
-                int r=rs.getInt("codmax");
+                int r=rs.getInt("max(idAlmacen)");
                 rs.close();
                 return r+1;
     }
