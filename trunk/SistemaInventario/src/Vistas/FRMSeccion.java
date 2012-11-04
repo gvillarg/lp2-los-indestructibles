@@ -20,7 +20,9 @@ public class FRMSeccion extends JDialog {
 
     
     FrmFiltrarSeccion padre =null;
-
+    
+    FRMAlmacen _padre2= null;
+    Seccion _seccion;
     /**
      * Creates new form FRMSeccion
      */
@@ -36,10 +38,17 @@ public class FRMSeccion extends JDialog {
         
     }
 
-   
+    public Seccion getSeccion()
+    {
+        return this._seccion;
+    }
     public void setPadre(FrmFiltrarSeccion padre){
         this.padre = padre;
     }  
+    
+    public void setPadre2(FRMAlmacen padre){
+        this._padre2 = padre;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -138,14 +147,26 @@ public class FRMSeccion extends JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
-        Seccion _seccion=new Seccion();
-        
-//       _seccion.setNombre(txtNombre.getText());
-//        _seccion.setDescripcion(txtDescripcion.getText());
+        if(_seccion==null)
+        {//ingreso de datos a la base de datos
+         _seccion=new Seccion();
         _seccion.setTipoArticulo(this.cmbTipoArticulo.getSelectedIndex());
        _seccion.setTipoAlmacenamiento(this.cmbTipoAlmacenamiento.getSelectedIndex());
        _seccion.setEstado(this.cmbEstado.getSelectedIndex());
+       
+       
+        }
+        else{
+            _seccion.setTipoArticulo(this.cmbTipoArticulo.getSelectedIndex());
+       _seccion.setTipoAlmacenamiento(this.cmbTipoAlmacenamiento.getSelectedIndex());
+       _seccion.setEstado(this.cmbEstado.getSelectedIndex());
+        }
+        
+        
+        if(_padre2!=null)
+         _padre2.actualizarTabla();   
+            
+       
 
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -164,4 +185,8 @@ public class FRMSeccion extends JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
+
+    void setPadre(FRMAlmacen aThis) {
+       
+    }
 }

@@ -186,6 +186,8 @@ public class FrmFiltrarSeccion extends javax.swing.JInternalFrame {
         FRMSeccion frmSeccion =new FRMSeccion(null,true,null);
         frmSeccion.setPadre(this);
         frmSeccion.setVisible(true);
+        //una vez creado la nueva seccion, actualizar tabla
+       
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
