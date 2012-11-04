@@ -39,7 +39,7 @@ public class ServicioSeccion {
                     "INSERT INTO seccion(tipoArticulo, "
                     +"tipoAlmacenamiento,estado,idAlmacen"
                     + ") "
-                    + "VALUES(?,?,?,?)";
+                    + "VALUES(?,?,?,?);";
             
             pstmt = conn.prepareStatement(SQLString);
             
@@ -48,7 +48,7 @@ public class ServicioSeccion {
             pstmt.setInt(3, seccion.getEstado());
             pstmt.setInt(4, seccion.getIdalmacen());
             result =  pstmt.executeUpdate();
-            System.out.println("conexion hecha: Insert");
+            System.out.println("conexion hecha: Insert de seccion"+seccion.getId());
 
             if (result == 0){
                 throw new Exception();
