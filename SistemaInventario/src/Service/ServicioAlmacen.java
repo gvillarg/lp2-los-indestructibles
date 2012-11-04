@@ -5,6 +5,7 @@
 
 package Service;
 import Beans.Almacen;
+import Beans.Seccion;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -19,8 +20,46 @@ public class ServicioAlmacen {
 
 
     public void agregarAlmacen(Almacen almacen){
-        //almacen.setId(nextId++);
-        getAlmacenes().add(almacen);
+         Connection conn = null;
+        PreparedStatement pstmt = null;
+        try
+        {
+             Driver myDriver = new com.mysql.jdbc.Driver();
+            conn = DriverManager.getConnection(connectionUrl);
+            //generar codigo de almacen
+            almacen.setId(dameid(conn));
+            //3. Se ejecuta la sentencia SQL
+            pstmt = conn.prepareStatement("insert into almacen values(?, ?, ?); ");
+            pstmt.setInt(1, almacen.getId());
+            pstmt.setString(2, almacen.getDireccion());
+            pstmt.setInt(3, Integer.parseInt(almacen.getArea()) );
+            pstmt.executeUpdate();
+            //evaluando las areas
+            ArrayList<Seccion>secciones=new ArrayList<Seccion>();
+            for(Seccion s: secciones)
+            {
+                s.setIdalmacen(almacen.getId());
+                Main.Main.servicioSeccion.agregarSeccion(s);
+            }
+        } 
+        catch (Exception ex) {
+            ex.printStackTrace();
+        } 
+        finally {
+             //5. Se cierra la conexión
+             try {if (conn != null) conn.close(); } 
+             catch(Exception e){e.printStackTrace();}  
+        }
+        
+    }
+    
+    private int dameid(Connection c) throws SQLException
+    {
+                PreparedStatement pstmt = c.prepareStatement("select max(idAlmacen) from almacen; ");
+                ResultSet rs=pstmt.executeQuery();
+                int r=rs.getInt(0);
+                rs.close();
+                return r;
     }
     public Almacen buscarAlmacenId (int id){
 		for (int i=0; i<getAlmacenes().size(); i++)
