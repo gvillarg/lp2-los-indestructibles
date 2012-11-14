@@ -1,9 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Hilos;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
 
 /**
@@ -22,8 +20,7 @@ public abstract class HiloActualizaTabla extends Thread{
         while(run){
             try {
                 sleep(6000);
-                actualizarTabla();
-                
+                actualizarTabla();                
             }catch (InterruptedException e) {
                 System.out.println(e);
                 close();
