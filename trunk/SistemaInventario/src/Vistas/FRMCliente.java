@@ -25,7 +25,7 @@ public class FRMCliente extends javax.swing.JInternalFrame {
         tblCliente.setModel(clienteTableModel);
         txtId.setText("");
         hiloActualizaCliente=new HiloCliente(this);
-        hiloActualizaCliente.start();
+        hiloActualizaCliente.run();
     }
     public void actualizarTabla(){
         clientes=Main.servicioCliente.getClientes();
