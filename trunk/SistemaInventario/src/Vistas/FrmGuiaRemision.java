@@ -95,6 +95,11 @@ public class FrmGuiaRemision extends javax.swing.JDialog {
         lblUnidad.setText("Unidad");
 
         btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
 
@@ -234,6 +239,10 @@ public class FrmGuiaRemision extends javax.swing.JDialog {
         articuloSeleccionado=articulos.get(cmbArticulo.getSelectedIndex());
         lblUnidad.setText(Main.unidad[articuloSeleccionado.getUnidad()].toString());
     }//GEN-LAST:event_cmbArticuloActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;

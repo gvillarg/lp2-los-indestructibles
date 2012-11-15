@@ -2,6 +2,7 @@ package Vistas;
 
 import Beans.Cliente;
 import Beans.GuiaRemision;
+import Hilos.HiloGuiaRemision;
 import javax.swing.table.AbstractTableModel;
 import Main.Main;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class FrmFiltrarGuiaRemision extends javax.swing.JInternalFrame {
     private ArrayList<GuiaRemision> guiasRemision=Main.servicioGuiaRemision.getGuiasRemision();
     private GuiaRemisionTableModel tableModel=new GuiaRemisionTableModel();
     private ArrayList<Cliente> clientes;
-
+    private HiloGuiaRemision hiloGuiaRemision=new HiloGuiaRemision(this);
     private void llenarCmbCliente() {
         clientes=Main.servicioCliente.getClientes();
         cmbCliente.addItem("Todos los Clientes");
@@ -57,6 +58,7 @@ public class FrmFiltrarGuiaRemision extends javax.swing.JInternalFrame {
         initComponents();
         tblGuiaRemision.setModel(tableModel);
         llenarCmbCliente();
+        hiloGuiaRemision.start();
     }
     public void actualizarTabla(){
         guiasRemision=Main.servicioGuiaRemision.getGuiasRemision();
@@ -96,8 +98,18 @@ public class FrmFiltrarGuiaRemision extends javax.swing.JInternalFrame {
         jLabel3.setText("Hasta");
 
         btnFiltrar.setText("Filtrar");
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
 
         btnMostrar.setText("Mostrar Todo");
+        btnMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Guias de Remisión"));
 
@@ -186,21 +198,20 @@ public class FrmFiltrarGuiaRemision extends javax.swing.JInternalFrame {
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(cmbCliente)
-                        .add(jPanel1Layout.createSequentialGroup()
-                            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                                .add(dpDesde, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 21, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(jPanel1Layout.createSequentialGroup()
-                                    .add(3, 3, 3)
-                                    .add(jLabel2)))
-                            .add(0, 0, Short.MAX_VALUE))
-                        .add(jLabel1))
-                    .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, dpHasta, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
-                            .add(2, 2, 2)
-                            .add(jLabel3))))
+                    .add(cmbCliente)
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jPanel1Layout.createSequentialGroup()
+                                .add(3, 3, 3)
+                                .add(jLabel2))
+                            .add(dpDesde, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 21, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel1)
+                            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, dpHasta, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .add(2, 2, 2)
+                                    .add(jLabel3))))
+                        .add(0, 0, Short.MAX_VALUE)))
                 .add(18, 18, 18)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(btnFiltrar)
@@ -240,6 +251,20 @@ public class FrmFiltrarGuiaRemision extends javax.swing.JInternalFrame {
         FrmGuiaRemision frmGuiaRemision=new FrmGuiaRemision(this,null, true,guiaSeleccionada);
         frmGuiaRemision.setVisible(true);
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
+        actualizarTabla();        
+    }//GEN-LAST:event_btnMostrarActionPerformed
+
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+        int i_cliente=cmbCliente.getSelectedIndex();
+        Cliente cliente=null;
+        if(i_cliente!=0)
+            cliente=Main.servicioCliente.buscarClientePos(i_cliente-1);
+        Date fechaInicial,fechaFinal;
+        fechaInicial=dpDesde.getSelectedDate();
+        fechaFinal=dpHasta.getSelectedDate();
+    }//GEN-LAST:event_btnFiltrarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
