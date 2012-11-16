@@ -25,7 +25,7 @@ public class FRMCliente extends javax.swing.JInternalFrame {
         tblCliente.setModel(clienteTableModel);
         txtId.setText("");
         hiloActualizaCliente=new HiloCliente(this);
-        hiloActualizaCliente.run();
+        hiloActualizaCliente.start();
     }
     public void actualizarTabla(){
         clientes=Main.servicioCliente.getClientes();
@@ -435,7 +435,7 @@ public class FRMCliente extends javax.swing.JInternalFrame {
                 case (1): return cliente.getRuc();
                 case (2): return cliente.getRazonSocial();
                 case (3): return cliente.getWebPage();
-                case (4): return cliente.getPais();
+                case (4): return Main.pais[cliente.getPais()];
 //                case (5): return cliente.getRubro();
 //                case (6): return cliente.getNombreContacto();
 //                case (7): return cliente.getTelefonoContacto();

@@ -1,24 +1,58 @@
 package Vistas;
 
 import Beans.Articulo;
+import Beans.DetalleGuiaRemision;
 import Beans.GuiaRemision;
 import java.util.ArrayList;
 import Main.Main;
+import javax.swing.table.AbstractTableModel;
 /**
  *
  * @author Guti
  */
 public class FrmGuiaRemision extends javax.swing.JDialog {
     ArrayList<Articulo> articulos=Main.servicioArticulo.getArticulos();
+    ArrayList<DetalleGuiaRemision> detalles=new ArrayList<DetalleGuiaRemision>();
     Articulo articuloSeleccionado=articulos.get(0);
     FrmFiltrarGuiaRemision padre;
     GuiaRemision guiaRemision;
+    DetalleTableModel tableModel=new DetalleTableModel();
+    class DetalleTableModel extends AbstractTableModel{
+        String nomColumna[]={"Id","Nombre","Precio","Cantidad","Unidad"};
+        @Override
+        public int getRowCount() {
+            return articulos.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 5;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            DetalleGuiaRemision detalle=detalles.get(rowIndex);
+            switch(columnIndex){
+                case 0: return detalle.getArticulo().getId();
+                case 1: return detalle.getArticulo().getNombre();
+                case 2: return detalle.getArticulo().getPrecio();
+                case 3: return detalle.getCantidad();
+                case 4: return Main.unidad[detalle.getArticulo().getUnidad()];
+            }
+            return null;
+        }
+        public String getColumnName(int col){
+            return nomColumna[col];
+        }
+    }
+    
     public FrmGuiaRemision(FrmFiltrarGuiaRemision padre,java.awt.Frame parent, boolean modal,GuiaRemision guiaRemision) {
         super(parent, modal);
         initComponents();
         this.padre=padre;
         this.guiaRemision=guiaRemision;
         llenarCmbArticulo();
+        tblDetalleGuiaRemision.setModel(tableModel);
     }
     @Override
     public String getTitle(){
@@ -237,11 +271,18 @@ public class FrmGuiaRemision extends javax.swing.JDialog {
     private void cmbArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbArticuloActionPerformed
         System.out.println("seleccionado");
         articuloSeleccionado=articulos.get(cmbArticulo.getSelectedIndex());
-        lblUnidad.setText(Main.unidad[articuloSeleccionado.getUnidad()].toString());
+        lblUnidad.setText(Main.unidad[articuloSeleccionado.getUnidad()]);
     }//GEN-LAST:event_cmbArticuloActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
+        DetalleGuiaRemision detalle=new DetalleGuiaRemision();
+        
+        Articulo articulo=articulos.get(cmbArticulo.getSelectedIndex());
+        detalle.setArticulo(articulo);
+        detalle.setCantidad(Integer.parseInt(txtCantidad.getText()));
+        
+        detalles.add(detalle);
+        tableModel.fireTableChanged(null);
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

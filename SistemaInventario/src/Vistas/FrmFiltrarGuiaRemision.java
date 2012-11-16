@@ -243,7 +243,7 @@ public class FrmFiltrarGuiaRemision extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        FrmGuiaRemision frmGuiaRemision=new FrmGuiaRemision(this,null, true,guiaSeleccionada);
+        FrmGuiaRemision frmGuiaRemision=new FrmGuiaRemision(this,null, true,null);
         frmGuiaRemision.setVisible(true);
     }//GEN-LAST:event_btnNuevoActionPerformed
 
@@ -260,10 +260,12 @@ public class FrmFiltrarGuiaRemision extends javax.swing.JInternalFrame {
         int i_cliente=cmbCliente.getSelectedIndex();
         Cliente cliente=null;
         if(i_cliente!=0)
-            cliente=Main.servicioCliente.buscarClientePos(i_cliente-1);
+            cliente=clientes.get(i_cliente-1);
         Date fechaInicial,fechaFinal;
         fechaInicial=dpDesde.getSelectedDate();
         fechaFinal=dpHasta.getSelectedDate();
+        guiasRemision=Main.servicioGuiaRemision.filtrarGuiasRemision(cliente,fechaInicial,fechaFinal);
+        tableModel.fireTableChanged(null);
     }//GEN-LAST:event_btnFiltrarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
