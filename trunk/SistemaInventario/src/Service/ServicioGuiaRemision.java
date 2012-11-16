@@ -18,10 +18,10 @@ import Main.Main;
  * @author Guti
  */
 public class ServicioGuiaRemision {
-    private ArrayList<GuiaRemision> guiasRemision = null;
-    private String connectionUrl = "jdbc:mysql://quilla.lab.inf.pucp.edu.pe:3306/inf282g1?" +
+    static private ArrayList<GuiaRemision> guiasRemision = null;
+    static private String connectionUrl = "jdbc:mysql://quilla.lab.inf.pucp.edu.pe:3306/inf282g1?" +
                                     "user=inf282g1&password=anillo";
-    public int agregarGuiaRemision(GuiaRemision guiaRemision){
+    static public int agregarGuiaRemision(GuiaRemision guiaRemision){
         int result =0;
         Connection conn = null;
         PreparedStatement pstmt = null;        
@@ -77,7 +77,7 @@ public class ServicioGuiaRemision {
         }
         return result;
     }
-    public GuiaRemision buscarGuiaRemisionId (int id){
+    static public GuiaRemision buscarGuiaRemisionId (int id){
         Connection conn=null;
         PreparedStatement ps=null;
         ResultSet rs=null,rs_detalle=null;
@@ -147,12 +147,12 @@ public class ServicioGuiaRemision {
         }
         return guia;
     }
-    public GuiaRemision buscarGuiaRemisionPos(int i){
+    static public GuiaRemision buscarGuiaRemisionPos(int i){
         getGuiasRemision();
         GuiaRemision guiaRemision=( i<getGuiasRemision().size() && i>=0) ? getGuiasRemision().get(i) : null;
         return guiaRemision;
     }
-    public int eliminaGuiaRemision (int id){
+    static public int eliminaGuiaRemision (int id){
         int result=0;
         Connection conn=null;
         PreparedStatement ps=null;
@@ -180,11 +180,11 @@ public class ServicioGuiaRemision {
         }
         return result;
     }
-    public void eliminaGuiaRemision (GuiaRemision guiaRemision)	{
+    static public void eliminaGuiaRemision (GuiaRemision guiaRemision)	{
             int id=guiaRemision.getId();
             eliminaGuiaRemision(id);
 	}
-    public int editarGuiaRemision(GuiaRemision guiaRemision){
+    static public int editarGuiaRemision(GuiaRemision guiaRemision){
         int result =0;
         Connection conn = null;
         PreparedStatement pstmt = null;        
@@ -240,7 +240,7 @@ public class ServicioGuiaRemision {
         }
         return result;
     }
-    public ArrayList<GuiaRemision> getGuiasRemision() {
+    static public ArrayList<GuiaRemision> getGuiasRemision() {
         Cliente cliente=null;
         GuiaRemision guiaRemision=null;
         guiasRemision=new ArrayList<GuiaRemision>();
@@ -330,4 +330,81 @@ public class ServicioGuiaRemision {
         }
         return guiasRemision;   
     }     
+
+    static public ArrayList<GuiaRemision> filtrarGuiasRemision(Cliente cliente, Date fechaInicial, Date fechaFinal) {
+        guiasRemision=new ArrayList<GuiaRemision>();
+        Connection conn=null;
+        PreparedStatement ps=null;
+        ResultSet rs=null,rs_detalle=null;
+        GuiaRemision guia=new GuiaRemision();
+        DetalleGuiaRemision detalle=null;
+        try{
+            Driver driver=new com.mysql.jdbc.Driver();
+            conn = DriverManager.getConnection(connectionUrl);
+            String sqlStatement="SELECT * FROM guia_remision"
+                    + "WHERE fecha>=? and fecha <=? ";
+            if(cliente!=null){
+                sqlStatement.concat("and idCliente=?");
+            }
+            ps=conn.prepareStatement(sqlStatement);
+            ps.setDate(1, new java.sql.Date(fechaInicial.getTime()));
+            ps.setDate(2, new java.sql.Date(fechaFinal.getTime()));
+            if(cliente!=null)
+                ps.setInt(3, cliente.getId());
+            rs=ps.executeQuery();
+            System.out.println("conexion hecha: buscarGuiasRemision.guia_remision");
+                
+            while(rs.next()){
+                int idGuia_Remision=rs.getInt("idGuia_Remision");
+                String motivoTraslado=rs.getString("motivoTraslado");
+                Date fecha=rs.getDate("fecha");
+                String origen=rs.getString("origen");
+                String destino=rs.getString("destino");
+                String transportista=rs.getString("transportista");
+                float total=rs.getFloat("total");
+                
+                guia.setId(idGuia_Remision);
+                guia.setMotivoTranslado(motivoTraslado);
+                guia.setFecha(fecha);
+                guia.setOrigen(origen);
+                guia.setDestino(destino);
+                guia.setTransportista(transportista);
+                guia.setTotal(total);
+                guia.setCliente(cliente);
+                
+                ps=conn.prepareStatement(
+                        "SELECT * FROM detalle_guia_remision"
+                        + "WHERE idGuia_Remision=?");
+                ps.setInt(1, idGuia_Remision);
+                rs_detalle=ps.executeQuery();
+                
+                while(rs_detalle.next()){
+                    int idDetalleGuiaRemision=rs_detalle.getInt("idDetalleGuiaRemision");
+                    int cantidad=rs_detalle.getInt("cantidad");
+                    int idArticulo=rs_detalle.getInt("idArticulo");
+                    Articulo articulo=Main.servicioArticulo.buscarArticuloId(idArticulo);
+                    
+                    detalle=new DetalleGuiaRemision();
+                    detalle.setId(idDetalleGuiaRemision);
+                    detalle.setCantidad(cantidad);
+                    detalle.setArticulo(articulo);
+                    guia.agregarDetalle(detalle);
+                }
+            }
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        } 
+        finally {
+             try {if (rs_detalle != null) rs_detalle.close(); } 
+             catch(Exception e){e.printStackTrace();} 
+             try {if (rs != null) rs.close(); } 
+             catch(Exception e){e.printStackTrace();}  
+             try{if(ps!=null) ps.close();}
+             catch(Exception e){e.printStackTrace();}
+             try{if(conn!=null) conn.close();}
+             catch(Exception e){e.printStackTrace();}
+        }
+        return guiasRemision;
+    }
 }
