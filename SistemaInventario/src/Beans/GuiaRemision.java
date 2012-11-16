@@ -143,4 +143,11 @@ public class GuiaRemision {
     public void agregarDetalle(DetalleGuiaRemision detalle){
         this.detalle.add(detalle);
     }
+
+    /**
+     * @param detalle the detalle to set
+     */
+    public void setDetalle(ArrayList<DetalleGuiaRemision> detalle) {
+        this.detalle = detalle;
+    }
 }

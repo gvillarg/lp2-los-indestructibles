@@ -58,7 +58,7 @@ public class FrmFiltrarGuiaRemision extends javax.swing.JInternalFrame {
         initComponents();
         tblGuiaRemision.setModel(tableModel);
         llenarCmbCliente();
-        hiloGuiaRemision.start();
+        //hiloGuiaRemision.start();
     }
     public void actualizarTabla(){
         guiasRemision=Main.servicioGuiaRemision.getGuiasRemision();
