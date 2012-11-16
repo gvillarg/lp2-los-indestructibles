@@ -31,7 +31,7 @@ public class ServicioGuiaRemision {
             conn = DriverManager.getConnection(connectionUrl);
             String SQLString =
                     "INSERT INTO guia_remision "
-                    + "(motivoTranslado,fecha,origen,destino,transportista,total,idCliente) "
+                    + "(motivoTraslado,fecha,origen,destino,transportista,total,idCliente) "
                     + "VALUES(?,?,?,?,?,?,?);";
             
             pstmt = conn.prepareStatement(SQLString);
@@ -39,8 +39,9 @@ public class ServicioGuiaRemision {
             pstmt.setDate(2,new java.sql.Date(guiaRemision.getFecha().getTime()));
             pstmt.setString(3,guiaRemision.getOrigen());
             pstmt.setString(4, guiaRemision.getDestino());
-            pstmt.setFloat(5, guiaRemision.getTotal());
-            pstmt.setInt(6, guiaRemision.getCliente().getId());
+            pstmt.setString(5,guiaRemision.getTransportista());
+            pstmt.setFloat(6, guiaRemision.getTotal());
+            pstmt.setInt(7, guiaRemision.getCliente().getId());
                     
             result =  pstmt.executeUpdate(); 
             if (result == 0)
@@ -51,7 +52,7 @@ public class ServicioGuiaRemision {
             for(int i=0;i<guiaRemision.getDetalle().size();i++){
                 detalle=guiaRemision.getDetalle().get(i);
                 SQLString="INSERT INTO detalle_guia_remision "
-                        + "(cantidad,idArticulo,idGuiaRemision) "
+                        + "(cantidad,idArticulo,idGuia_Remision) "
                         + "VALUES(?,?,?);";
                 
                 pstmt=conn.prepareStatement(SQLString);

@@ -1,19 +1,23 @@
 package Vistas;
 
 import Beans.Articulo;
+import Beans.Cliente;
 import Beans.DetalleGuiaRemision;
 import Beans.GuiaRemision;
 import java.util.ArrayList;
 import Main.Main;
+import Service.ServicioGuiaRemision;
+import java.util.Date;
 import javax.swing.table.AbstractTableModel;
 /**
  *
  * @author Guti
  */
 public class FrmGuiaRemision extends javax.swing.JDialog {
+    ArrayList<Cliente> clientes=new ArrayList<Cliente>();
     ArrayList<Articulo> articulos=Main.servicioArticulo.getArticulos();
     ArrayList<DetalleGuiaRemision> detalles=new ArrayList<DetalleGuiaRemision>();
-    Articulo articuloSeleccionado=articulos.get(0);
+    //Articulo articuloSeleccionado=articulos.get(0);
     FrmFiltrarGuiaRemision padre;
     GuiaRemision guiaRemision;
     DetalleTableModel tableModel=new DetalleTableModel();
@@ -21,7 +25,7 @@ public class FrmGuiaRemision extends javax.swing.JDialog {
         String nomColumna[]={"Id","Nombre","Precio","Cantidad","Unidad"};
         @Override
         public int getRowCount() {
-            return articulos.size();
+            return detalles.size();
         }
 
         @Override
@@ -52,6 +56,7 @@ public class FrmGuiaRemision extends javax.swing.JDialog {
         this.padre=padre;
         this.guiaRemision=guiaRemision;
         llenarCmbArticulo();
+        llenarCmbCliente();
         tblDetalleGuiaRemision.setModel(tableModel);
     }
     @Override
@@ -60,16 +65,20 @@ public class FrmGuiaRemision extends javax.swing.JDialog {
             return "Registrar nueva Guia de Remision";
         return "Guia de Remision No. "+guiaRemision.getId();
     }
+    private void llenarCmbCliente() {
+        clientes=Main.servicioCliente.getClientes();
+        for(int i=0;i<clientes.size();i++)
+            cmbCliente.addItem(clientes.get(i).getRazonSocial());
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        lblCliente = new javax.swing.JLabel();
         txtDestino = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtMotivo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -87,11 +96,12 @@ public class FrmGuiaRemision extends javax.swing.JDialog {
         btnEliminar = new javax.swing.JButton();
         btnAceptar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        cmbCliente = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(getTitle());
 
-        jLabel1.setText("Id");
+        lblCliente.setText("Cliente");
 
         jLabel2.setText("Motivo");
 
@@ -136,6 +146,11 @@ public class FrmGuiaRemision extends javax.swing.JDialog {
         });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -177,8 +192,18 @@ public class FrmGuiaRemision extends javax.swing.JDialog {
         );
 
         btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -190,11 +215,11 @@ public class FrmGuiaRemision extends javax.swing.JDialog {
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                             .add(jLabel3)
-                            .add(jLabel1))
+                            .add(lblCliente))
                         .add(18, 18, 18)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(txtId, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 130, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(dpFecha, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 130, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(dpFecha, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                            .add(cmbCliente, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .add(layout.createSequentialGroup()
                         .add(jLabel2)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
@@ -235,10 +260,10 @@ public class FrmGuiaRemision extends javax.swing.JDialog {
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel1)
-                    .add(txtId, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(lblCliente)
                     .add(jLabel4)
-                    .add(txtOrigen, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(txtOrigen, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(cmbCliente, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(dpFecha, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -270,8 +295,8 @@ public class FrmGuiaRemision extends javax.swing.JDialog {
 
     private void cmbArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbArticuloActionPerformed
         System.out.println("seleccionado");
-        articuloSeleccionado=articulos.get(cmbArticulo.getSelectedIndex());
-        lblUnidad.setText(Main.unidad[articuloSeleccionado.getUnidad()]);
+        //articuloSeleccionado=articulos.get(cmbArticulo.getSelectedIndex());
+        lblUnidad.setText(Main.unidad[articulos.get(cmbArticulo.getSelectedIndex()).getUnidad()]);
     }//GEN-LAST:event_cmbArticuloActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
@@ -285,14 +310,43 @@ public class FrmGuiaRemision extends javax.swing.JDialog {
         tableModel.fireTableChanged(null);
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        detalles.remove(tblDetalleGuiaRemision.getSelectedRow());
+        tableModel.fireTableChanged(null);
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        Cliente cliente=clientes.get(cmbCliente.getSelectedIndex());
+        Date fecha=dpFecha.getSelectedDate();
+        String motivo=txtMotivo.getText();
+        String origen=txtOrigen.getText();
+        String destino=txtDestino.getText();
+        String transportista=txtTransportista.getText();
+        guiaRemision=new GuiaRemision();
+        
+        guiaRemision.setCliente(cliente);
+        guiaRemision.setDestino(destino);
+        guiaRemision.setFecha(fecha);
+        guiaRemision.setMotivoTranslado(motivo);
+        guiaRemision.setOrigen(origen);
+        guiaRemision.setTransportista(transportista);
+        guiaRemision.setDetalle(detalles);
+        
+        ServicioGuiaRemision.agregarGuiaRemision(guiaRemision);
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JComboBox cmbArticulo;
+    private javax.swing.JComboBox cmbCliente;
     private com.standbysoft.component.date.swing.JDatePicker dpFecha;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -301,11 +355,11 @@ public class FrmGuiaRemision extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCliente;
     private javax.swing.JLabel lblUnidad;
     private javax.swing.JTable tblDetalleGuiaRemision;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtDestino;
-    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtMotivo;
     private javax.swing.JTextField txtOrigen;
     private javax.swing.JTextField txtTransportista;
