@@ -13,46 +13,12 @@ import java.sql.ResultSet;
  */
 public class ServicioUsuario {
     static private String connectionUrl ="jdbc:mysql://quilla.lab.inf.pucp.edu.pe:3306/inf282g1?" +
-        "user=inf282g1&password=anillo";
-    static public boolean AutentificarUsuario(String user,String pass){
-        boolean resultado=false;
-        Connection conn=null;
-        PreparedStatement ps=null;
-        ResultSet rs=null;
-        try{
-            Driver driver=new com.mysql.jdbc.Driver();
-            conn = DriverManager.getConnection(connectionUrl);            
-            
-            ps = conn.prepareStatement("SELECT * FROM usuarios "
-                                +"WHERE usuario=? and contrasena=?;");
-            ps.setString(1, user);
-            ps.setString(2, pass);
-            rs = ps.executeQuery();
-            System.out.println("ServicioUsuario.AutentificarUsuario: conexion hecha");
-            
-            if(rs.next()){
-                resultado=true;
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }finally {
-             try{if(ps!=null) ps.close();}
-             catch(Exception e){e.printStackTrace();}
-             try{
-                 if(conn!=null){
-                   conn.close();
-                   System.out.println("ServicioUsuario.AutentificarUsuario: conexion cerrada");
-                 }
-             }catch(Exception e){e.printStackTrace();}
-        }                
-        return resultado;
-    }
-    
+        "user=inf282g1&password=anillo";    
 /**
  *
  * @author andrés
  */
-        public Usuario validate(String login,String password){
+        public Usuario AutentificarUsuario(String login,String password){
         
         Connection conn=null;
         Usuario usuario=null;
@@ -60,7 +26,7 @@ public class ServicioUsuario {
         PreparedStatement ps=null;
         ResultSet rs=null;
         try{
-            Driver driver=new com.mysql.jdbc.Driver();
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
             conn = DriverManager.getConnection(connectionUrl);            
             
             ps = conn.prepareStatement("SELECT * FROM usuarios "
@@ -71,23 +37,21 @@ public class ServicioUsuario {
             System.out.println("ServicioUsuario.AutentificarUsuario: conexion hecha");
             
             if(rs.next()){
-                usuario = new Usuario();
-                String name = rs.getString("NOMBRE");
-                usuario.setName(name);
-                usuario.setLogin(login); 
-                
+            	usuario=new Usuario();
+                usuario.setId(rs.getInt("idusuarios"));
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setUsuario(rs.getString("usuario"));
+                usuario.setPassword(rs.getString("contrasena"));
+                usuario.setApellido(rs.getString("apellido"));
             }
         } catch(Exception e){
             e.printStackTrace();
         } finally {
             System.out.println("ServicioUsuario.AutentificarUsuario: conexion cerrada");
             try {rs.close();} catch(Exception e) {e.printStackTrace();}
+            try {ps.close();} catch(Exception e) {e.printStackTrace();}
             try{conn.close();} catch(Exception e) {e.printStackTrace();}
         }               
         return usuario;
-    }
-    
-    
-    
-    
+    }   
 }

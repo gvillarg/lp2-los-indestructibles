@@ -16,22 +16,38 @@ import java.io.Serializable;
  */
 @SuppressWarnings("serial")
 public class Usuario implements Serializable {
-    private String login;
+    private int id;
+    private String usuario;
     private transient String password;
-    private String name;
+    private String nombre;
+    private String apellido;
 
     /**
-     * @return the login
+     * @return the id
      */
-    public String getLogin() {
-        return login;
+    public int getId() {
+        return id;
     }
 
     /**
-     * @param login the login to set
+     * @param id the id to set
      */
-    public void setLogin(String login) {
-        this.login = login;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the usuario
+     */
+    public String getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     /**
@@ -49,17 +65,31 @@ public class Usuario implements Serializable {
     }
 
     /**
-     * @return the name
+     * @return the nombre
      */
-    public String getName() {
-        return name;
+    public String getNombre() {
+        return nombre;
     }
 
     /**
-     * @param name the name to set
+     * @param nombre the nombre to set
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    /**
+     * @return the apellido
+     */
+    public String getApellido() {
+        return apellido;
+    }
+
+    /**
+     * @param apellido the apellido to set
+     */
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
     
 }
