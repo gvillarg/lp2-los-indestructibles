@@ -80,6 +80,7 @@ public class ServicioUsuario {
         } catch(Exception e){
             e.printStackTrace();
         } finally {
+            System.out.println("ServicioUsuario.AutentificarUsuario: conexion cerrada");
             try {rs.close();} catch(Exception e) {e.printStackTrace();}
             try{conn.close();} catch(Exception e) {e.printStackTrace();}
         }               
