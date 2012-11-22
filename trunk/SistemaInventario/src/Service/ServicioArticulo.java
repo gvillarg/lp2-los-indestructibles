@@ -262,7 +262,7 @@ public class ServicioArticulo {
                     + "WHERE stock<stockMinimo*1.1 ;");
             rs =  pstmt.executeQuery();
             System.out.println("conexion hecha: Select");
-            
+
             while (rs.next()){
                 int id = rs.getInt("idArticulo");
                 String nombre = rs.getString("nombre");
@@ -287,7 +287,7 @@ public class ServicioArticulo {
                 articulo.setStockMinimo(stockMinimo);
                 articulo.setStockReservado(stockReservado);
                 
-                lista.getLista().add(articulo);
+                lista.agregar(articulo);
             }            
         } 
         catch (Exception ex) {
