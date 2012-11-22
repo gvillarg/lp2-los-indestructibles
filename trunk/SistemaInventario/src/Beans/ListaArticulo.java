@@ -4,13 +4,14 @@
  */
 package Beans;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Guti
  */
-public class ListaArticulo {
+public class ListaArticulo implements Serializable{
     private ArrayList<Articulo> lista=new  ArrayList<Articulo>();
 
     /**
