@@ -287,7 +287,7 @@ public class ServicioArticulo {
                 articulo.setStockMinimo(stockMinimo);
                 articulo.setStockReservado(stockReservado);
                 
-                lista.agregar(articulo);
+                lista.add(articulo);
             }            
         } 
         catch (Exception ex) {

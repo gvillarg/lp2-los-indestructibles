@@ -14,7 +14,15 @@ import java.util.ArrayList;
 public class ListaArticulo implements Serializable{
     private Articulo[] lista=null;
 
-    public void agregar(Articulo a){
+    public int size(){
+        return lista.length;
+    }
+    public Articulo get(int i){
+        if(i<lista.length)
+            return lista[i];
+        return null;
+    }
+    public void add(Articulo a){
         if (lista==null){
             lista=new Articulo[1];
             lista[0]=a;
