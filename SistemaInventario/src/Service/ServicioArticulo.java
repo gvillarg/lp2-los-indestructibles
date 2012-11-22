@@ -248,6 +248,61 @@ public class ServicioArticulo {
         }
         return articulos;
     }
+    public ArrayList<Articulo> getArticulosEnNivelCritico() {
+        Articulo articulo=null;
+        articulos=new ArrayList<Articulo>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            Driver myDriver = new com.mysql.jdbc.Driver();
+            conn = DriverManager.getConnection(connectionUrl);
+            pstmt = conn.prepareStatement("SELECT * FROM articulo "
+                    + "WHERE stock<stockMinimo*1.1 ;");
+            rs =  pstmt.executeQuery();
+            System.out.println("conexion hecha: Select");
+            
+            while (rs.next()){
+                int id = rs.getInt("idArticulo");
+                String nombre = rs.getString("nombre");
+                String descripcion = rs.getString("descripcion");
+                int tipoArticulo = rs.getInt("tipoArticulo");
+                int tipoAlmacenamiento = rs.getInt("tipoAlmacenamiento");
+                int unidad = rs.getInt("unidad"); 
+                float precio=rs.getFloat("precio");
+                int stock=rs.getInt("stock");
+                int stockMinimo=rs.getInt("stockMinimo");
+                int stockReservado=rs.getInt("stockReservado");
+                
+                articulo= new Articulo();
+                articulo.setId(id);
+                articulo.setNombre(nombre);
+                articulo.setDescripcion(descripcion);
+                articulo.setTipoArticulo(tipoArticulo);
+                articulo.setTipoAlmacenamiento(tipoAlmacenamiento);
+                articulo.setUnidad(unidad);
+                articulo.setPrecio(precio);
+                articulo.setStock(stock);
+                articulo.setStockMinimo(stockMinimo);
+                articulo.setStockReservado(stockReservado);
+                
+                articulos.add(articulo);
+            }            
+        } 
+        catch (Exception ex) {
+            ex.printStackTrace();
+        } 
+        finally {
+             //5. Se cierra la conexión
+             try {if (rs != null) rs.close(); } 
+             catch(Exception e){e.printStackTrace();}  
+             try{if(pstmt!=null) pstmt.close();}
+             catch(Exception e){e.printStackTrace();}
+             try{if(conn!=null) conn.close();}
+             catch(Exception e){e.printStackTrace();}
+        }
+        return articulos;
+    }
     public ArrayList<Articulo> filtrarArticulos(String cadena,int tipoArt,int tipoAlm,int precioMin,int precioMax){
         ArrayList<Articulo> lista=new ArrayList();
         int param=1; //numero de parametros
