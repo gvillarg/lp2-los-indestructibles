@@ -52,7 +52,7 @@ public class ServicioUsuario {
  *
  * @author andrés
  */
-        public Usuario validate(String user,String pass){
+        public Usuario validate(String login,String password){
         
         Connection conn=null;
         Usuario usuario=null;
@@ -65,8 +65,8 @@ public class ServicioUsuario {
             
             ps = conn.prepareStatement("SELECT * FROM usuarios "
                                 +"WHERE usuario=? and contrasena=?;");
-            ps.setString(1, user);
-            ps.setString(2, pass);
+            ps.setString(1, login);
+            ps.setString(2, password);
             rs = ps.executeQuery();
             System.out.println("ServicioUsuario.AutentificarUsuario: conexion hecha");
             
@@ -74,21 +74,15 @@ public class ServicioUsuario {
                 usuario = new Usuario();
                 String name = rs.getString("NOMBRE");
                 usuario.setName(name);
-                usuario.setLogin(user); 
+                usuario.setLogin(login); 
                 
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }finally {
-             try{if(ps!=null) ps.close();}
-             catch(Exception e){e.printStackTrace();}
-             try{
-                 if(conn!=null){
-                   conn.close();
-                   System.out.println("ServicioUsuario.AutentificarUsuario: conexion cerrada");
-                 }
-             }catch(Exception e){e.printStackTrace();}
-        }                
+        } catch(Exception e){
+            e.printStackTrace();
+        } finally {
+            try {rs.close();} catch(Exception e) {e.printStackTrace();}
+            try{conn.close();} catch(Exception e) {e.printStackTrace();}
+        }               
         return usuario;
     }
     
