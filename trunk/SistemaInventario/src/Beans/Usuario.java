@@ -14,6 +14,7 @@ import java.io.Serializable;
  *
  * @author andrés
  */
+@SuppressWarnings("serial")
 public class Usuario implements Serializable {
     private String login;
     private transient String password;
