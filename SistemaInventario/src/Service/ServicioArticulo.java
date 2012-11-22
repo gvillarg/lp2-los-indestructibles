@@ -5,6 +5,7 @@
 package Service;
 
 import Beans.Articulo;
+import Beans.ListaArticulo;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -248,9 +249,9 @@ public class ServicioArticulo {
         }
         return articulos;
     }
-    public ArrayList<Articulo> getArticulosEnNivelCritico() {
+    public ListaArticulo getArticulosEnNivelCritico() {
         Articulo articulo=null;
-        articulos=new ArrayList<Articulo>();
+        ListaArticulo lista=new ListaArticulo();
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -286,7 +287,7 @@ public class ServicioArticulo {
                 articulo.setStockMinimo(stockMinimo);
                 articulo.setStockReservado(stockReservado);
                 
-                articulos.add(articulo);
+                lista.getLista().add(articulo);
             }            
         } 
         catch (Exception ex) {
@@ -301,7 +302,7 @@ public class ServicioArticulo {
              try{if(conn!=null) conn.close();}
              catch(Exception e){e.printStackTrace();}
         }
-        return articulos;
+        return lista;
     }
     public ArrayList<Articulo> filtrarArticulos(String cadena,int tipoArt,int tipoAlm,int precioMin,int precioMax){
         ArrayList<Articulo> lista=new ArrayList();
