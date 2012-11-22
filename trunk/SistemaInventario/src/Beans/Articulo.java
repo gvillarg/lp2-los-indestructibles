@@ -4,11 +4,13 @@
  */
 package Beans;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Guti
  */
-public class Articulo {
+public class Articulo implements Serializable{
     private int id;
     private String nombre;
     private String descripcion;
