@@ -4,13 +4,14 @@
  */
 package Beans;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Guti
  */
-public class Almacen {
+public class Almacen implements Serializable {
     private int id;
     private String direccion;
     private String Area;
