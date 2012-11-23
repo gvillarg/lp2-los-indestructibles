@@ -74,7 +74,7 @@ public class ServicioLote {
               conn = DriverManager.getConnection(connectionUrl);
               String cadsql="Select * from lote where id= ?;"; 
               pstmt = conn.prepareStatement(cadsql);
-              pstmt.setInt(1, getNextId(conn));
+              pstmt.setInt(1, getNextId(id));
               //obteniendo resultados
               ResultSet rs=pstmt.executeQuery();
               while(rs.next())
