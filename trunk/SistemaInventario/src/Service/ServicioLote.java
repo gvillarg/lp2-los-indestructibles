@@ -72,9 +72,9 @@ public class ServicioLote {
               Driver myDriver = new com.mysql.jdbc.Driver();
               //2. Se abre la conexión
               conn = DriverManager.getConnection(connectionUrl);
-              String cadsql="Select * from lote where id= ?;"; 
+              String cadsql="Select * from lote where idLote= ?;"; 
               pstmt = conn.prepareStatement(cadsql);
-              pstmt.setInt(1, getNextId(id));
+              pstmt.setInt(1, getNextId(conn));
               //obteniendo resultados
               ResultSet rs=pstmt.executeQuery();
               while(rs.next())
