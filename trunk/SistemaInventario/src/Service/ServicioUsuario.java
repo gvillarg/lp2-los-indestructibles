@@ -18,7 +18,7 @@ public class ServicioUsuario {
  *
  * @author andrés
  */
-        public Usuario AutentificarUsuario(String login,String password){
+        public static Usuario AutentificarUsuario(String login,String password){
         
         Connection conn=null;
         Usuario usuario=null;
